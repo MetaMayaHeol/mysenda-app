@@ -24,14 +24,14 @@ export default function HomePage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/auth/login">
+            <Link href="/explorar">
               <Button className="bg-green-500 hover:bg-green-600 text-white font-bold h-14 px-8 text-lg">
-                Comenzar gratis
+                Explorar Guías
               </Button>
             </Link>
-            <Link href="#features">
+            <Link href="/auth/login">
               <Button variant="outline" className="h-14 px-8 text-lg">
-                Ver cómo funciona
+                Soy Guía
               </Button>
             </Link>
           </div>
