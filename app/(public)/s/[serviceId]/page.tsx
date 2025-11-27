@@ -1,11 +1,10 @@
 import { createStaticClient } from '@/lib/supabase/static'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import Link from 'next/link'
-import { ChevronLeft, Clock, MapPin } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Clock } from 'lucide-react'
 import { formatPrice, formatDuration } from '@/lib/utils/formatters'
 import { BookingSection } from '@/components/public/BookingSection'
+import { BackButton } from '@/components/public/BackButton'
 
 // Revalidate every hour
 export const revalidate = 3600
@@ -105,14 +104,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         )}
         
-        <button 
-          onClick={() => window.history.back()} 
-          className="absolute top-4 left-4 z-10"
-        >
-          <Button variant="secondary" size="icon" className="rounded-full shadow-md">
-            <ChevronLeft size={24} />
-          </Button>
-        </button>
+        <BackButton />
       </div>
 
       <div className="p-5 max-w-lg mx-auto">
