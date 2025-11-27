@@ -1,99 +1,282 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { MapPin, Globe, Shield, MessageCircle, Star, ArrowRight } from 'lucide-react'
+import { createClient } from '@supabase/supabase-js'
+import { GuideCard } from '@/components/directory/GuideCard'
 
-export default function HomePage() {
+// Force dynamic to ensure we see the latest featured guides
+export const dynamic = 'force-dynamic'
+
+async function getFeaturedGuides() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  const supabase = createClient(supabaseUrl, supabaseKey)
+
+  const { data: guides } = await supabase
+    .from('public_links')
+    .select(`
+      slug,
+      user:users (
+        name,
+        bio,
+        photo_url,
+        language
+      )
+    `)
+    .eq('active', true)
+    .limit(3)
+    .order('created_at', { ascending: false })
+
+  return guides?.map(item => ({
+    slug: item.slug,
+    // @ts-ignore
+    name: item.user?.name || 'Guía RutaLink',
+    // @ts-ignore
+    bio: item.user?.bio,
+    // @ts-ignore
+    photo_url: item.user?.photo_url,
+    // @ts-ignore
+    language: item.user?.language,
+  })) || []
+}
+
+export default async function HomePage() {
+  const featuredGuides = await getFeaturedGuides()
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <div className="container mx-auto px-5 py-20 text-center">
-        <div className="max-w-3xl mx-auto">
-          {/* Logo */}
-          <div className="w-24 h-24 bg-green-500 rounded-3xl mx-auto mb-8 flex items-center justify-center">
-            <span className="text-white text-4xl font-bold">R</span>
-          </div>
+      <div className="relative bg-gray-900 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <Image
+            src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2000&q=80"
+            alt="Travel Background"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-gray-900/90" />
+        
+        <div className="relative container mx-auto px-5 py-32 md:py-48 text-center">
+          <div className="max-w-4xl mx-auto">
+            <div className="inline-flex items-center gap-2 bg-green-500/20 border border-green-500/30 rounded-full px-4 py-1.5 mb-8 backdrop-blur-sm">
+              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+              <span className="text-green-300 text-sm font-medium">La nueva forma de viajar</span>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight leading-tight">
+              Descubre experiencias auténticas con <span className="text-green-400">Guías Locales</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Conecta directamente con expertos locales en cualquier destino.
+              <br className="hidden md:block" /> Sin intermediarios, sin comisiones ocultas.
+            </p>
 
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Tu página de guía turístico
-            <br />
-            <span className="text-green-500">en 2 minutos</span>
-          </h1>
-
-          <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-            Crea tu perfil profesional, muestra tus servicios y recibe reservas por WhatsApp.
-            Sin complicaciones, sin comisiones.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/explorar">
-              <Button className="bg-green-500 hover:bg-green-600 text-white font-bold h-14 px-8 text-lg">
-                Explorar Guías
-              </Button>
-            </Link>
-            <Link href="/auth/login">
-              <Button variant="outline" className="h-14 px-8 text-lg">
-                Soy Guía
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link href="/explorar">
+                <Button className="bg-green-500 hover:bg-green-600 text-white font-bold h-14 px-8 text-lg w-full sm:w-auto rounded-full shadow-lg shadow-green-500/20 transition-all hover:scale-105">
+                  Explorar Guías
+                </Button>
+              </Link>
+              <Link href="/auth/login">
+                <Button variant="outline" className="h-14 px-8 text-lg w-full sm:w-auto rounded-full border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-sm">
+                  Soy Guía Turístico
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Features Section */}
-      <div id="features" className="container mx-auto px-5 py-20">
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <div className="text-center p-6">
-            <div className="w-16 h-16 bg-green-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <span className="text-3xl">⚡</span>
+      {/* Trust Indicators */}
+      <div className="bg-gray-50 border-b border-gray-200">
+        <div className="container mx-auto px-5 py-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="flex flex-col items-center gap-2">
+              <Shield className="text-green-600 mb-2" size={32} />
+              <h3 className="font-bold text-gray-900">Guías Verificados</h3>
+              <p className="text-sm text-gray-500">Perfiles revisados</p>
             </div>
-            <h3 className="text-xl font-bold mb-2">Configuración rápida</h3>
-            <p className="text-gray-600">
-              Crea tu página en minutos. Solo necesitas tu email y listo.
+            <div className="flex flex-col items-center gap-2">
+              <MessageCircle className="text-blue-600 mb-2" size={32} />
+              <h3 className="font-bold text-gray-900">Trato Directo</h3>
+              <p className="text-sm text-gray-500">Chat por WhatsApp</p>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Star className="text-yellow-500 mb-2" size={32} />
+              <h3 className="font-bold text-gray-900">Sin Comisiones</h3>
+              <p className="text-sm text-gray-500">100% para el guía</p>
+            </div>
+            <div className="flex flex-col items-center gap-2">
+              <Globe className="text-purple-600 mb-2" size={32} />
+              <h3 className="font-bold text-gray-900">Global</h3>
+              <p className="text-sm text-gray-500">Guías en múltiples idiomas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Featured Guides Section */}
+      {featuredGuides.length > 0 && (
+        <div className="py-24 bg-white">
+          <div className="container mx-auto px-5">
+            <div className="flex justify-between items-end mb-12">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Guías Destacados</h2>
+                <p className="text-xl text-gray-600">Conoce a algunos de nuestros expertos locales</p>
+              </div>
+              <Link href="/explorar" className="hidden md:flex items-center gap-2 text-green-600 font-bold hover:text-green-700 transition-colors">
+                Ver todos <ArrowRight size={20} />
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {featuredGuides.map((guide) => (
+                <GuideCard key={guide.slug} guide={guide} />
+              ))}
+            </div>
+
+            <div className="mt-12 text-center md:hidden">
+              <Link href="/explorar">
+                <Button variant="outline" className="w-full">
+                  Ver todos los guías
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* How it Works */}
+      <div className="py-24 bg-gray-50">
+        <div className="container mx-auto px-5">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Cómo funciona RutaLink</h2>
+            <p className="text-xl text-gray-600">
+              Simplificamos la conexión entre viajeros y guías locales.
             </p>
           </div>
 
-          <div className="text-center p-6">
-            <div className="w-16 h-16 bg-green-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <span className="text-3xl">💬</span>
+          <div className="grid md:grid-cols-2 gap-16 max-w-5xl mx-auto">
+            {/* For Travelers */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+              <div className="inline-block bg-green-100 text-green-700 font-bold px-4 py-1 rounded-full text-sm mb-6">
+                Para Viajeros
+              </div>
+              <ul className="space-y-8">
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-green-600 font-bold flex-shrink-0">1</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Explora perfiles</h4>
+                    <p className="text-gray-600">Encuentra guías por destino, idioma y especialidad.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-green-600 font-bold flex-shrink-0">2</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Elige tu aventura</h4>
+                    <p className="text-gray-600">Revisa los tours y servicios que ofrecen.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-green-50 rounded-full flex items-center justify-center text-green-600 font-bold flex-shrink-0">3</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Contacta directo</h4>
+                    <p className="text-gray-600">Habla por WhatsApp para reservar. Sin intermediarios.</p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <h3 className="text-xl font-bold mb-2">Reservas por WhatsApp</h3>
-            <p className="text-gray-600">
-              Tus clientes te contactan directamente. Sin intermediarios.
-            </p>
-          </div>
 
-          <div className="text-center p-6">
-            <div className="w-16 h-16 bg-green-100 rounded-2xl mx-auto mb-4 flex items-center justify-center">
-              <span className="text-3xl">📱</span>
+            {/* For Guides */}
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+              <div className="inline-block bg-blue-100 text-blue-700 font-bold px-4 py-1 rounded-full text-sm mb-6">
+                Para Guías
+              </div>
+              <ul className="space-y-8">
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-bold flex-shrink-0">1</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Crea tu perfil</h4>
+                    <p className="text-gray-600">Regístrate gratis y configura tu página profesional.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-bold flex-shrink-0">2</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Publica tus servicios</h4>
+                    <p className="text-gray-600">Añade fotos, precios y horarios de tus tours.</p>
+                  </div>
+                </li>
+                <li className="flex gap-4">
+                  <div className="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 font-bold flex-shrink-0">3</div>
+                  <div>
+                    <h4 className="font-bold text-lg mb-1">Recibe reservas</h4>
+                    <p className="text-gray-600">Los clientes te escriben directo a tu WhatsApp.</p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <h3 className="text-xl font-bold mb-2">Optimizado para móvil</h3>
-            <p className="text-gray-600">
-              Funciona perfecto incluso con conexión lenta. Ideal para zonas turísticas.
-            </p>
           </div>
         </div>
       </div>
 
       {/* CTA Section */}
-      <div className="bg-green-500 text-white py-20">
-        <div className="container mx-auto px-5 text-center">
-          <h2 className="text-4xl font-bold mb-4">¿Listo para empezar?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Únete a cientos de guías que ya usan RutaLink
+      <div className="bg-gray-900 text-white py-24 relative overflow-hidden">
+        <div className="absolute inset-0 bg-green-600/10" />
+        <div className="container mx-auto px-5 text-center relative z-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">¿Listo para empezar?</h2>
+          <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            Únete a la comunidad de guías y viajeros que están cambiando la forma de hacer turismo.
           </p>
-          <Link href="/auth/login">
-            <Button className="bg-white text-green-500 hover:bg-gray-100 font-bold h-14 px-8 text-lg">
-              Crear mi página gratis
-            </Button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/auth/login">
+              <Button className="bg-green-500 hover:bg-green-600 text-white font-bold h-14 px-8 text-lg rounded-full">
+                Crear mi página gratis
+              </Button>
+            </Link>
+            <Link href="/explorar">
+              <Button variant="outline" className="h-14 px-8 text-lg rounded-full border-white/20 text-white hover:bg-white/10 hover:text-white">
+                Buscar un guía
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto px-5 text-center">
-          <p className="text-gray-400">
-            © 2024 RutaLink. Hecho para guías turísticos.
-          </p>
+      <footer className="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
+        <div className="container mx-auto px-5">
+          <div className="grid md:grid-cols-4 gap-8 mb-12">
+            <div className="col-span-1 md:col-span-2">
+              <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-6">
+                <span className="text-white text-2xl font-bold">R</span>
+              </div>
+              <p className="max-w-xs text-gray-500">
+                RutaLink conecta viajeros con guías locales para experiencias auténticas y sin intermediarios.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Plataforma</h4>
+              <ul className="space-y-2">
+                <li><Link href="/explorar" className="hover:text-green-400">Explorar Guías</Link></li>
+                <li><Link href="/auth/login" className="hover:text-green-400">Acceso Guías</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Legal</h4>
+              <ul className="space-y-2">
+                <li><Link href="#" className="hover:text-green-400">Términos</Link></li>
+                <li><Link href="#" className="hover:text-green-400">Privacidad</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-gray-900 text-center text-sm">
+            <p>© {new Date().getFullYear()} RutaLink. Todos los derechos reservados.</p>
+          </div>
         </div>
       </footer>
     </div>
