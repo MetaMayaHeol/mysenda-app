@@ -105,11 +105,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
           </div>
         )}
         
-        <Link href=".." className="absolute top-4 left-4 z-10">
+        <button 
+          onClick={() => window.history.back()} 
+          className="absolute top-4 left-4 z-10"
+        >
           <Button variant="secondary" size="icon" className="rounded-full shadow-md">
             <ChevronLeft size={24} />
           </Button>
-        </Link>
+        </button>
       </div>
 
       <div className="p-5 max-w-lg mx-auto">
