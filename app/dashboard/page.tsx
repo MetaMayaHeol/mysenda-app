@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { QRCodeCard } from '@/components/dashboard/QRCodeCard'
+import { PublicLinkDisplay } from '@/components/dashboard/PublicLinkDisplay'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -57,9 +58,7 @@ export default async function DashboardPage() {
           <div className="flex-1">
             <h2 className="font-bold text-gray-900">Mi página</h2>
             <p className="text-sm text-gray-600">
-              {publicLink?.slug
-                ? `rutalink.com/g/${publicLink.slug}`
-                : 'Configura tu perfil para obtener tu enlace'}
+              <PublicLinkDisplay slug={publicLink?.slug || null} />
             </p>
           </div>
         </div>
