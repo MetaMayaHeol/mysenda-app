@@ -35,7 +35,7 @@ export function ServiceForm({ initialData, serviceId, userId }: ServiceFormProps
   }
 
   const form = useForm<ServiceFormValues>({
-    resolver: zodResolver(serviceSchema),
+    resolver: zodResolver(serviceSchema) as any,
     defaultValues,
   })
 
