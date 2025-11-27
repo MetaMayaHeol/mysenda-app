@@ -26,7 +26,11 @@ export function DashboardHeader({
         <Button 
           variant="ghost" 
           size="icon"
-          onClick={() => router.push(backUrl)}
+          onClick={() => {
+            if (typeof window !== 'undefined') {
+              window.location.href = backUrl
+            }
+          }}
         >
           <ChevronLeft size={24} />
         </Button>
