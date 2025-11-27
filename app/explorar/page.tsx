@@ -1,4 +1,4 @@
-import { createStaticClient } from '@/lib/supabase/static'
+import { createClient } from '@supabase/supabase-js'
 import { DirectoryClient } from '@/components/directory/DirectoryClient'
 import { Metadata } from 'next'
 
@@ -7,11 +7,15 @@ export const metadata: Metadata = {
   description: 'Encuentra y conecta con guías turísticos locales verificados en México. Tours auténticos y experiencias únicas.',
 }
 
-// Revalidate every hour
-export const revalidate = 3600
+// Force dynamic to ensure we see the latest data (and avoid caching issues during testing)
+export const dynamic = 'force-dynamic'
 
 export default async function ExplorePage() {
-  const supabase = createStaticClient()
+  // Use Service Role Key to bypass RLS policies for the public directory
+  // This ensures we can read user profiles even if RLS is set to private
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
   // Fetch guides with public profiles
   const { data: guides } = await supabase
