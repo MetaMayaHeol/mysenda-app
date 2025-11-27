@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { QRCodeCard } from '@/components/dashboard/QRCodeCard'
 import { PublicLinkDisplay } from '@/components/dashboard/PublicLinkDisplay'
+import { EmptyState } from '@/components/ui/EmptyState'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -102,9 +103,13 @@ export default async function DashboardPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-white rounded-xl p-8 border border-gray-200 text-center">
-            <p className="text-gray-600 mb-4">Aún no tienes servicios</p>
-          </div>
+          <EmptyState
+            icon="🎯"
+            title="¡Crea tu primer servicio!"
+            description="Comparte tus tours y experiencias con viajeros de todo el mundo"
+            actionLabel="Agregar un servicio"
+            actionHref="/dashboard/services/new"
+          />
         )}
 
         {/* Add Service Button */}
@@ -134,16 +139,14 @@ export default async function DashboardPage() {
             <QRCodeCard slug={publicLink.slug} />
           </div>
         ) : (
-          <div className="mt-6 bg-white rounded-xl p-6 border border-gray-200 text-center">
-            <h3 className="font-bold text-gray-900 mb-2">Tu Código QR</h3>
-            <p className="text-sm text-gray-500 mb-4">
-              Completa tu perfil para generar tu código QR y compartir tu página.
-            </p>
-            <Link href="/dashboard/profile">
-              <Button variant="outline" className="w-full">
-                Configurar perfil
-              </Button>
-            </Link>
+          <div className="mt-6">
+            <EmptyState
+              icon="📱"
+              title="Tu código QR te espera"
+              description="Completa tu perfil con un nombre para generar tu código QR y enlace público"
+              actionLabel="Configurar perfil"
+              actionHref="/dashboard/profile"
+            />
           </div>
         )}
 

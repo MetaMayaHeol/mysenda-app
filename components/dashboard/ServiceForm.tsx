@@ -12,7 +12,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
 import { MultiImageUploader } from '@/components/dashboard/MultiImageUploader'
 import { toast } from 'sonner'
-import { Loader2 } from 'lucide-react'
+import { LoadingButton } from '@/components/ui/LoadingButton'
 import { useRouter } from 'next/navigation'
 
 interface ServiceFormProps {
@@ -151,16 +151,14 @@ export function ServiceForm({ initialData, serviceId, userId }: ServiceFormProps
         />
       </div>
 
-      <Button type="submit" className="w-full bg-green-500 hover:bg-green-600 font-bold h-12" disabled={loading}>
-        {loading ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            {serviceId ? 'Guardando...' : 'Crear servicio'}
-          </>
-        ) : (
-          serviceId ? 'Guardar cambios' : 'Crear servicio'
-        )}
-      </Button>
+      <LoadingButton 
+        type="submit" 
+        className="w-full bg-green-500 hover:bg-green-600 font-bold h-12"
+        loading={loading}
+        loadingText={serviceId ? 'Guardando...' : 'Creando...'}
+      >
+        {serviceId ? 'Guardar cambios' : 'Crear servicio'}
+      </LoadingButton>
     </form>
   )
 }
