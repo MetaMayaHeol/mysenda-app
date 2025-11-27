@@ -1,9 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { ProfileForm } from '@/components/dashboard/ProfileForm'
-import { ChevronLeft } from 'lucide-react'
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
+import { DashboardHeader } from '@/components/dashboard/DashboardHeader'
 import { QRCodeCard } from '@/components/dashboard/QRCodeCard'
 
 export default async function ProfilePage() {
@@ -51,14 +49,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="bg-white border-b border-gray-200 p-5 flex items-center gap-3 sticky top-0 z-10">
-        <Link href="/dashboard">
-          <Button variant="ghost" size="icon">
-            <ChevronLeft size={24} />
-          </Button>
-        </Link>
-        <h1 className="text-xl font-bold flex-1">Mi perfil</h1>
-      </div>
+      <DashboardHeader title="Mi perfil" />
 
       <div className="p-5 max-w-md mx-auto">
         <ProfileForm 
