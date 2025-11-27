@@ -48,15 +48,5 @@ export default async function ExplorePage() {
     language: item.user?.language,
   })) || []
 
-  return (
-    <>
-      {/* Debug Info - Remove after fixing */}
-      {error && (
-        <div className="bg-red-100 p-4 text-xs font-mono overflow-auto max-h-40 mb-4 rounded">
-          <p><strong>Error:</strong> {JSON.stringify(error)}</p>
-        </div>
-      )}
-      <DirectoryClient initialGuides={formattedGuides} />
-    </>
-  )
+  return <DirectoryClient initialGuides={formattedGuides} />
 }
