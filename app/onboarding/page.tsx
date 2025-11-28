@@ -100,13 +100,7 @@ export default function OnboardingPage() {
       </div>
 
       {step === 1 && (
-        <form onSubmit={async (e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          const formData = new FormData(e.currentTarget)
-          await handleProfileSubmit(formData)
-          return false
-        }} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+        <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold">Tu Perfil Profesional</h2>
             <p className="text-gray-500">Esto es lo primero que verán los viajeros.</p>
@@ -134,7 +128,7 @@ export default function OnboardingPage() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <form id="profile-form" className="space-y-4">
             <div>
               <Label htmlFor="name">Nombre Completo</Label>
               <Input id="name" name="name" placeholder="Ej: Juan Pérez" required />
@@ -150,29 +144,36 @@ export default function OnboardingPage() {
               <Label htmlFor="bio">Biografía Corta</Label>
               <Textarea id="bio" name="bio" placeholder="Soy un guía apasionado por..." className="h-24" />
             </div>
-          </div>
+          </form>
 
-          <Button type="submit" className="w-full h-12 text-lg bg-gray-900 hover:bg-gray-800" disabled={loading}>
+          <Button 
+            type="button"
+            onClick={async () => {
+              const form = document.getElementById('profile-form') as HTMLFormElement
+              if (form.checkValidity()) {
+                const formData = new FormData(form)
+                await handleProfileSubmit(formData)
+              } else {
+                form.reportValidity()
+              }
+            }}
+            className="w-full h-12 text-lg bg-gray-900 hover:bg-gray-800" 
+            disabled={loading}
+          >
             {loading ? <Loader2 className="animate-spin mr-2" /> : null}
             Continuar <ArrowRight className="ml-2" size={18} />
           </Button>
-        </form>
+        </div>
       )}
 
       {step === 2 && (
-        <form onSubmit={async (e) => {
-          e.preventDefault()
-          e.stopPropagation()
-          const formData = new FormData(e.currentTarget)
-          await handleServiceSubmit(formData)
-          return false
-        }} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+        <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold">Tu Primer Servicio</h2>
             <p className="text-gray-500">Crea una oferta simple para empezar.</p>
           </div>
 
-          <div className="space-y-4">
+          <form id="service-form" className="space-y-4">
             <div>
               <Label htmlFor="title">Título del Tour</Label>
               <Input id="title" name="title" placeholder="Ej: Tour Histórico Centro" required />
@@ -188,13 +189,26 @@ export default function OnboardingPage() {
                 <Input id="duration" name="duration" type="number" placeholder="120" required />
               </div>
             </div>
-          </div>
+          </form>
 
-          <Button type="submit" className="w-full h-12 text-lg bg-gray-900 hover:bg-gray-800" disabled={loading}>
+          <Button 
+            type="button"
+            onClick={async () => {
+              const form = document.getElementById('service-form') as HTMLFormElement
+              if (form.checkValidity()) {
+                const formData = new FormData(form)
+                await handleServiceSubmit(formData)
+              } else {
+                form.reportValidity()
+              }
+            }}
+            className="w-full h-12 text-lg bg-gray-900 hover:bg-gray-800" 
+            disabled={loading}
+          >
             {loading ? <Loader2 className="animate-spin mr-2" /> : null}
             Crear Servicio <ArrowRight className="ml-2" size={18} />
           </Button>
-        </form>
+        </div>
       )}
 
       {step === 3 && (
