@@ -99,6 +99,7 @@ export default async function HomePage() {
             fill
             className="object-cover"
             priority
+            sizes="100vw"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-gray-900/50 to-gray-900/90" />

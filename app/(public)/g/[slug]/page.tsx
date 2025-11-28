@@ -90,7 +90,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
   // 2. Fetch guide profile
   const { data: guide } = await supabase
     .from('users')
-    .select('*')
+    .select('id, name, bio, photo_url, whatsapp')
     .eq('id', link.user_id)
     .single()
 
@@ -105,7 +105,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
   // 4. Fetch active services
   const { data: services } = await supabase
     .from('services')
-    .select('*')
+    .select('id, title, description, price, duration, service_photos(url)')
     .eq('user_id', link.user_id)
     .eq('active', true)
     .order('price')
@@ -199,10 +199,12 @@ export default async function GuidePage({ params }: GuidePageProps) {
           {services?.map((service) => (
             <div key={service.id} className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 group">
               {/* Service Image */}
-              {service.photos && service.photos.length > 0 ? (
+              {/* @ts-ignore */}
+              {service.service_photos && service.service_photos.length > 0 ? (
                 <div className="relative h-48 bg-gray-100 overflow-hidden">
                   <Image
-                    src={service.photos[0]}
+                    /* @ts-ignore */
+                    src={service.service_photos[0].url}
                     alt={service.title}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-105"

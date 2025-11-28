@@ -81,7 +81,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
   // 1. Fetch service details
   const { data: service } = await supabase
     .from('services')
-    .select('*')
+    .select('id, title, description, price, duration, user_id')
     .eq('id', serviceId)
     .single()
 
