@@ -1,15 +1,36 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { revalidatePath } from 'next/cache'
+import { headers } from 'next/headers'
 import { z } from 'zod'
+import crypto from 'crypto'
 
 const reviewSchema = z.object({
   guideId: z.string().uuid(),
-  reviewerName: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
+  reviewerName: z.string().min(2, 'El nombre debe tener al menos 2 caracteres').max(100),
   rating: z.number().min(1).max(5),
   comment: z.string().min(10, 'El comentario debe tener al menos 10 caracteres').max(500, 'El comentario es muy largo'),
 })
+
+async function getReviewerIdentifier(guideId: string): Promise<string> {
+  const headersList = await headers()
+  
+  // Get IP from various possible headers (Vercel, Cloudflare, etc.)
+  const forwarded = headersList.get('x-forwarded-for')
+  const realIp = headersList.get('x-real-ip')
+  const cfIp = headersList.get('cf-connecting-ip')
+  
+  const ip = cfIp || forwarded?.split(',')[0] || realIp || 'unknown'
+  
+  // Hash IP for privacy (GDPR compliance)
+  const ipHash = crypto
+    .createHash('sha256')
+    .update(ip + process.env.NEXT_PUBLIC_SUPABASE_URL) // Add salt
+    .digest('hex')
+    .substring(0, 16)
+  
+  return `${ipHash}_${guideId}`
+}
 
 export async function submitReview(formData: FormData) {
   const supabase = await createClient()
@@ -29,20 +50,23 @@ export async function submitReview(formData: FormData) {
 
   const { guideId, reviewerName, rating, comment } = validatedFields.data
 
-  // Simple rate limiting: Create an identifier based on name + guide
-  // In production, you'd use IP address or user session
-  const reviewerIdentifier = `${reviewerName.toLowerCase().trim()}_${guideId}`
+  // IP-based rate limiting with 24h window
+  const reviewerIdentifier = await getReviewerIdentifier(guideId)
+  
+  // Calculate 24 hours ago
+  const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
 
-  // Check if this person already reviewed this guide
+  // Check if this IP already reviewed this guide in the last 24 hours
   const { data: existingReview } = await supabase
     .from('reviews')
-    .select('id')
+    .select('id, created_at')
     .eq('guide_id', guideId)
     .eq('reviewer_identifier', reviewerIdentifier)
+    .gte('created_at', twentyFourHoursAgo)
     .single()
 
   if (existingReview) {
-    return { error: 'Ya has dejado una reseña para este guía.' }
+    return { error: 'Ya has dejado una reseña para este guía recientemente. Espera 24 horas antes de enviar otra.' }
   }
 
   const { error } = await supabase
