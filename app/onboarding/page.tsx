@@ -100,7 +100,11 @@ export default function OnboardingPage() {
       </div>
 
       {step === 1 && (
-        <form action={handleProfileSubmit} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+        <form onSubmit={(e) => {
+          e.preventDefault()
+          const formData = new FormData(e.currentTarget)
+          handleProfileSubmit(formData)
+        }} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold">Tu Perfil Profesional</h2>
             <p className="text-gray-500">Esto es lo primero que verán los viajeros.</p>
@@ -120,10 +124,9 @@ export default function OnboardingPage() {
                 name="photo" 
                 accept="image/*" 
                 onChange={handlePhotoChange} 
-                className="absolute inset-0 opacity-0 cursor-pointer"
-                required
+                className="absolute inset-0 opacity-0 cursor-pointer z-10"
               />
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity text-xs font-medium">
+              <div className="absolute inset-0 bg-black/50 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity text-xs font-medium pointer-events-none">
                 Cambiar Foto
               </div>
             </div>
@@ -155,7 +158,11 @@ export default function OnboardingPage() {
       )}
 
       {step === 2 && (
-        <form action={handleServiceSubmit} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+        <form onSubmit={(e) => {
+          e.preventDefault()
+          const formData = new FormData(e.currentTarget)
+          handleServiceSubmit(formData)
+        }} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold">Tu Primer Servicio</h2>
             <p className="text-gray-500">Crea una oferta simple para empezar.</p>
