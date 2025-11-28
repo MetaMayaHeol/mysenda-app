@@ -90,7 +90,7 @@ export function ServiceForm({ initialData, serviceId, userId }: ServiceFormProps
       {/* Price & Duration */}
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="price">Precio (MXN/USD)</Label>
+          <Label htmlFor="price">Precio (MXN)</Label>
           <Input
             id="price"
             type="number"

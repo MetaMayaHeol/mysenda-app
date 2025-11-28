@@ -10,6 +10,8 @@ interface GuideCardProps {
     bio: string | null
     photo_url: string | null
     languages: string[] | null
+    city: string | null
+    country: string | null
     slug: string
   }
 }
@@ -30,6 +32,14 @@ export function GuideCard({ guide }: GuideCardProps) {
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-green-100 text-green-600 text-4xl font-bold">
             {guide.name?.[0]}
+          </div>
+        )}
+        
+        {/* Location Badge */}
+        {guide.city && (
+          <div className="absolute bottom-2 left-2 bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
+            <MapPin size={12} />
+            {guide.city}, {guide.country || 'MX'}
           </div>
         )}
       </div>

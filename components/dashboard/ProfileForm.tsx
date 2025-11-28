@@ -68,6 +68,32 @@ export function ProfileForm({ initialData, userId }: ProfileFormProps) {
         )}
       </div>
 
+      {/* Location */}
+      <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label htmlFor="city">Ciudad</Label>
+          <Input
+            id="city"
+            placeholder="Ej: Tulum"
+            {...form.register('city')}
+          />
+          {form.formState.errors.city && (
+            <p className="text-sm text-red-500">{form.formState.errors.city.message}</p>
+          )}
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="country">País</Label>
+          <Input
+            id="country"
+            defaultValue="México"
+            {...form.register('country')}
+          />
+          {form.formState.errors.country && (
+            <p className="text-sm text-red-500">{form.formState.errors.country.message}</p>
+          )}
+        </div>
+      </div>
+
       {/* Bio */}
       <div className="space-y-2">
         <Label htmlFor="bio">Biografía</Label>

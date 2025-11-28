@@ -42,7 +42,7 @@ export function formatPhoneNumber(phone: string): string {
  * @param currency - Currency code (default: USD)
  * @returns Formatted price string
  */
-export function formatPrice(price: number, currency: string = 'USD'): string {
+export function formatPrice(price: number, currency: string = 'MXN'): string {
   return new Intl.NumberFormat('es-MX', {
     style: 'currency',
     currency: currency,

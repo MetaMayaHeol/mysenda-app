@@ -56,6 +56,8 @@ export default async function ProfilePage() {
           initialData={{
             name: profile.name || '',
             bio: profile.bio || '',
+            city: profile.city || '',
+            country: profile.country || 'México',
             whatsapp: profile.whatsapp || '',
             languages: profile.languages || ['es'],
             photo_url: profile.photo_url || '',

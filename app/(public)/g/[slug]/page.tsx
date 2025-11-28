@@ -90,7 +90,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
   // 2. Fetch guide profile
   const { data: guide } = await supabase
     .from('users')
-    .select('id, name, bio, photo_url, whatsapp')
+    .select('id, name, bio, photo_url, whatsapp, city, country')
     .eq('id', link.user_id)
     .single()
 
@@ -124,6 +124,10 @@ export default async function GuidePage({ params }: GuidePageProps) {
     image: guide.photo_url || undefined,
     telephone: guide.whatsapp || undefined,
     url: guideUrl,
+    address: {
+      addressLocality: guide.city || undefined,
+      addressCountry: guide.country || 'MX'
+    }
   })
 
   const breadcrumbData = generateBreadcrumbSchema([
@@ -159,7 +163,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
         <h1 className="text-3xl font-bold text-gray-900 mb-2">{guide.name}</h1>
         <p className="text-gray-600 flex items-center justify-center gap-1.5 text-sm">
           <MapPin size={16} className="text-green-600" />
-          Guía Local
+          {guide.city ? `${guide.city}, ${guide.country || 'México'}` : 'Guía Local'}
         </p>
       </div>
 

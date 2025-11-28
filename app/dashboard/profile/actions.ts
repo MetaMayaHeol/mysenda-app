@@ -24,7 +24,7 @@ export async function updateProfile(formData: ProfileFormValues) {
     return { error: 'Datos inválidos' }
   }
 
-  const { name, bio, whatsapp, languages, photo_url } = validatedFields.data
+  const { name, bio, city, country, whatsapp, languages, photo_url } = validatedFields.data
 
   // Update user profile
   const { error } = await supabase
@@ -32,6 +32,8 @@ export async function updateProfile(formData: ProfileFormValues) {
     .update({
       name,
       bio,
+      city,
+      country,
       whatsapp,
       languages,
       photo_url,

@@ -26,7 +26,9 @@ export default async function ExplorePage() {
         name,
         bio,
         photo_url,
-        languages
+        languages,
+        city,
+        country
       )
     `)
     .order('created_at', { ascending: false })
@@ -46,6 +48,10 @@ export default async function ExplorePage() {
     photo_url: item.user?.photo_url,
     // @ts-ignore
     languages: item.user?.languages,
+    // @ts-ignore
+    city: item.user?.city,
+    // @ts-ignore
+    country: item.user?.country,
   })) || []
 
   return <DirectoryClient initialGuides={formattedGuides} />

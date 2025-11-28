@@ -29,7 +29,8 @@ export async function GET(request: Request) {
     {
       name: 'Alejandra García',
       bio: 'Apasionada por la historia de México y la gastronomía local. Llevo 5 años mostrando los secretos del Centro Histórico.',
-      location: 'Ciudad de México',
+      city: 'Ciudad de México',
+      country: 'México',
       languages: ['es', 'en'],
       whatsapp: '525512345678',
       photo_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=400&h=400',
@@ -37,7 +38,8 @@ export async function GET(request: Request) {
     {
       name: 'Carlos Rivera',
       bio: 'Certified adventure guide. I love taking travelers to hidden cenotes and jungle treks in the Riviera Maya.',
-      location: 'Tulum, Quintana Roo',
+      city: 'Tulum',
+      country: 'México',
       languages: ['en', 'es', 'fr'],
       whatsapp: '529981234567',
       photo_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&h=400',
@@ -45,7 +47,8 @@ export async function GET(request: Request) {
     {
       name: 'Sophie Martin',
       bio: 'Guide francophone à Oaxaca. Je vous fais découvrir l\'artisanat et les traditions zapatèques.',
-      location: 'Oaxaca City',
+      city: 'Oaxaca',
+      country: 'México',
       languages: ['fr', 'en'],
       whatsapp: '529511234567',
       photo_url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=400&h=400',
@@ -53,7 +56,8 @@ export async function GET(request: Request) {
     {
       name: 'Miguel Ángel',
       bio: 'Experto en arqueología maya. Tours privados a Chichén Itzá y Ek Balam con enfoque histórico.',
-      location: 'Valladolid, Yucatán',
+      city: 'Valladolid',
+      country: 'México',
       languages: ['es'],
       whatsapp: '529851234567',
       photo_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&h=400',
@@ -61,7 +65,8 @@ export async function GET(request: Request) {
     {
       name: 'Sarah Jenkins',
       bio: 'Foodie tours in Mexico City. Lets eat tacos, churros and drink mezcal in the best local spots.',
-      location: 'Ciudad de México',
+      city: 'Ciudad de México',
+      country: 'México',
       languages: ['en', 'es', 'de'],
       whatsapp: '525587654321',
       photo_url: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&h=400',
@@ -83,6 +88,8 @@ export async function GET(request: Request) {
         email,
         name: guide.name,
         bio: guide.bio,
+        city: guide.city,
+        country: guide.country,
         whatsapp: guide.whatsapp,
         photo_url: guide.photo_url,
         languages: guide.languages
