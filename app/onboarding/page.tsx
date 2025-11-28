@@ -100,10 +100,12 @@ export default function OnboardingPage() {
       </div>
 
       {step === 1 && (
-        <form onSubmit={(e) => {
+        <form onSubmit={async (e) => {
           e.preventDefault()
+          e.stopPropagation()
           const formData = new FormData(e.currentTarget)
-          handleProfileSubmit(formData)
+          await handleProfileSubmit(formData)
+          return false
         }} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold">Tu Perfil Profesional</h2>
@@ -158,10 +160,12 @@ export default function OnboardingPage() {
       )}
 
       {step === 2 && (
-        <form onSubmit={(e) => {
+        <form onSubmit={async (e) => {
           e.preventDefault()
+          e.stopPropagation()
           const formData = new FormData(e.currentTarget)
-          handleServiceSubmit(formData)
+          await handleServiceSubmit(formData)
+          return false
         }} className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold">Tu Primer Servicio</h2>
