@@ -21,14 +21,16 @@ export function GuideCard({ guide }: GuideCardProps) {
   }
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col h-full">
-      <div className="relative h-48 bg-gray-100">
+    <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full group">
+      <div className="relative h-48 bg-gray-100 overflow-hidden">
         {guide.photo_url ? (
           <Image
             src={guide.photo_url}
             alt={guide.name || 'Guide'}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            quality={90}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-green-100 text-green-600 text-4xl font-bold">

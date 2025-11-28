@@ -89,21 +89,24 @@ export default async function ServicePage({ params }: ServicePageProps) {
   return (
     <div className="min-h-screen bg-white pb-24">
       {/* Header Image */}
-      <div className="relative h-64 md:h-80 bg-gray-200">
+      <div className="relative h-64 md:h-80 bg-gray-200 overflow-hidden group">
         {photos && photos.length > 0 ? (
           <Image
             src={photos[0].url}
             alt={service.title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-700 group-hover:scale-105"
             priority
+            quality={90}
+            sizes="(max-width: 768px) 100vw, 1200px"
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center bg-gray-100 text-gray-400">
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 text-gray-400">
             Sin foto
           </div>
         )}
         
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
         <BackButton />
       </div>
 
@@ -115,7 +118,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
           <span className="text-2xl font-bold text-green-600">
             {formatPrice(service.price)}
           </span>
-          <span className="flex items-center gap-1 text-gray-600">
+          <span className="flex items-center gap-1 text-gray-600 bg-gray-100 px-3 py-1.5 rounded-full">
             <Clock size={18} />
             {formatDuration(service.duration)}
           </span>
@@ -135,12 +138,14 @@ export default async function ServicePage({ params }: ServicePageProps) {
             <h3 className="font-bold text-lg mb-3">Galería</h3>
             <div className="grid grid-cols-2 gap-3">
               {photos.slice(1).map((photo, i) => (
-                <div key={i} className="relative aspect-video rounded-xl overflow-hidden bg-gray-100">
+                <div key={i} className="relative aspect-video rounded-xl overflow-hidden bg-gray-100 shadow-sm group">
                   <Image
                     src={photo.url}
                     alt={`${service.title} ${i + 2}`}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    quality={90}
+                    sizes="(max-width: 768px) 50vw, 600px"
                   />
                 </div>
               ))}
