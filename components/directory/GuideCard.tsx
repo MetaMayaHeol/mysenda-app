@@ -28,7 +28,7 @@ export function GuideCard({ guide }: GuideCardProps) {
             src={guide.photo_url}
             alt={guide.name || 'Guide'}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
+            className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
             quality={90}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
           />
