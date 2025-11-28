@@ -7,10 +7,16 @@ import { NextResponse } from 'next/server'
 // For now, assuming we are in dev mode and might have RLS open or using anon key for public tables.
 
 export async function GET(request: Request) {
+  // 0. Security Checks
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ error: 'Test routes disabled in production' }, { status: 403 })
+  }
+
   const { searchParams } = new URL(request.url)
   const secret = searchParams.get('secret')
+  const adminSecret = process.env.TEST_ADMIN_SECRET
 
-  if (secret !== 'rutalink-test-admin') {
+  if (!adminSecret || secret !== adminSecret) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

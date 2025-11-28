@@ -2,10 +2,16 @@ import { createClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 
 export async function GET(request: Request) {
+  // 0. Security Checks
+  if (process.env.NODE_ENV === 'production') {
+    return NextResponse.json({ error: 'Test routes disabled in production' }, { status: 403 })
+  }
+
   const { searchParams } = new URL(request.url)
   const secret = searchParams.get('secret')
+  const adminSecret = process.env.TEST_ADMIN_SECRET
 
-  if (secret !== 'rutalink-test-admin') {
+  if (!adminSecret || secret !== adminSecret) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
