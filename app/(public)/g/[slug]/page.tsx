@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { formatPrice, formatDuration } from '@/lib/utils/formatters'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { generateLocalBusinessSchema, generateBreadcrumbSchema } from '@/lib/seo/structured-data'
+import { ViewTracker } from '@/components/analytics/ViewTracker'
 
 // Revalidate every hour
 export const revalidate = 3600
@@ -133,6 +134,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
   return (
     <>
+      <ViewTracker type="profile" guideId={guide.id} />
       <JsonLd data={localBusinessData} />
       <JsonLd data={breadcrumbData} />
       <div className="min-h-screen bg-white pb-24">

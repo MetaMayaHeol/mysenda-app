@@ -131,6 +131,11 @@ export default async function DashboardPage() {
               👤 Mi perfil
             </Button>
           </Link>
+          <Link href="/dashboard/analytics" className="col-span-2">
+            <Button variant="outline" className="w-full h-12">
+              📊 Analytics
+            </Button>
+          </Link>
         </div>
 
         {/* QR Code */}

@@ -7,6 +7,7 @@ import { BackButton } from '@/components/public/BackButton'
 import { ImageLightbox } from '@/components/public/ImageLightbox'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { generateServiceSchema, generateBreadcrumbSchema } from '@/lib/seo/structured-data'
+import { ViewTracker } from '@/components/analytics/ViewTracker'
 
 // Revalidate every hour
 export const revalidate = 3600
@@ -163,6 +164,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
 
   return (
     <>
+      <ViewTracker type="service" guideId={guide.id} resourceId={serviceId} />
       <JsonLd data={serviceSchema} />
       <JsonLd data={breadcrumbData} />
       <div className="min-h-screen bg-white pb-24">
