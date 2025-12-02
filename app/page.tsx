@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { MapPin, Globe, Shield, MessageCircle, Star, ArrowRight } from 'lucide-react'
+import { MapPin, Globe, Shield, MessageCircle, Star, ArrowRight, Mail } from 'lucide-react'
 import { createClient } from '@supabase/supabase-js'
 import { GuideCard } from '@/components/directory/GuideCard'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/structured-data'
+import { TestimonialsSection } from '@/components/public/TestimonialsSection'
+import { BusinessModelSection } from '@/components/public/BusinessModelSection'
 import type { Metadata } from 'next'
 
 // Force dynamic to ensure we see the latest featured guides
@@ -121,18 +123,18 @@ export default async function HomePage() {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight leading-tight">
-              Descubre experiencias auténticas con <span className="text-green-400">Guías Locales</span>
+              Reserva Guías Locales Verificados — <span className="text-green-400">Pago Seguro</span> o Contacto Directo
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Conecta directamente con expertos locales en cualquier destino.
-              <br className="hidden md:block" /> Sin intermediarios, sin comisiones ocultas.
+              Encuentra tu guía perfecto en minutos. Comunicación directa, experiencias auténticas.
+              <br className="hidden md:block" /> Sin comisiones para ti, 100% del pago para el guía.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/explorar">
                 <Button className="bg-green-500 hover:bg-green-600 text-white font-bold h-14 px-8 text-lg w-full sm:w-auto rounded-full shadow-lg shadow-green-500/20 transition-all hover:scale-105">
-                  Explorar Guías
+                  Buscar Mi Guía Ahora
                 </Button>
               </Link>
               <Link href="/auth/login">
@@ -172,6 +174,9 @@ export default async function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* Business Model Section */}
+      <BusinessModelSection />
 
       {/* Featured Guides Section */}
       {featuredGuides.length > 0 && (
@@ -278,6 +283,9 @@ export default async function HomePage() {
         </div>
       </div>
 
+      {/* Testimonials Section */}
+      <TestimonialsSection />
+
       {/* CTA Section */}
       <div className="bg-gray-900 text-white py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-green-600/10" />
@@ -302,34 +310,53 @@ export default async function HomePage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-950 text-gray-400 py-12 border-t border-gray-900">
+      <footer className="bg-gray-950 text-gray-400 py-16 border-t border-gray-900">
         <div className="container mx-auto px-5">
-          <div className="grid md:grid-cols-4 gap-8 mb-12">
+          <div className="grid md:grid-cols-5 gap-8 mb-12">
             <div className="col-span-1 md:col-span-2">
               <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mb-6">
                 <span className="text-white text-2xl font-bold">R</span>
               </div>
-              <p className="max-w-xs text-gray-500">
+              <p className="max-w-xs text-gray-500 mb-6">
                 RutaLink conecta viajeros con guías locales para experiencias auténticas y sin intermediarios.
               </p>
+              <div className="flex items-center gap-2 text-sm">
+                <Mail size={16} className="text-green-500" />
+                <a href="mailto:support@rutalink.com" className="text-gray-400 hover:text-green-400">
+                  support@rutalink.com
+                </a>
+              </div>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Plataforma</h4>
               <ul className="space-y-2">
-                <li><Link href="/explorar" className="hover:text-green-400">Explorar Guías</Link></li>
-                <li><Link href="/auth/login" className="hover:text-green-400">Acceso Guías</Link></li>
+                <li><Link href="/explorar" className="hover:text-green-400 transition-colors">Explorar Guías</Link></li>
+                <li><Link href="/auth/login" className="hover:text-green-400 transition-colors">Acceso Guías</Link></li>
+                <li><Link href="/faq" className="hover:text-green-400 transition-colors">Preguntas Frecuentes</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-white font-bold mb-4">Soporte</h4>
+              <ul className="space-y-2">
+                <li><Link href="/support" className="hover:text-green-400 transition-colors">Centro de Ayuda</Link></li>
+                <li><Link href="/cancellation-policy" className="hover:text-green-400 transition-colors">Política de Cancelación</Link></li>
+                <li><Link href="/faq" className="hover:text-green-400 transition-colors">FAQ</Link></li>
               </ul>
             </div>
             <div>
               <h4 className="text-white font-bold mb-4">Legal</h4>
               <ul className="space-y-2">
-                <li><Link href="#" className="hover:text-green-400">Términos</Link></li>
-                <li><Link href="#" className="hover:text-green-400">Privacidad</Link></li>
+                <li><Link href="#" className="hover:text-green-400 transition-colors">Términos de Servicio</Link></li>
+                <li><Link href="#" className="hover:text-green-400 transition-colors">Política de Privacidad</Link></li>
+                <li><Link href="#" className="hover:text-green-400 transition-colors">Cookies</Link></li>
               </ul>
             </div>
           </div>
-          <div className="pt-8 border-t border-gray-900 text-center text-sm">
-            <p>© {new Date().getFullYear()} RutaLink. Todos los derechos reservados.</p>
+          <div className="pt-8 border-t border-gray-900">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm">
+              <p>© {new Date().getFullYear()} RutaLink. Todos los derechos reservados.</p>
+              <p className="text-gray-500">Hecho con ❤️ para viajeros y guías</p>
+            </div>
           </div>
         </div>
       </footer>

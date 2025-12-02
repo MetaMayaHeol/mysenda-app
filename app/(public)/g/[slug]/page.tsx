@@ -2,7 +2,7 @@ import { createStaticClient } from '@/lib/supabase/static'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
-import { MapPin, Clock, Send, ShieldCheck } from 'lucide-react'
+import { MapPin, Clock, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { formatPrice, formatDuration } from '@/lib/utils/formatters'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -13,6 +13,7 @@ import { ReviewsList } from '@/components/public/ReviewsList'
 import { ReviewForm } from '@/components/public/ReviewForm'
 import { ShareButton } from '@/components/public/ShareButton'
 import { RatingSummary } from '@/components/public/RatingSummary'
+import { VerificationBadge } from '@/components/public/VerificationBadge'
 
 // Revalidate every hour
 export const revalidate = 3600
@@ -220,11 +221,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
           <div className="flex flex-col items-center gap-2 mb-3">
             <div className="flex items-center justify-center gap-2">
               <h1 className="text-3xl font-bold text-gray-900">{guide.name}</h1>
-              {guide.is_verified && (
-                <div className="text-green-500" title="Guía Verificado">
-                  <ShieldCheck size={24} fill="currentColor" className="text-green-100 stroke-green-600" />
-                </div>
-              )}
+              {guide.is_verified && <VerificationBadge size={24} />}
             </div>
             
             <RatingSummary rating={averageRating} count={approvedReviews.length} />
