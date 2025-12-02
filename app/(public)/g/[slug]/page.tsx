@@ -6,11 +6,13 @@ import { MapPin, Clock, Send, ShieldCheck } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { formatPrice, formatDuration } from '@/lib/utils/formatters'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { generateLocalBusinessSchema, generateBreadcrumbSchema } from '@/lib/seo/structured-data'
+import { generateLocalBusinessSchema, generateBreadcrumbSchema, generateServiceSchema } from '@/lib/seo/structured-data'
 import { ViewTracker } from '@/components/analytics/ViewTracker'
 import { getReviews } from '@/app/actions/reviews'
 import { ReviewsList } from '@/components/public/ReviewsList'
 import { ReviewForm } from '@/components/public/ReviewForm'
+import { ShareButton } from '@/components/public/ShareButton'
+import { RatingSummary } from '@/components/public/RatingSummary'
 
 // Revalidate every hour
 export const revalidate = 3600
@@ -41,21 +43,27 @@ export async function generateMetadata({ params }: GuidePageProps) {
 
   const { data: user } = await supabase
     .from('users')
-    .select('name, bio, photo_url, whatsapp')
+    .select('name, bio, photo_url, whatsapp, city')
     .eq('id', link.user_id)
     .single()
 
-  const title = `${user?.name} - Guía Turístico Local | RutaLink`
-  const description = user?.bio || `Descubre experiencias auténticas con ${user?.name}, guía turístico local verificado. Reserva tours personalizados directamente por WhatsApp.`
+  const title = `${user?.name} - Guía Turístico Certificado en ${user?.city || 'México'} | RutaLink`
+  const description = user?.bio 
+    ? `${user.bio.slice(0, 120)} Reserva tours únicos y personalizados con ${user?.name}. Contacta directamente por WhatsApp.`
+    : `Descubre experiencias auténticas e inolvidables con ${user?.name}, guía turístico local certificado. Reserva tours personalizados y explora como los locales. Contacto directo por WhatsApp.`
   const imageUrl = user?.photo_url || `${baseUrl}/og-default.png`
+  const url = `${baseUrl}/g/${slug}`
 
   return {
     title,
     description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title,
       description,
-      url: `${baseUrl}/g/${slug}`,
+      url,
       siteName: 'RutaLink',
       images: [{
         url: imageUrl,
@@ -123,6 +131,12 @@ export default async function GuidePage({ params }: GuidePageProps) {
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
   const guideUrl = `${baseUrl}/g/${slug}`
 
+  // Calculate rating
+  const approvedReviews = reviews.filter(r => r.approved)
+  const averageRating = approvedReviews.length > 0
+    ? approvedReviews.reduce((acc, r) => acc + r.rating, 0) / approvedReviews.length
+    : 0
+
   // Generate structured data
   const localBusinessData = generateLocalBusinessSchema({
     name: guide.name || 'Guía RutaLink',
@@ -142,44 +156,89 @@ export default async function GuidePage({ params }: GuidePageProps) {
     { name: guide.name || 'Guía', url: guideUrl },
   ])
 
+  const serviceSchemas = services?.map(service => generateServiceSchema({
+    name: service.title,
+    description: service.description || undefined,
+    // @ts-ignore
+    image: service.service_photos?.[0]?.url || undefined,
+    provider: {
+      name: guide.name || 'Guía',
+      url: guideUrl
+    },
+    offers: {
+      price: service.price,
+      priceCurrency: 'MXN'
+    }
+  })) || []
+
   return (
     <>
       <ViewTracker type="profile" guideId={guide.id} />
       <JsonLd data={localBusinessData} />
       <JsonLd data={breadcrumbData} />
+      {serviceSchemas.map((schema, i) => (
+        <JsonLd key={i} data={schema} />
+      ))}
       <div className="min-h-screen bg-white pb-24">
       {/* Header */}
-      <div className="p-5 text-center bg-gradient-to-b from-gray-50 to-white">
-        <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden relative ring-4 ring-white shadow-xl">
-          {guide.photo_url ? (
+      <div className="relative">
+        {/* Cover Background (Blurred) */}
+        <div className="absolute inset-0 overflow-hidden h-64 z-0">
+           {guide.photo_url && (
             <Image
               src={guide.photo_url}
-              alt={guide.name || 'Guide'}
+              alt="Background"
               fill
-              className="object-cover"
-              quality={90}
-              sizes="128px"
+              className="object-cover blur-xl opacity-20 scale-110"
             />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-400 to-green-600 text-white text-4xl font-bold">
-              {guide.name?.[0]}
-            </div>
-          )}
-        </div>
-        
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <h1 className="text-3xl font-bold text-gray-900">{guide.name}</h1>
-          {guide.is_verified && (
-            <div className="text-green-500" title="Guía Verificado">
-              <ShieldCheck size={28} fill="currentColor" className="text-green-100 stroke-green-600" />
-            </div>
-          )}
+           )}
+           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white" />
         </div>
 
-        <p className="text-gray-600 flex items-center justify-center gap-1.5 text-sm">
-          <MapPin size={16} className="text-green-600" />
-          {guide.city ? `${guide.city}, ${guide.country || 'México'}` : 'Guía Local'}
-        </p>
+        <div className="relative z-10 p-5 text-center pt-12">
+          <div className="w-32 h-32 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden relative ring-4 ring-white shadow-xl">
+            {guide.photo_url ? (
+              <Image
+                src={guide.photo_url}
+                alt={guide.name || 'Guide'}
+                fill
+                className="object-cover"
+                quality={90}
+                sizes="128px"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-green-400 to-green-600 text-white text-4xl font-bold">
+                {guide.name?.[0]}
+              </div>
+            )}
+          </div>
+          
+          <div className="flex flex-col items-center gap-2 mb-3">
+            <div className="flex items-center justify-center gap-2">
+              <h1 className="text-3xl font-bold text-gray-900">{guide.name}</h1>
+              {guide.is_verified && (
+                <div className="text-green-500" title="Guía Verificado">
+                  <ShieldCheck size={24} fill="currentColor" className="text-green-100 stroke-green-600" />
+                </div>
+              )}
+            </div>
+            
+            <RatingSummary rating={averageRating} count={approvedReviews.length} />
+          </div>
+
+          <p className="text-gray-600 flex items-center justify-center gap-1.5 text-sm mb-4">
+            <MapPin size={16} className="text-green-600" />
+            {guide.city ? `${guide.city}, ${guide.country || 'México'}` : 'Guía Local'}
+          </p>
+
+          <div className="flex justify-center gap-2">
+            <ShareButton 
+              title={`${guide.name} - Guía Turístico`} 
+              text={`Echa un vistazo al perfil de ${guide.name} en RutaLink.`} 
+              url={guideUrl} 
+            />
+          </div>
+        </div>
       </div>
       {photos && photos.length > 0 && (
         <div className="px-5 mb-8">
@@ -279,17 +338,20 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
       {/* WhatsApp Sticky Button */}
       {guide.whatsapp && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-20">
-          <Link
-            href={`https://wa.me/${guide.whatsapp.replace(/\D/g, '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold h-12 text-lg gap-2">
-              <Send size={20} />
-              Contacter por WhatsApp
-            </Button>
-          </Link>
+        <div className="fixed bottom-0 left-0 right-0 p-4 z-20 pointer-events-none">
+          <div className="max-w-md mx-auto pointer-events-auto">
+            <Link
+              href={`https://wa.me/${guide.whatsapp.replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block shadow-xl rounded-full overflow-hidden"
+            >
+              <Button className="w-full bg-green-600 hover:bg-green-700 text-white font-bold h-14 text-lg gap-2 rounded-full transition-all hover:scale-[1.02]">
+                <Send size={20} />
+                Contactar por WhatsApp
+              </Button>
+            </Link>
+          </div>
         </div>
       )}
     </div>

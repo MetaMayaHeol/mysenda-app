@@ -30,6 +30,11 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/dashboard', '/api'],
       },
+      {
+        userAgent: 'CCBot',
+        allow: '/',
+        disallow: ['/dashboard', '/api'],
+      },
     ],
     sitemap: `${baseUrl}/sitemap.xml`,
   }
