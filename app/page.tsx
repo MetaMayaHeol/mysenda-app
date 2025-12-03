@@ -105,8 +105,8 @@ export default async function HomePage() {
       <div className="relative bg-gray-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <Image
-            src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=2000&q=80"
-            alt="Travel Background"
+            src="/hero-yucatan.jpg"
+            alt="Península de Yucatán"
             fill
             className="object-cover"
             priority
