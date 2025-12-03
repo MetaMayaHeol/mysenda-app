@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { cities, getCityBySlug } from '@/lib/seo/cities'
+import { activities } from '@/lib/seo/activities'
 import { CityHero } from '@/components/seo/CityHero'
 import { GuideCard } from '@/components/directory/GuideCard'
 import { createClient } from '@supabase/supabase-js'
@@ -226,6 +227,28 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
               visitas arqueológicas y mucho más. Contacta directamente por WhatsApp 
               para personalizar tu experiencia.
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Popular Activities Internal Linking */}
+      <div className="py-16 border-t border-gray-100">
+        <div className="container mx-auto px-5">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            Actividades populares en la Península de Yucatán
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {activities.map((activity) => (
+              <Link 
+                key={activity.slug} 
+                href={`/actividad/${activity.slug}`}
+                className="group p-4 rounded-xl bg-gray-50 hover:bg-green-50 transition-colors border border-gray-100 hover:border-green-200"
+              >
+                <h3 className="font-medium text-gray-900 group-hover:text-green-700 text-center">
+                  {activity.name}
+                </h3>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

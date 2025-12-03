@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
 import { activities, getActivityBySlug } from '@/lib/seo/activities'
+import { cities } from '@/lib/seo/cities'
 import { ActivityHero } from '@/components/seo/ActivityHero'
 import { GuideCard } from '@/components/directory/GuideCard'
 import { createClient } from '@supabase/supabase-js'
@@ -253,6 +254,28 @@ export default async function ActivityPage({ params }: { params: Promise<{ slug:
               Valladolid, Tulum, Playa del Carmen, Bacalar, Campeche y muchos otros 
               destinos de la Península de Yucatán.
             </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Popular Destinations Internal Linking */}
+      <div className="py-16 border-t border-gray-100">
+        <div className="container mx-auto px-5">
+          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+            Mejores destinos para {activity.name.toLowerCase()}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {cities.slice(0, 8).map((city) => (
+              <Link 
+                key={city.slug} 
+                href={`/ciudad/${city.slug}`}
+                className="group p-4 rounded-xl bg-gray-50 hover:bg-green-50 transition-colors border border-gray-100 hover:border-green-200"
+              >
+                <h3 className="font-medium text-gray-900 group-hover:text-green-700 text-center">
+                  {city.name}
+                </h3>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
