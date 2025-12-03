@@ -59,6 +59,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+import { JsonLd } from '@/components/seo/JsonLd'
+import { generateTouristDestinationSchema, generateBreadcrumbSchema } from '@/lib/seo/structured-data'
+
 export default async function CityPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const city = getCityBySlug(slug)
@@ -108,8 +111,33 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
     is_verified: item.user?.is_verified,
   })) || []
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const cityUrl = `${baseUrl}/ciudad/${slug}`
+
+  // Generate structured data
+  const destinationSchema = generateTouristDestinationSchema({
+    name: city.name,
+    description: city.description,
+    url: cityUrl,
+    image: city.heroImage ? `${baseUrl}${city.heroImage}` : undefined,
+    address: {
+      addressLocality: city.name,
+      addressRegion: city.state,
+      addressCountry: 'MX'
+    }
+  })
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Inicio', url: baseUrl },
+    { name: 'Explorar', url: `${baseUrl}/explorar` },
+    { name: city.name, url: cityUrl }
+  ])
+
   return (
     <div className="min-h-screen bg-white">
+      <JsonLd data={destinationSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      {/* Hero Section */}
       {/* Hero Section */}
       <CityHero 
         city={city} 

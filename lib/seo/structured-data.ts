@@ -125,3 +125,80 @@ export function generateWebSiteSchema(baseUrl: string) {
     },
   }
 }
+
+interface TouristDestinationSchema {
+  name: string
+  description: string
+  url: string
+  image?: string
+  address?: {
+    addressLocality?: string
+    addressRegion?: string
+    addressCountry?: string
+  }
+  geo?: {
+    latitude: number
+    longitude: number
+  }
+}
+
+/**
+ * Generate TouristDestination schema for city pages
+ */
+export function generateTouristDestinationSchema(data: TouristDestinationSchema) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TouristDestination',
+    name: data.name,
+    description: data.description,
+    url: data.url,
+    image: data.image,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: data.address?.addressLocality || data.name,
+      addressRegion: data.address?.addressRegion || 'Yucatán',
+      addressCountry: data.address?.addressCountry || 'MX',
+    },
+    ...(data.geo && {
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: data.geo.latitude,
+        longitude: data.geo.longitude,
+      }
+    }),
+    touristType: [
+      'CulturalTourism',
+      'EcoTourism',
+      'HeritageTourism'
+    ]
+  }
+}
+
+interface TouristAttractionSchema {
+  name: string
+  description: string
+  url: string
+  image?: string
+  city?: string
+}
+
+/**
+ * Generate TouristAttraction schema for activity pages
+ * Note: Using TouristAttraction as a broad category for activities/tours
+ */
+export function generateTouristAttractionSchema(data: TouristAttractionSchema) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'TouristAttraction',
+    name: data.name,
+    description: data.description,
+    url: data.url,
+    image: data.image,
+    address: data.city ? {
+      '@type': 'PostalAddress',
+      addressLocality: data.city,
+      addressRegion: 'Yucatán',
+      addressCountry: 'MX',
+    } : undefined,
+  }
+}

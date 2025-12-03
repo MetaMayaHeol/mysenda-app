@@ -59,6 +59,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+import { JsonLd } from '@/components/seo/JsonLd'
+import { generateTouristAttractionSchema, generateBreadcrumbSchema } from '@/lib/seo/structured-data'
+
 export default async function ActivityPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const activity = getActivityBySlug(slug)
@@ -132,8 +135,29 @@ export default async function ActivityPage({ params }: { params: Promise<{ slug:
 
   const formattedGuides = Array.from(uniqueGuides.values())
 
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const activityUrl = `${baseUrl}/actividad/${slug}`
+
+  // Generate structured data
+  const attractionSchema = generateTouristAttractionSchema({
+    name: `Tours de ${activity.name}`,
+    description: activity.description,
+    url: activityUrl,
+    image: activity.heroImage ? `${baseUrl}${activity.heroImage}` : undefined,
+    city: 'Yucatán'
+  })
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Inicio', url: baseUrl },
+    { name: 'Explorar', url: `${baseUrl}/explorar` },
+    { name: activity.name, url: activityUrl }
+  ])
+
   return (
     <div className="min-h-screen bg-white">
+      <JsonLd data={attractionSchema} />
+      <JsonLd data={breadcrumbSchema} />
+      {/* Hero Section */}
       {/* Hero Section */}
       <ActivityHero 
         activity={activity} 
