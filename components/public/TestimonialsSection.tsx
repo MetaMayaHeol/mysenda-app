@@ -125,7 +125,7 @@ export function TestimonialsSection() {
         {/* Additional testimonials count */}
         <div className="text-center mt-12">
           <p className="text-gray-600">
-            <strong className="text-green-600 text-2xl font-bold">500+</strong> reseñas positivas de viajeros satisfechos
+            <strong className="text-green-600 text-2xl font-bold">100%</strong> de viajeros satisfechos con nuestros guías
           </p>
         </div>
       </div>
