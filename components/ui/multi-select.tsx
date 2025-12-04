@@ -55,10 +55,13 @@ export function MultiSelect({
     onChange(selected.filter((item) => item !== value))
   }
 
-  // Filter options based on input
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(inputValue.toLowerCase())
-  )
+  // Filter options based on input (accent insensitive)
+  const filteredOptions = options.filter((option) => {
+    const normalize = (str: string) => 
+      str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    
+    return normalize(option.label).includes(normalize(inputValue))
+  })
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>

@@ -9,6 +9,9 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 
+export const revalidate = 60 // Revalidate every minute
+
+
 // Generate static params for all cities
 export async function generateStaticParams() {
   return cities.map((city) => ({
