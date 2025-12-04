@@ -109,12 +109,6 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
     .eq('user.public_links.active', true)
     .limit(50)
 
-  console.log(`[Debug] Fetching for ${city.name}:`, { 
-    count: services?.length, 
-    error,
-    firstService: services?.[0] 
-  })
-
   // Deduplicate guides (a guide might have multiple services in the same city)
   const uniqueGuidesMap = new Map()
   
