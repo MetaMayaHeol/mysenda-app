@@ -87,7 +87,7 @@ export default async function CityPage({ params }: { params: Promise<{ slug: str
   const supabase = createClient(supabaseUrl, supabaseKey)
 
   // Query services that include this city in their locations
-  const { data: services } = await supabase
+  const { data: services, error } = await supabase
     .from('services')
     .select(`
       user:users!inner (

@@ -47,14 +47,13 @@ export async function updateProfile(formData: ProfileFormValues) {
   // Check if user has a public link
   const { data: publicLink } = await supabase
     .from('public_links')
-    .select('slug')
+    .select('slug, active')
     .eq('user_id', user.id)
     .single()
 
   // If no public link and name is present, create one
   if (!publicLink && name) {
     // Basic slug generation strategy
-    // In a real app, we'd check for uniqueness and append numbers if needed
     let slug = slugify(name)
     
     // Check if slug exists
@@ -71,7 +70,14 @@ export async function updateProfile(formData: ProfileFormValues) {
     await supabase.from('public_links').insert({
       user_id: user.id,
       slug,
+      active: true, // Force active by default
     })
+  } else if (publicLink && !publicLink.active) {
+    // If link exists but is inactive, activate it (since they are updating profile)
+    await supabase
+      .from('public_links')
+      .update({ active: true })
+      .eq('user_id', user.id)
   }
 
   revalidatePath('/dashboard')
