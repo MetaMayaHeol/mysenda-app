@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import { GuideCard } from '@/components/directory/GuideCard'
 import { SearchBar } from '@/components/directory/SearchBar'
+import { useTranslations } from 'next-intl'
 
 interface Guide {
   name: string
@@ -22,6 +23,7 @@ interface DirectoryClientProps {
 }
 
 export function DirectoryClient({ initialGuides }: DirectoryClientProps) {
+  const t = useTranslations('explorar')
   const [searchTerm, setSearchTerm] = useState('')
   const [languageFilter, setLanguageFilter] = useState('all')
   const [cityFilter, setCityFilter] = useState('all')
@@ -61,9 +63,9 @@ export function DirectoryClient({ initialGuides }: DirectoryClientProps) {
   return (
     <div className="container mx-auto px-5 py-12">
       <div className="text-center mb-12">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">Explora nuestros Guías</h1>
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">{t('title')}</h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          Encuentra expertos locales apasionados listos para mostrarte lo mejor de su ciudad.
+          {t('metaDescription')}
         </p>
       </div>
 
@@ -84,7 +86,7 @@ export function DirectoryClient({ initialGuides }: DirectoryClientProps) {
             onChange={(e) => setCityFilter(e.target.value)}
             className="w-full h-10 px-3 rounded-md border border-gray-300 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
           >
-            <option value="all">Todas las ciudades</option>
+            <option value="all">{t('allCities')}</option>
             {cities.map(city => (
               <option key={city} value={city as string}>{city}</option>
             ))}
@@ -100,12 +102,12 @@ export function DirectoryClient({ initialGuides }: DirectoryClientProps) {
         </div>
       ) : (
         <div className="text-center py-20 bg-gray-50 rounded-xl">
-          <p className="text-xl text-gray-500">No encontramos guías con esos criterios.</p>
+          <p className="text-xl text-gray-500">{t('noResults')}</p>
           <button 
             onClick={() => { setSearchTerm(''); setLanguageFilter('all'); setCityFilter('all'); }}
             className="mt-4 text-green-600 font-semibold hover:underline"
           >
-            Ver todos los guías
+            {t('noResultsDesc')}
           </button>
         </div>
       )}

@@ -185,5 +185,33 @@
     "techA2": "Sí. Usamos encriptación SSL, cumplimos con estándares de privacidad internacionales y nunca compartimos tu información personal sin tu consentimiento.",
     "techQ3": "¿En qué países está disponible?",
     "techA3": "Actualmente RutaLink está enfocado en México, pero estamos expandiéndonos a otros países de Latinoamérica."
+  },
+  "support": {
+    "title": "Centro de Soporte",
+    "subtitle": "Estamos aquí para ayudarte",
+    "backHome": "Volver al inicio",
+    "emailTitle": "Email",
+    "emailDesc": "Envíanos un correo con tu consulta y te respondemos en menos de 24 horas",
+    "emailResponse": "Respuesta en ~12-24 horas",
+    "whatsappTitle": "WhatsApp",
+    "whatsappDesc": "Chatea con nosotros directamente para soporte inmediato",
+    "openWhatsapp": "Abrir WhatsApp",
+    "whatsappHours": "Lun-Vie 9:00-18:00 (GMT-6)",
+    "commonIssues": "Problemas Comunes",
+    "commonIssuesDesc": "Encuentra soluciones rápidas a los problemas más frecuentes",
+    "issueBooking": "Problemas con reserva",
+    "issueVerification": "Verificación de guía",
+    "issueRefunds": "Reembolsos y cancelaciones",
+    "issueAccount": "Cuenta y perfil",
+    "checkFaq": "¿Ya revisaste nuestro FAQ?",
+    "faqDesc": "La mayoría de preguntas ya están respondidas en nuestra sección de preguntas frecuentes",
+    "viewFaq": "Ver Preguntas Frecuentes",
+    "responseTimes": "Tiempos de respuesta esperados:",
+    "whatsappImmediate": "Respuesta inmediata durante horario laboral",
+    "emailTime": "12-24 horas en días hábiles",
+    "urgentCases": "Casos urgentes: Prioridad máxima, respuesta en 2-4 horas",
+    "businessHours": "Horario de atención:",
+    "businessHoursValue": "Lunes a Viernes, 9:00 AM - 6:00 PM (Hora del Centro de México)",
+    "afterHours": "Los mensajes recibidos fuera de horario serán atendidos el siguiente día hábil"
   }
 }
