@@ -3,8 +3,10 @@ import Image from 'next/image'
 import { cities } from '@/lib/seo/cities'
 import { MapPin } from 'lucide-react'
 import { createClient } from '@supabase/supabase-js'
+import { getTranslations } from 'next-intl/server'
 
 export async function DestinationsGrid() {
+  const t = await getTranslations('destinations')
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   const supabase = createClient(supabaseUrl, supabaseKey)
@@ -48,10 +50,10 @@ export async function DestinationsGrid() {
       <div className="container mx-auto px-5">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Explorez la Péninsule du Yucatán
+            {t('title')}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Découvrez les destinations les plus prisées avec des guides locaux experts
+            {t('subtitle')}
           </p>
         </div>
 
@@ -111,7 +113,7 @@ export async function DestinationsGrid() {
             href="/explorar"
             className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-semibold text-lg group"
           >
-            Voir toutes les destinations
+            {t('viewAll')}
             <svg
               className="w-5 h-5 group-hover:translate-x-1 transition-transform"
               fill="none"

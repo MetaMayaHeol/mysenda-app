@@ -1,0 +1,98 @@
+{
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "back": "Retour",
+    "next": "Suivant",
+    "search": "Rechercher",
+    "viewAll": "Voir tout"
+  },
+  "nav": {
+    "destinations": "Destinations",
+    "activities": "Activités",
+    "guides": "Guides",
+    "becomeGuide": "Je suis Guide",
+    "findGuide": "Trouver un Guide"
+  },
+  "home": {
+    "heroTitle": "Réservez des Guides Locaux Vérifiés — {highlight} ou Contact Direct",
+    "heroHighlight": "Paiement Sécurisé",
+    "heroSubtitle": "Trouvez votre guide parfait en quelques minutes. Communication directe, expériences authentiques.",
+    "heroSubtitle2": "Sans commission pour vous, 100% du paiement pour le guide.",
+    "ctaFindGuide": "Trouver Mon Guide",
+    "ctaBecome": "Je suis Guide Touristique",
+    "newWay": "La nouvelle façon de voyager",
+    "trustVerified": "Guides Vérifiés",
+    "trustVerifiedDesc": "Profils validés",
+    "trustDirect": "Contact Direct",
+    "trustDirectDesc": "Chat par WhatsApp",
+    "trustNoFees": "Sans Commission",
+    "trustNoFeesDesc": "100% pour le guide",
+    "trustGlobal": "International",
+    "trustGlobalDesc": "Guides multilingues"
+  },
+  "destinations": {
+    "title": "Explorez la Péninsule du Yucatán",
+    "subtitle": "Découvrez les destinations les plus prisées avec des guides locaux experts",
+    "viewAll": "Voir toutes les destinations",
+    "guides": "{count, plural, =1 {1 guide} other {# guides}}"
+  },
+  "activities": {
+    "title": "Explorer par Activité",
+    "subtitle": "Trouvez des expériences uniques avec des guides spécialisés",
+    "viewAll": "Voir toutes les activités",
+    "tours": "{count, plural, =1 {1 tour} other {# tours}}"
+  },
+  "testimonials": {
+    "title": "Ce que disent nos voyageurs",
+    "subtitle": "Des milliers d'expériences inoubliables avec des guides locaux",
+    "satisfaction": "{percent} de voyageurs satisfaits de nos guides"
+  },
+  "featuredGuides": {
+    "title": "Guides en Vedette",
+    "subtitle": "Rencontrez quelques-uns de nos experts locaux",
+    "viewAll": "Voir tous"
+  },
+  "howItWorks": {
+    "title": "Comment fonctionne RutaLink",
+    "subtitle": "Nous simplifions la connexion entre voyageurs et guides locaux.",
+    "forTravelers": "Pour les Voyageurs",
+    "forGuides": "Pour les Guides",
+    "step1Title": "Explorez les profils",
+    "step1Desc": "Trouvez des guides par destination, langue et spécialité.",
+    "step2Title": "Choisissez votre aventure",
+    "step2Desc": "Consultez les tours et services proposés.",
+    "step3Title": "Contactez directement",
+    "step3Desc": "Parlez par WhatsApp pour réserver. Sans intermédiaire.",
+    "guideStep1Title": "Créez votre profil",
+    "guideStep1Desc": "Inscrivez-vous gratuitement et configurez votre page.",
+    "guideStep2Title": "Publiez vos services",
+    "guideStep2Desc": "Ajoutez photos, prix et horaires de vos tours.",
+    "guideStep3Title": "Recevez des réservations",
+    "guideStep3Desc": "Les clients vous contactent directement sur WhatsApp."
+  },
+  "cta": {
+    "title": "Prêt à commencer ?",
+    "subtitle": "Rejoignez la communauté de guides et voyageurs qui changent la façon de voyager.",
+    "createProfile": "Créer ma page gratuitement",
+    "findGuide": "Trouver un guide"
+  },
+  "footer": {
+    "description": "RutaLink connecte les voyageurs avec des guides locaux pour des expériences authentiques sans intermédiaires.",
+    "platform": "Plateforme",
+    "exploreGuides": "Explorer les Guides",
+    "guideAccess": "Accès Guides",
+    "faq": "Questions Fréquentes",
+    "support": "Support",
+    "helpCenter": "Centre d'Aide",
+    "cancellationPolicy": "Politique d'Annulation",
+    "legal": "Mentions Légales",
+    "terms": "Conditions d'Utilisation",
+    "privacy": "Politique de Confidentialité",
+    "cookies": "Cookies",
+    "copyright": "© {year} RutaLink. Tous droits réservés.",
+    "madeWith": "Fait avec ❤️ pour les voyageurs et guides"
+  }
+}
