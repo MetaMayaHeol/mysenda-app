@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react'
-import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
 
 interface Testimonial {
   name: string
@@ -34,14 +34,16 @@ const testimonials: Testimonial[] = [
   },
   {
     name: 'Sophie Dubois',
-    location: 'Francia',
+    location: 'France',
     rating: 5,
-    quote: 'J\'ai adoré Bacalar! Le guide était passionné et très professionnel. Une expérience authentique dans la lagune.',
+    quote: "J'ai adoré Bacalar! Le guide était passionné et très professionnel. Une expérience authentique dans la lagune.",
     tourReference: 'Tour en la Laguna de Bacalar',
   },
 ]
 
-export function TestimonialsSection() {
+export async function TestimonialsSection() {
+  const t = await getTranslations('testimonials')
+
   // Generate avatar initials
   const getInitials = (name: string) => {
     const parts = name.split(' ')
@@ -66,10 +68,10 @@ export function TestimonialsSection() {
       <div className="container mx-auto px-5">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Lo que dicen nuestros viajeros
+            {t('title')}
           </h2>
           <p className="text-xl text-gray-600">
-            Miles de experiencias auténticas compartidas por viajeros como tú
+            {t('subtitle')}
           </p>
         </div>
 
@@ -125,7 +127,7 @@ export function TestimonialsSection() {
         {/* Additional testimonials count */}
         <div className="text-center mt-12">
           <p className="text-gray-600">
-            <strong className="text-green-600 text-2xl font-bold">100%</strong> de viajeros satisfechos con nuestros guías
+            <strong className="text-green-600 text-2xl font-bold">100%</strong> {t('satisfaction', { percent: '100%' }).replace('100%', '')}
           </p>
         </div>
       </div>
