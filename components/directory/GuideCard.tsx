@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { LANGUAGE_NAMES } from '@/lib/utils/constants'
 import { VerificationBadgeModal } from '@/components/public/VerificationBadgeModal'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 
 interface GuideCardProps {
   guide: {
@@ -24,6 +26,8 @@ interface GuideCardProps {
 }
 
 export function GuideCard({ guide }: GuideCardProps) {
+  const t = useTranslations('guideCard')
+  const locale = useLocale()
   const [showVerificationModal, setShowVerificationModal] = useState(false)
 
   return (
@@ -69,8 +73,8 @@ export function GuideCard({ guide }: GuideCardProps) {
                   setShowVerificationModal(true)
                 }}
                 className="text-green-500 hover:text-green-600 transition-colors cursor-pointer"
-                title="Guía Verificado - Haz clic para más información"
-                aria-label="Ver información de verificación"
+                title={t('verifiedGuide')}
+                aria-label={t('viewVerification')}
               >
                 <ShieldCheck size={20} fill="currentColor" className="text-green-100 stroke-green-600" />
               </button>
@@ -123,9 +127,9 @@ export function GuideCard({ guide }: GuideCardProps) {
             </p>
           )}
 
-          <Link href={`/g/${guide.slug}`} className="mt-auto">
+          <Link href={`/${locale}/g/${guide.slug}`} className="mt-auto">
             <Button className="w-full bg-gray-900 text-white hover:bg-gray-800">
-              Ver Perfil
+              {t('viewProfile')}
             </Button>
           </Link>
         </div>

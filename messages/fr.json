@@ -43,7 +43,55 @@
     "title": "Explorer par Activité",
     "subtitle": "Trouvez des expériences uniques avec des guides spécialisés",
     "viewAll": "Voir toutes les activités",
-    "tours": "{count, plural, =1 {1 tour} other {# tours}}"
+    "tours": "{count, plural, =1 {1 tour} other {# tours}}",
+    "gastronomia": {
+      "name": "Gastronomie",
+      "description": "Découvrez les saveurs authentiques de la cuisine yucatèque et maya. Tours gastronomiques avec des guides experts qui vous emmèneront dans les marchés locaux, restaurants traditionnels et expériences culinaires uniques.",
+      "metaDescription": "Tours gastronomiques dans la Péninsule du Yucatán. Cuisine maya, yucatèque et caribéenne avec guides locaux.",
+      "keywords": "cochinita pibil|salbutes|panuchos|poc chuc|marchés"
+    },
+    "cultura-historia": {
+      "name": "Culture et Histoire",
+      "description": "Plongez dans la riche histoire maya et coloniale de la péninsule. Visites guidées de sites historiques, musées et centres culturels avec des récits profonds et contextualisés.",
+      "metaDescription": "Tours culturels et historiques au Yucatán. Histoire maya, coloniale et contemporaine.",
+      "keywords": "histoire maya|colonial|musées|patrimoine|traditions"
+    },
+    "naturaleza-aventura": {
+      "name": "Nature et Aventure",
+      "description": "Explorez la biodiversité unique de la péninsule. Cénotes, jungles, réserves de biosphère et aventures écotouristiques avec des guides spécialisés en nature.",
+      "metaDescription": "Tours d'aventure et nature au Yucatán. Cénotes, jungle, flamants roses et écotourisme.",
+      "keywords": "cénotes|flamants|mangroves|réserves|biodiversité"
+    },
+    "arqueologia": {
+      "name": "Archéologie Maya",
+      "description": "Visitez les impressionnantes zones archéologiques mayas avec des guides certifiés. Chichén Itzá, Uxmal, Calakmul, Ek Balam et plus de sites classés au patrimoine mondial.",
+      "metaDescription": "Tours archéologiques mayas avec guides certifiés. Chichén Itzá, Uxmal, Calakmul et plus.",
+      "keywords": "chichén itzá|uxmal|calakmul|ek balam|ruines mayas"
+    },
+    "fotografia": {
+      "name": "Photographie",
+      "description": "Tours spécialisés pour photographes amateurs et professionnels. Capturez la beauté de la péninsule avec des guides qui connaissent les meilleurs angles et moments de la journée.",
+      "metaDescription": "Photo tours au Yucatán avec guides spécialisés. Capturez cénotes, architecture et nature.",
+      "keywords": "photo tours|photographie|instagram|coucher de soleil|heure dorée"
+    },
+    "ecoturismo": {
+      "name": "Écotourisme",
+      "description": "Tourisme responsable en contact avec la nature. Observation d'oiseaux, flore et faune, avec un accent sur la conservation et le respect de l'environnement.",
+      "metaDescription": "Écotourisme dans la Péninsule du Yucatán. Tours durables et conservation.",
+      "keywords": "durable|conservation|oiseaux|flore|faune"
+    },
+    "arte-artesanias": {
+      "name": "Art et Artisanat",
+      "description": "Rencontrez des artisans locaux et apprenez les techniques traditionnelles. Broderies, hamacs, bijoux, céramique et autres expressions artistiques de la région.",
+      "metaDescription": "Tours d'art et artisanat au Yucatán. Rencontrez artisans et traditions locales.",
+      "keywords": "artisanat|broderies|hamacs|bijoux|ateliers"
+    },
+    "playas-snorkel": {
+      "name": "Plages et Snorkel",
+      "description": "Profitez des meilleures plages des Caraïbes mexicaines et du Golfe du Mexique. Snorkel dans les récifs coralliens, nage avec les tortues et sports nautiques.",
+      "metaDescription": "Tours de plage et snorkel sur la Riviera Maya et la côte yucatèque. Récifs et vie marine.",
+      "keywords": "snorkel|plongée|récif|tortues|caraïbes"
+    }
   },
   "testimonials": {
     "title": "Ce que disent nos voyageurs",
@@ -304,6 +352,118 @@
     "popularActivities": "Activités populaires dans la Péninsule du Yucatán",
     "areYouGuide": "Êtes-vous guide touristique à {city} ?",
     "joinRutaLink": "Rejoignez RutaLink et connectez-vous avec des voyageurs à la recherche d'expériences authentiques",
-    "createProfileFree": "Créer mon profil gratuitement"
+    "createProfileFree": "Créer mon profil gratuitement",
+    "heroTitle": "Guides Touristiques à",
+    "localGuidesCount": "Guides Locaux",
+    "tourTypesCount": "Types de Tours"
+  },
+  "guideCard": {
+    "viewProfile": "Voir le Profil",
+    "verifiedGuide": "Guide Vérifié - Cliquez pour plus d'informations",
+    "viewVerification": "Voir les informations de vérification"
+  },
+  "cityFaq": {
+    "bestTime": "Quelle est la meilleure période pour visiter {city} ?",
+    "bestTimeAnswer": "La meilleure période pour visiter {city} est généralement de novembre à mars, lorsque le climat est plus frais et sec. Cependant, {city} a son charme toute l'année.",
+    "needGuide": "Ai-je besoin d'un guide touristique pour visiter {city} ?",
+    "needGuideAnswer": "Bien que vous puissiez parcourir {city} par vous-même, engager un guide local certifié vous permettra de découvrir des histoires cachées, d'accéder à des lieux exclusifs et de mieux comprendre la culture locale.",
+    "mustDo": "Quelles activités ne dois-je pas manquer à {city} ?",
+    "mustDoAnswer": "À {city}, ne manquez pas son centre historique, la gastronomie locale et les zones archéologiques à proximité. Un guide local peut personnaliser un itinéraire selon vos intérêts.",
+    "isSafe": "Est-il sûr de voyager à {city} ?",
+    "isSafeAnswer": "{city} est considéré comme une destination sûre dans la région. Comme dans tout lieu touristique, il est recommandé de prendre des précautions de base et de suivre les recommandations des locaux.",
+    "findGuides": "Comment trouver des guides fiables à {city} ?",
+    "findGuidesAnswer": "Sur RutaLink, vous pouvez trouver des profils de guides vérifiés à {city}, lire les avis d'autres voyageurs et les contacter directement via WhatsApp sans intermédiaires."
+  },
+  "cities": {
+    "merida": {
+      "name": "Mérida",
+      "description": "Capitale du Yucatán, la Ville Blanche connue pour son architecture coloniale, ses cénotes proches et sa riche tradition gastronomique yucatèque.",
+      "metaDescription": "Découvrez Mérida avec des guides locaux experts. Tours culturels, gastronomiques et archéologiques dans la capitale yucatèque.",
+      "highlights": "Cénotes|Zones Mayas|Gastronomie Yucatèque|Paseo de Montejo"
+    },
+    "valladolid": {
+      "name": "Valladolid",
+      "description": "Village Magique proche de Chichén Itzá, avec des cénotes impressionnants et une architecture coloniale colorée.",
+      "metaDescription": "Guides locaux à Valladolid pour tours à Chichén Itzá, cénotes et parcours coloniaux.",
+      "highlights": "Cénote Zací|Chichén Itzá|Architecture Coloniale|Calzada de los Frailes"
+    },
+    "izamal": {
+      "name": "Izamal",
+      "description": "La Ville Jaune, Village Magique célèbre pour son couvent franciscain et ses pyramides mayas.",
+      "metaDescription": "Tours à Izamal avec guides locaux. Découvrez la magie de la Ville Jaune et ses pyramides.",
+      "highlights": "Couvent Franciscain|Pyramides Mayas|Artisanat|Calèches"
+    },
+    "rio-lagartos": {
+      "name": "Río Lagartos",
+      "description": "Réserve de biosphère avec des milliers de flamants roses, mangroves et une biodiversité unique.",
+      "metaDescription": "Tours d'observation de flamants à Río Lagartos avec guides spécialisés en écotourisme.",
+      "highlights": "Flamants Roses|Mangroves|Ría|Pêche Sportive"
+    },
+    "mani": {
+      "name": "Maní",
+      "description": "Village Magique berceau du poc chuc, avec une histoire maya et coloniale fascinante.",
+      "metaDescription": "Tours gastronomiques à Maní, berceau du poc chuc. Guides locaux experts.",
+      "highlights": "Gastronomie Typique|Couvent de San Miguel|Histoire Maya|Poc Chuc"
+    },
+    "uxmal": {
+      "name": "Uxmal",
+      "description": "Zone archéologique Patrimoine de l'Humanité, représentant majeur du style architectural Puuc.",
+      "metaDescription": "Guides archéologiques spécialisés à Uxmal. Découvrez la majestueuse Pyramide du Devin.",
+      "highlights": "Pyramide du Devin|Architecture Puuc|Ruines Mayas|Spectacle de Lumière"
+    },
+    "celestun": {
+      "name": "Celestún",
+      "description": "Réserve de biosphère célèbre pour ses flamants roses, mangroves et plages vierges.",
+      "metaDescription": "Tours de nature à Celestún avec guides spécialisés. Flamants, mangroves et plages.",
+      "highlights": "Flamants|Mangroves|Plage Tranquille|Source d'Eau Douce"
+    },
+    "sisal": {
+      "name": "Sisal",
+      "description": "Port historique et village de pêcheurs avec des plages tranquilles et une gastronomie marine authentique.",
+      "metaDescription": "Découvrez Sisal avec des guides locaux. Histoire, plages et la meilleure gastronomie marine du Yucatán.",
+      "highlights": "Port Historique|Plage Tranquille|Histoire du Henequen|Gastronomie Marine"
+    },
+    "playa-del-carmen": {
+      "name": "Playa del Carmen",
+      "description": "Ville cosmopolite de la Riviera Maya, porte vers Cozumel et des cénotes impressionnants.",
+      "metaDescription": "Guides locaux à Playa del Carmen pour tours vers cénotes, Cozumel et Riviera Maya.",
+      "highlights": "Quinta Avenida|Ferry pour Cozumel|Cénotes|Vie Nocturne"
+    },
+    "tulum": {
+      "name": "Tulum",
+      "description": "Ruines mayas face à la mer des Caraïbes, plages paradisiaques et cénotes sacrés.",
+      "metaDescription": "Tours archéologiques et de nature à Tulum avec guides experts. Ruines, plages et cénotes.",
+      "highlights": "Zone Archéologique Face à la Mer|Plages|Cénotes|Vie Bohème"
+    },
+    "bacalar": {
+      "name": "Bacalar",
+      "description": "La Lagune aux 7 Couleurs, village magique aux eaux cristallines et cénotes uniques.",
+      "metaDescription": "Tours dans la Lagune de Bacalar avec guides locaux. Kayak, snorkel et nature.",
+      "highlights": "Lagune aux 7 Couleurs|Cénote Bleu|Fort de San Felipe|Kayak"
+    },
+    "isla-mujeres": {
+      "name": "Isla Mujeres",
+      "description": "Île paradisiaque avec plages de sable blanc, récifs coralliens et ambiance caribéenne.",
+      "metaDescription": "Guides spécialisés à Isla Mujeres. Tours de snorkel, plages et culture caribéenne.",
+      "highlights": "Plages Paradisiaques|Snorkel et Plongée|Tortues Marines|Punta Sur"
+    },
+    "campeche": {
+      "name": "Campeche",
+      "description": "Ville Patrimoine de l'Humanité avec murailles coloniales, forts et centre historique coloré.",
+      "metaDescription": "Tours historiques à Campeche avec guides certifiés. Ville Patrimoine de l'Humanité.",
+      "highlights": "Centre Historique|Murailles Coloniales|Forts|Malecón"
+    },
+    "calakmul": {
+      "name": "Calakmul",
+      "description": "Zone archéologique maya au cœur de la jungle, réserve de biosphère avec faune sauvage.",
+      "metaDescription": "Expéditions archéologiques à Calakmul avec guides experts en culture maya et nature.",
+      "highlights": "Ruines Mayas|Réserve de Biosphère|Faune Sauvage|Jungle Vierge"
+    },
+    "isla-aguada": {
+      "name": "Isla Aguada",
+      "description": "Village de pêcheurs sur la côte avec flamants, plages vierges et tradition de pêche.",
+      "metaDescription": "Tours de pêche et nature à Isla Aguada. Flamants et tradition de pêche authentique.",
+      "highlights": "Flamants|Pêche Sportive|Plages Vierges|Lagune de Terminos"
+    }
   }
 }

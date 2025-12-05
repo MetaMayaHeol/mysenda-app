@@ -6,9 +6,14 @@ interface CityHeroProps {
   city: City
   guideCount?: number
   activityCount?: number
+  translations: {
+    heroTitle: string
+    localGuidesCount: string
+    tourTypesCount: string
+  }
 }
 
-export function CityHero({ city, guideCount = 0, activityCount = 0 }: CityHeroProps) {
+export function CityHero({ city, guideCount = 0, activityCount = 0, translations }: CityHeroProps) {
   return (
     <div className="relative bg-gray-900 text-white overflow-hidden">
       {/* Background Image */}
@@ -45,7 +50,7 @@ export function CityHero({ city, guideCount = 0, activityCount = 0 }: CityHeroPr
           
           {/* Title */}
           <h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
-            Guías Turísticos en <span className="text-green-400">{city.name}</span>
+            {translations.heroTitle} <span className="text-green-400">{city.name}</span>
           </h1>
           
           {/* Description */}
@@ -71,13 +76,13 @@ export function CityHero({ city, guideCount = 0, activityCount = 0 }: CityHeroPr
               {guideCount > 0 && (
                 <div>
                   <div className="text-3xl font-bold text-green-400">{guideCount}</div>
-                  <div className="text-gray-400">Guías Locales</div>
+                  <div className="text-gray-400">{translations.localGuidesCount}</div>
                 </div>
               )}
               {activityCount > 0 && (
                 <div>
                   <div className="text-3xl font-bold text-green-400">{activityCount}</div>
-                  <div className="text-gray-400">Tipos de Tours</div>
+                  <div className="text-gray-400">{translations.tourTypesCount}</div>
                 </div>
               )}
             </div>
