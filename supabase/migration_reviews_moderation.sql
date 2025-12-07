@@ -11,6 +11,8 @@ ADD COLUMN IF NOT EXISTS reviewer_identifier TEXT;
 
 -- 3. Update RLS Policy to only show approved reviews
 DROP POLICY IF EXISTS "Reviews are viewable by everyone" ON public.reviews;
+DROP POLICY IF EXISTS "Approved reviews are viewable by everyone" ON public.reviews;
+
 CREATE POLICY "Approved reviews are viewable by everyone" 
 ON public.reviews FOR SELECT 
 USING (approved = true);

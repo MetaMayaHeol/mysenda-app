@@ -6,21 +6,21 @@ Ce document décrit la trajectoire du projet, en priorisant la finalisation du M
 **Objectif :** Avoir une plateforme 100% fonctionnelle, traduite et optimisée pour l'acquisition d'utilisateurs.
 
 ### 1.1 Internationalization (i18n) & Contenu 🌍
-- [ ] **Pages Villes & Activités** : Finaliser la traduction dynamique des pages `/ciudad/[slug]` et `/actividad/[slug]`.
-- [ ] **Nettoyage Textes** : Extraire les derniers textes "en dur" vers les fichiers de messages (`messages/es.json`, etc.).
-- [ ] **Metadata SEO** : S'assurer que les titres/descriptions changent bien selon la langue choisie.
+- [x] **Pages Villes & Activités** : Finaliser la traduction dynamique des pages `/ciudad/[slug]` et `/actividad/[slug]`.
+- [x] **Nettoyage Textes** : Extraire les derniers textes "en dur" vers les fichiers de messages (`messages/es.json`, etc.).
+- [x] **Metadata SEO** : S'assurer que les titres/descriptions changent bien selon la langue choisie.
 
 ### 1.2 Expérience Utilisateur (UX/UI) 🎨
-- [ ] **Onboarding** : Vérifier que le flux "Nouveau Guide" est fluide (Inscription -> Profil -> Premier Service).
-- [ ] **Pages Publiques** : 
+- [x] **Onboarding** : Vérifier que le flux "Nouveau Guide" est fluide (Inscription -> Profil -> Premier Service).
+- [x] **Pages Publiques** : 
     - Vérifier l'affichage `/g/[slug]` (Profil Guide).
     - Vérifier l'affichage `/s/[id]` (Détail Service).
     - S'assurer que le bouton WhatsApp génère le bon message pré-rempli.
-- [ ] **Mobile** : Vérifier le responsive sur mobile (menu, cards, formulaires).
+- [x] **Mobile** : Vérifier le responsive sur mobile (menu, cards, formulaires).
 
 ### 1.3 Fonctionnalités Core "En attente" ⚙️
 - [x] **Analytics** : Finaliser le dashboard basique (Vues par jour, Clics WhatsApp).
-- [ ] **Modération** : Activer le système d'approbation des avis (Reviews).
+- [x] **Modération** : Activer le système d'approbation des avis (Reviews).
 
 ---
 
