@@ -2,6 +2,7 @@
 
 import { createClient } from '@/lib/supabase/server'
 import { serviceSchema, type ServiceFormValues } from '@/lib/utils/validators'
+import { indexSingleService, deleteServiceIndex } from '@/lib/ai/indexer'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
@@ -67,6 +68,9 @@ export async function createService(formData: ServiceFormValues) {
       console.error('Error uploading photos:', photosError)
     }
   }
+
+  // 3. Trigger Indexing (Background)
+  indexSingleService(service.id).catch(console.error)
 
   revalidatePath('/dashboard')
   revalidatePath('/dashboard/services')
@@ -134,6 +138,9 @@ export async function updateService(serviceId: string, formData: ServiceFormValu
     }
   }
 
+  // 3. Trigger Index Update (Background)
+  indexSingleService(serviceId).catch(console.error)
+
   revalidatePath('/dashboard')
   revalidatePath('/dashboard/services')
   revalidatePath(`/dashboard/services/${serviceId}`)
@@ -181,6 +188,9 @@ export async function deleteService(serviceId: string) {
   if (error) {
     return { error: 'Error al eliminar el servicio' }
   }
+
+  // 3. Remove from Index (Background)
+  deleteServiceIndex(serviceId).catch(console.error)
 
   revalidatePath('/dashboard')
   revalidatePath('/dashboard/services')
