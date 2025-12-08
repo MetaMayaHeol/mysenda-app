@@ -1,16 +1,20 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useTransition } from 'react'
 import { format } from 'date-fns'
 import { es } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { generateWhatsAppLink, openWhatsApp } from '@/lib/whatsapp'
-import { CalendarIcon, Clock, Send } from 'lucide-react'
+import { CalendarIcon, Clock, Send, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 import { trackWhatsappClick } from '@/lib/actions/analytics'
+import { createBooking } from '@/app/actions/booking'
+import { toast } from 'sonner' // Assuming sonner is installed as per package.json
 
 interface BookingSectionProps {
   serviceName: string
@@ -31,27 +35,57 @@ export function BookingSection({
 }: BookingSectionProps) {
   const [date, setDate] = useState<Date>()
   const [time, setTime] = useState<string>()
+  const [name, setName] = useState('')
+  const [customerWhatsapp, setCustomerWhatsapp] = useState('')
+  
+  const [isPending, startTransition] = useTransition()
 
-  const handleBooking = () => {
-    if (!date || !time) return
+  const handleBooking = async () => {
+    if (!date || !time || !name || !customerWhatsapp) {
+      toast.error('Por favor completa todos los campos')
+      return
+    }
 
-    // Track click
-    trackWhatsappClick('service', guideId, serviceId)
-      .catch(err => console.error('Error tracking booking click:', err))
+    startTransition(async () => {
+      try {
+        const formData = new FormData()
+        formData.append('service_id', serviceId)
+        formData.append('user_id', guideId)
+        formData.append('customer_name', name)
+        formData.append('customer_whatsapp', customerWhatsapp)
+        formData.append('date', format(date, 'yyyy-MM-dd'))
+        formData.append('time', time)
 
-    const formattedDate = format(date, 'd MMM yyyy', { locale: es })
-    const link = generateWhatsAppLink(whatsapp, serviceName, formattedDate, time)
-    openWhatsApp(link)
+        const result = await createBooking(null, formData)
+
+        if (!result.success) {
+          toast.error(result.error)
+          return
+        }
+
+        toast.success(result.message)
+
+        // Track analytics
+        trackWhatsappClick('service', guideId, serviceId)
+          .catch(err => console.error('Error tracking booking click:', err))
+
+        // Redirect to WhatsApp
+        const formattedDate = format(date, 'd MMM yyyy', { locale: es })
+        const link = generateWhatsAppLink(whatsapp, serviceName, formattedDate, time)
+        
+        // Give a small delay so user sees success message? No, immediate is better.
+        openWhatsApp(link)
+        
+        // Reset form? Maybe not needed if they leave page.
+      } catch (error) {
+        console.error(error)
+        toast.error('Ocurrió un error inesperado')
+      }
+    })
   }
 
   // Disable dates that are not in availableWeekdays
   const isDateDisabled = (date: Date) => {
-    // getDay() returns 0 for Sunday, 1 for Monday...
-    // Our DB uses 0 for Monday, 6 for Sunday (from constants.ts WEEKDAYS)
-    // So we need to map JS getDay() to our system
-    // JS: 0=Sun, 1=Mon, ..., 6=Sat
-    // Ours: 0=Mon, ..., 5=Sat, 6=Sun
-    
     const jsDay = date.getDay()
     const ourDay = jsDay === 0 ? 6 : jsDay - 1
     
@@ -65,7 +99,7 @@ export function BookingSection({
         
         {/* Date Picker */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Fecha</label>
+          <Label>Fecha</Label>
           <Popover>
             <PopoverTrigger asChild>
               <Button
@@ -94,7 +128,7 @@ export function BookingSection({
         {/* Time Slots */}
         {date && (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Horario</label>
+            <Label>Horario</Label>
             <div className="grid grid-cols-3 gap-2">
               {availableTimeslots.map((slot) => (
                 <button
@@ -113,17 +147,52 @@ export function BookingSection({
             </div>
           </div>
         )}
+
+        {/* User Details */}
+        {date && time && (
+          <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
+            <div className="space-y-2">
+              <Label htmlFor="name">Tu Nombre</Label>
+              <Input 
+                id="name" 
+                placeholder="Ej. Juan Pérez" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="whatsapp">Tu WhatsApp</Label>
+              <Input 
+                id="whatsapp" 
+                placeholder="+52..." 
+                type="tel" 
+                value={customerWhatsapp} 
+                onChange={(e) => setCustomerWhatsapp(e.target.value)} 
+              />
+              <p className="text-xs text-muted-foreground">Te contactaremos a este número para confirmar.</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Sticky CTA */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-20">
         <Button 
           onClick={handleBooking}
-          disabled={!date || !time}
+          disabled={!date || !time || !name || !customerWhatsapp || isPending}
           className="w-full bg-green-500 hover:bg-green-600 text-white font-bold h-12 text-lg gap-2"
         >
-          <Send size={20} />
-          Reservar por WhatsApp
+          {isPending ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Procesando...
+            </>
+          ) : (
+            <>
+              <Send size={20} />
+              Solicitar Reserva
+            </>
+          )}
         </Button>
       </div>
     </div>

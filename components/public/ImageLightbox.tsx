@@ -55,7 +55,7 @@ export function ImageLightbox({ images, initialIndex = 0 }: ImageLightboxProps) 
               alt={image.alt}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
-              quality={95}
+              quality={75}
               sizes={index === 0 ? "(max-width: 768px) 100vw, 1400px" : "(max-width: 768px) 100vw, 800px"}
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">

@@ -29,3 +29,17 @@ export const serviceSchema = z.object({
 })
 
 export type ServiceFormValues = z.infer<typeof serviceSchema>
+
+// ... existing exports
+
+export const bookingSchema = z.object({
+  service_id: z.string().uuid(),
+  user_id: z.string().uuid(), // The guide's ID
+  customer_name: z.string().min(2, 'Tu nombre es requerido').max(100).regex(/^[^<>]*$/, 'Caracteres no permitidos'),
+  customer_whatsapp: z.string().regex(/^\+?[1-9]\d{1,14}$/, 'Número de WhatsApp inválido'),
+  date: z.string().refine((val) => !isNaN(Date.parse(val)), 'Fecha inválida'),
+  time: z.string().min(1, 'Hora requerida'),
+})
+
+export type BookingFormValues = z.infer<typeof bookingSchema>
+

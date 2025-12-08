@@ -27,6 +27,7 @@ export async function DestinationsGrid() {
         `)
         .contains('locations', [city.name])
         .eq('active', true)
+        .is('deleted_at', null)
         .eq('user.public_links.active', true)
       
       // Get unique user IDs
@@ -58,7 +59,7 @@ export async function DestinationsGrid() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {displayCities.map((city) => (
+          {displayCities.map((city, index) => (
             <Link
               key={city.slug}
               href={`/ciudad/${city.slug}`}
@@ -73,6 +74,7 @@ export async function DestinationsGrid() {
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-110"
                     sizes="(max-width: 768px) 50vw, 25vw"
+                    priority={index < 4}
                   />
                 ) : (
                   <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-green-100" />

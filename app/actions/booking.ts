@@ -1,0 +1,71 @@
+'use server'
+
+import { createClient } from '@/lib/supabase/server'
+import { bookingSchema, type BookingFormValues } from '@/lib/utils/validators'
+import { apiRateLimit } from '@/lib/ratelimit'
+import { headers } from 'next/headers'
+import { revalidatePath } from 'next/cache'
+
+export async function createBooking(prevState: any, formData: FormData) {
+  // 1. Rate Limiting
+  const headersList = await headers()
+  const ip = headersList.get('x-forwarded-for') ?? '127.0.0.1'
+  const { success: allowed } = await apiRateLimit.limit(ip)
+
+  if (!allowed) {
+    return { error: 'Demasiadas solicitudes. Intenta más tarde.', success: false }
+  }
+
+  // 2. Parse & Validate
+  const rawData = {
+    service_id: formData.get('service_id'),
+    user_id: formData.get('user_id'),
+    customer_name: formData.get('customer_name'),
+    customer_whatsapp: formData.get('customer_whatsapp'),
+    date: formData.get('date'),
+    time: formData.get('time'),
+  }
+
+  const validated = bookingSchema.safeParse(rawData)
+  if (!validated.success) {
+    return { error: 'Datos inválidos', success: false }
+  }
+
+  const { service_id, user_id, customer_name, customer_whatsapp, date, time } = validated.data
+  const supabase = await createClient()
+
+  // 3. Double Booking Check
+  // Check if there is already a confirmed or pending booking for this slot
+  const { data: existing, error: checkError } = await supabase
+    .from('bookings')
+    .select('id')
+    .eq('service_id', service_id)
+    .eq('date', date)
+    .eq('time', time)
+    .in('status', ['confirmed', 'pending_confirmation'])
+    .single()
+
+  if (existing) {
+    return { error: 'Este horario ya no está disponible.', success: false }
+  }
+
+  // 4. Create Booking
+  const { error: insertError } = await supabase
+    .from('bookings')
+    .insert({
+      service_id,
+      user_id,
+      customer_name,
+      customer_whatsapp,
+      date,
+      time,
+      status: 'pending_confirmation'
+    })
+
+  if (insertError) {
+    console.error('Booking Error:', insertError)
+    return { error: 'Error al procesar la reserva.', success: false }
+  }
+
+  return { success: true, message: 'Solicitud enviada. Redirigiendo a WhatsApp...' }
+}

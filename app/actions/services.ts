@@ -181,7 +181,7 @@ export async function deleteService(serviceId: string) {
 
   const { error } = await supabase
     .from('services')
-    .delete()
+    .update({ deleted_at: new Date().toISOString() })
     .eq('id', serviceId)
     .eq('user_id', user.id)
 

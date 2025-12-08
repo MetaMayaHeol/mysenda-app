@@ -83,6 +83,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     .from('services')
     .select('id, title, description, price, duration, user_id')
     .eq('id', serviceId)
+    .is('deleted_at', null)
     .single()
 
   if (!service) {
