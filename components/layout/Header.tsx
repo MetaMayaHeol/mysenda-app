@@ -137,7 +137,7 @@ export function Header({ user }: { user?: User | null }) {
                      Log In
                    </Button>
                  </Link>
-                 <Link href={`/${locale}/auth?view=signup&role=guide`}>
+                 <Link href={`/${locale}/auth/login?view=signup&role=guide`}>
                    <Button variant="default" className="bg-green-600 hover:bg-green-700">
                      {t('becomeGuide')}
                    </Button>

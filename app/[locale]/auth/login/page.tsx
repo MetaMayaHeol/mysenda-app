@@ -18,9 +18,12 @@ const initialState = {
 export default function LoginPage() {
   const [state, action, isPending] = useActionState(signInWithEmail, initialState)
   const [origin, setOrigin] = useState('')
+  const [isGuideSignup, setIsGuideSignup] = useState(false)
 
   useEffect(() => {
     setOrigin(window.location.origin)
+    const params = new URLSearchParams(window.location.search)
+    setIsGuideSignup(params.get('role') === 'guide')
   }, [])
 
   return (
@@ -31,8 +34,14 @@ export default function LoginPage() {
           <span className="text-white text-3xl font-bold">R</span>
         </div>
 
-        <h1 className="text-3xl font-bold text-center mb-2">RutaLink</h1>
-        <p className="text-center text-gray-600 mb-8">Crea tu página en 2 minutos</p>
+        <h1 className="text-3xl font-bold text-center mb-2">
+          {isGuideSignup ? 'Regístrate como Guía' : 'RutaLink'}
+        </h1>
+        <p className="text-center text-gray-600 mb-8">
+          {isGuideSignup 
+            ? 'Únete a la comunidad de guías verificados.' 
+            : 'Crea tu página en 2 minutos'}
+        </p>
 
         <form action={action} className="space-y-4">
           <input type="hidden" name="origin" value={origin} />
