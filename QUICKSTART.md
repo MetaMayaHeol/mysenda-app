@@ -10,24 +10,28 @@
 ### 1.2 Créer un nouveau projet
 1. Clique sur "New Project"
 2. Choisis un nom: `rutalink-dev`
-3. Choisis un mot de passe de base de données (garde-le en sécurité!)
+3. Choisis un mot de passe fort
 4. Choisis une région proche (ex: South America pour le Mexique)
-5. Clique sur "Create new project"
-6. ⏳ Attends 2-3 minutes que le projet soit prêt
+5. Clique sur "Create new project" et attends que ce soit prêt.
 
 ### 1.3 Récupérer les clés API
-1. Dans ton projet, va dans **Settings** (icône ⚙️ en bas à gauche)
-2. Clique sur **API**
-3. Tu verras:
-   - **Project URL** → copie-le
-   - **anon/public key** → copie-le
-   - **service_role key** → copie-le (clique sur "Reveal" d'abord)
+1. Va dans **Settings** > **API**
+2. Copie:
+   - **Project URL**
+   - **anon/public key**
+3. ⚠️ **Important**: N'utilise JAMAIS la `service_role key` dans le code client (.env.local, fichiers JS, etc.). Elle donne accès total à la base de données.
 
-### 1.4 Créer la base de données
-1. Va dans **SQL Editor** (icône 📝 dans le menu de gauche)
-2. Clique sur "+ New query"
-3. Copie tout le contenu du fichier `supabase/schema.sql`
-4. Colle-le dans l'éditeur
+### 1.4 Créer la base de données (Migrations)
+1. Va dans **SQL Editor**
+2. Crée une "New query" pour chaque fichier ci-dessous et exécute-les **dans l'ordre**:
+   
+   **Script 1: Sécurité RLS et Tables de base**
+   - Ouvrir fichier: `supabase/migrations/20251208150000_secure_rls.sql`
+   - Copier/Coller et cliquer sur "Run"
+
+   **Script 2: Système de Réservation et Soft Delete**
+   - Ouvrir fichier: `supabase/migrations/20251208151500_bookings_and_soft_delete.sql`
+   - Copier/Coller et cliquer sur "Run"
 
 ## Étape 2: Configuration Locale (2 minutes)
 
@@ -43,12 +47,17 @@ npm install
    cp .env.example .env.local
    ```
 
-2. Ouvre `.env.local` et remplace les valeurs:
+2. Ouvre `.env.local` et mets à jour:
    ```env
    NEXT_PUBLIC_SUPABASE_URL=https://ton-projet.supabase.co
    NEXT_PUBLIC_SUPABASE_ANON_KEY=ta_anon_key_ici
-   SUPABASE_SERVICE_ROLE_KEY=ta_service_role_key_ici
    NEXT_PUBLIC_APP_URL=http://localhost:3000
+   
+   # Rate Limiting (Optionnel en dev, recommandé)
+   # Créer une DB Redis sur upstash.com pour avoir ces valeurs
+   # Si laissés vides, le rate limiting laissera passer les requêtes (fail-safe)
+   KV_REST_API_URL=
+   KV_REST_API_TOKEN=
    ```
 
 ## Étape 3: Lancer l'application (1 minute)
@@ -57,56 +66,30 @@ npm install
 npm run dev
 ```
 
-Ouvre ton navigateur sur [http://localhost:3000](http://localhost:3000)
+Visite [http://localhost:3000](http://localhost:3000)
 
 ## ✅ Vérification
 
 Tu devrais voir:
-1. ✅ La landing page de RutaLink
-2. ✅ Pouvoir cliquer sur "Comenzar gratis"
-3. ✅ Voir la page de login
-4. ✅ Entrer ton email et recevoir un "magic link"
-5. ✅ Cliquer sur le lien dans l'email
-6. ✅ Être redirigé vers le dashboard
+1. ✅ La landing page
+2. ✅ Pouvoir cliquer sur "Comenzar gratis" -> Page Login
+3. ✅ Entrer ton email -> Recevoir Magic Link (vérifier logs console si pas de mail en local)
+4. ✅ Dashboard (vide au début)
+5. ✅ Créer un Service (Page `/dashboard/services/new`)
+6. ✅ **Nouveau**: Sur la page publique du service, voir le formulaire de demande de réservation (Date/Heure/Nom/WhatsApp).
 
 ## 🐛 Problèmes Courants
 
-### Erreur: "Invalid API key"
-- ✅ Vérifie que tu as bien copié les clés depuis Supabase
-- ✅ Vérifie qu'il n'y a pas d'espaces avant/après les clés
-- ✅ Redémarre le serveur (`Ctrl+C` puis `npm run dev`)
+### Erreur RLS / Permissions
+- Vérifie que tu as bien exécuté le script `20251208150000_secure_rls.sql`.
 
-### Erreur: "relation 'users' does not exist"
-- ✅ Vérifie que tu as bien exécuté le script SQL dans Supabase
-- ✅ Va dans **Database** > **Tables** pour vérifier que les tables existent
+### "Relation 'bookings' does not exist"
+- Vérifie que tu as bien exécuté le script `20251208151500_bookings_and_soft_delete.sql`.
 
-### Je ne reçois pas l'email de Magic Link
-- ✅ Vérifie tes spams
-- ✅ Attends 1-2 minutes (peut être lent)
-- ✅ Va dans **Authentication** > **Users** dans Supabase pour voir si l'utilisateur a été créé
-- ✅ En développement, tu peux aussi copier le lien depuis les logs Supabase
-
-### Le dashboard est vide
-- ✅ C'est normal ! Tu n'as pas encore créé de services
-- ✅ Clique sur "Agregar un servicio" pour commencer
-
-## 📚 Prochaines Étapes
-
-Maintenant que tout fonctionne, tu peux:
-
-1. **Créer ta page de profil** → `/dashboard/profile` (à implémenter)
-2. **Ajouter des services** → `/dashboard/services/new` (à implémenter)
-3. **Configurer tes disponibilités** → `/dashboard/availability` (à implémenter)
-4. **Voir ta page publique** → `/g/ton-slug` (à implémenter)
-
-## 🆘 Besoin d'aide?
-
-- 📖 Consulte le [README.md](./README.md) pour plus de détails
-- 🐛 Vérifie les logs dans la console du navigateur (F12)
-- 📊 Vérifie les logs dans Supabase (**Logs** dans le menu)
+### Rate Limit Error (429)
+- Si tu testes trop vite le login, tu seras bloqué 60 secondes. C'est normal, c'est la sécurité !
 
 ---
 
-**Temps total estimé**: ~10 minutes ⏱️
-
+**Temps total estimé**: ~10-15 minutes ⏱️
 Bon développement! 🚀
