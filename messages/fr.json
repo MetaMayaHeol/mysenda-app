@@ -96,8 +96,8 @@
   },
   "testimonials": {
     "title": "Ce que disent nos voyageurs",
-    "subtitle": "Des milliers d'expériences authentiques partagées par des voyageurs comme vous",
-    "satisfaction": "{percent} de voyageurs satisfaits de nos guides"
+    "subtitle": "Expériences authentiques partagées par des voyageurs",
+    "satisfaction": "Voyageurs connectés avec des guides locaux"
   },
   "businessModel": {
     "badge": "Transparence Totale",

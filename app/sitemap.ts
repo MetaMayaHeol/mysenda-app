@@ -1,97 +1,97 @@
 import { MetadataRoute } from 'next'
-import { createStaticClient } from '@/lib/supabase/static'
 import { cities } from '@/lib/seo/cities'
 import { activities } from '@/lib/seo/activities'
+import { createStaticClient } from '@/lib/supabase/static'
+
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+const locales = ['es', 'fr']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink-app.vercel.app'
   const supabase = createStaticClient()
 
-  // Fetch all public links (guide profiles)
-  const { data: publicLinks } = await supabase
-    .from('public_links')
-    .select('slug, updated_at')
-    .order('updated_at', { ascending: false })
+  // 1. Static Routes
+  const staticRoutes = [
+    '',
+    '/explorar',
+    '/faq',
+    '/support',
+    '/cancellation-policy',
+    '/terms',
+    '/privacy',
+  ]
 
-  // Fetch all active services
+  const sitemapEntries: MetadataRoute.Sitemap = []
+
+  // Generate static pages for all locales
+  staticRoutes.forEach(route => {
+    locales.forEach(locale => {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}${route}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: route === '' ? 1.0 : 0.8,
+      })
+    })
+  })
+
+  // 2. Cities
+  cities.forEach(city => {
+    locales.forEach(locale => {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}/ciudad/${city.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.9,
+      })
+    })
+  })
+
+  // 3. Activities
+  activities.forEach(act => {
+    locales.forEach(locale => {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}/actividad/${act.slug}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.8,
+      })
+    })
+  })
+
+  // 4. Dynamic Services
   const { data: services } = await supabase
     .from('services')
     .select('id, updated_at')
+    .is('deleted_at', null)
+    .limit(1000)
+
+  services?.forEach(service => {
+    locales.forEach(locale => {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}/s/${service.id}`,
+        lastModified: new Date(service.updated_at),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      })
+    })
+  })
+
+  // 5. Dynamic Guides
+  const { data: guides } = await supabase
+    .from('public_links')
+    .select('slug, updated_at')
     .eq('active', true)
-    .order('updated_at', { ascending: false })
+    
+  guides?.forEach(guide => {
+    locales.forEach(locale => {
+      sitemapEntries.push({
+        url: `${baseUrl}/${locale}/g/${guide.slug}`,
+        lastModified: new Date(guide.updated_at),
+        changeFrequency: 'weekly',
+        priority: 0.8,
+      })
+    })
+  })
 
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 1,
-    },
-    {
-      url: `${baseUrl}/explorar`,
-      lastModified: new Date(),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/support`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/cancellation-policy`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.4,
-    },
-    {
-      url: `${baseUrl}/auth/login`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.3,
-    },
-  ]
-
-  // City pages (SEO landing pages)
-  const cityPages: MetadataRoute.Sitemap = cities.map((city) => ({
-    url: `${baseUrl}/ciudad/${city.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
-  // Activity pages (SEO landing pages)
-  const activityPages: MetadataRoute.Sitemap = activities.map((activity) => ({
-    url: `${baseUrl}/actividad/${activity.slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.8,
-  }))
-
-  // Guide profiles
-  const guidePages: MetadataRoute.Sitemap = (publicLinks || []).map((link) => ({
-    url: `${baseUrl}/g/${link.slug}`,
-    lastModified: new Date(link.updated_at),
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }))
-
-  // Services
-  const servicePages: MetadataRoute.Sitemap = (services || []).map((service) => ({
-    url: `${baseUrl}/s/${service.id}`,
-    lastModified: new Date(service.updated_at),
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-  }))
-
-  return [...staticPages, ...cityPages, ...activityPages, ...guidePages, ...servicePages]
+  return sitemapEntries
 }
-
