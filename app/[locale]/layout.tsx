@@ -44,6 +44,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
+import { createClient } from '@/lib/supabase/server'
+
+// ... imports ...
+
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   
@@ -58,11 +62,15 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Get messages for the current locale
   const messages = await getMessages()
 
+  // Get current user
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+
   return (
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-          <Header />
+          <Header user={user} />
           {children}
           <Toaster />
         </NextIntlClientProvider>

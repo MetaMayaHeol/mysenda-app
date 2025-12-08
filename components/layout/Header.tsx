@@ -17,8 +17,10 @@ import { cities } from '@/lib/seo/cities'
 import { activities } from '@/lib/seo/activities'
 import { useTranslations, useLocale } from 'next-intl'
 import { locales } from '@/lib/i18n/config'
+import { NotificationsBell } from '@/components/dashboard/NotificationsBell'
+import { User } from '@supabase/supabase-js'
 
-export function Header() {
+export function Header({ user }: { user?: User | null }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const t = useTranslations('nav')
   const locale = useLocale()
@@ -120,12 +122,21 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Guides Link */}
-            <Link href={`/${locale}/explorar`}>
-              <Button variant="ghost">
-                {t('guides')}
-              </Button>
-            </Link>
+            {/* User Navigation */ }
+            {user ? (
+               <div className="flex items-center gap-2 ml-4">
+                 <NotificationsBell userId={user.id} />
+                 <Link href={`/${locale}/dashboard`}>
+                   <Button variant="ghost" size="sm">Dashboard</Button>
+                 </Link>
+               </div>
+            ) : (
+               <Link href={`/${locale}/auth/login`}>
+                 <Button variant="default" className="bg-green-600 hover:bg-green-700 ml-4">
+                   {t('becomeGuide')}
+                 </Button>
+               </Link>
+            )}
           </nav>
 
       {/* Mobile Menu */}

@@ -1,12 +1,15 @@
 # RutaLink MVP
 
-Una plataforma para guías turísticos que permite crear perfiles públicos, gestionar servicios y recibir reservas vía WhatsApp.
+Plataforma para guías turísticos que permite crear perfiles públicos, gestionar servicios y recibir reservas vía WhatsApp.
 
 ## 🚀 Stack Tecnológico
 
-- **Frontend/Backend**: Next.js 14 (App Router)
+- **Frontend/Backend**: Next.js 16 (App Router)
 - **Base de datos**: Supabase (PostgreSQL + Auth + Storage)
+- **Rate Limiting**: Upstash (Redis/KV)
 - **UI**: shadcn/ui + TailwindCSS
+- **Validación**: Zod
+- **Testing**: Vitest
 - **Lenguaje**: TypeScript
 - **Deployment**: Vercel
 
@@ -14,6 +17,7 @@ Una plataforma para guías turísticos que permite crear perfiles públicos, ges
 
 - Node.js 18+ instalado
 - Cuenta de Supabase (gratuita)
+- Cuenta de Upstash (para Rate Limiting)
 - npm o pnpm
 
 ## 🛠️ Configuración Inicial
@@ -26,149 +30,50 @@ npm install
 
 ### 2. Configurar Supabase
 
-1. Crea una cuenta en [supabase.com](https://supabase.com)
-2. Crea un nuevo proyecto
-3. Ve a **Project Settings** > **API**
-4. Copia las siguientes credenciales:
-   - `Project URL` → `NEXT_PUBLIC_SUPABASE_URL`
-   - `anon/public key` → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-   - `anon/public key` → `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+1. Crea un proyecto en [supabase.com](https://supabase.com)
+2. Ve a **SQL Editor** y ejecuta los scripts de migración en orden:
+   - `supabase/migrations/20251208150000_secure_rls.sql` (RLS Policies)
+   - `supabase/migrations/20251208151500_bookings_and_soft_delete.sql` (Bookings & Soft Deletes)
 
-### 3. Variables de Entorno
+### 3. Configurar Upstash (Opcional en Dev, Requerido en Prod)
 
-Crea un archivo `.env.local` en la raíz del proyecto:
+1. Crea una base de datos Redis en [upstash.com](https://upstash.com)
+2. Obtén `KV_REST_API_URL` y `KV_REST_API_TOKEN`.
+
+### 4. Variables de Entorno
+
+Crea `.env.local`:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Edita `.env.local` con tus credenciales de Supabase:
+Edita `.env.local`:
 
 ```env
+# Supabase
 NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key_aqui
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_anon_key_aqui
+
+# App URL
 NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+# Rate Limiting (Upstash / Vercel KV)
+KV_REST_API_URL=https://...
+KV_REST_API_TOKEN=...
 ```
 
-### 4. Configurar Base de Datos
+**Nota**: Nunca expongas `SUPABASE_SERVICE_ROLE_KEY` en el cliente ni en este archivo si no es estrictamente necesario para scripts de servidor.
 
-Ve a **SQL Editor** en Supabase y ejecuta el siguiente script para crear las tablas:
+### 5. Authentication
 
-```sql
--- Tabla: users
-CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  email TEXT UNIQUE NOT NULL,
-  name TEXT,
-  bio TEXT CHECK (char_length(bio) <= 300),
-  whatsapp TEXT,
-  photo_url TEXT,
-  language TEXT DEFAULT 'es' CHECK (language IN ('es', 'en', 'fr')),
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+1. En Supabase **Authentication** > **Providers**, habilita **Email**.
+2. Configura Redirect URLs: `http://localhost:3000/auth/callback`
 
--- Tabla: services
-CREATE TABLE services (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  title TEXT NOT NULL,
-  description TEXT CHECK (char_length(description) <= 300),
-  price NUMERIC(10,2) NOT NULL,
-  duration INTEGER NOT NULL, -- en minutos
-  active BOOLEAN DEFAULT true,
-  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
-);
+### 6. Storage
 
--- Tabla: service_photos
-CREATE TABLE service_photos (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  service_id UUID REFERENCES services(id) ON DELETE CASCADE,
-  url TEXT NOT NULL,
-  "order" INTEGER NOT NULL
-);
-
--- Tabla: guide_photos
-CREATE TABLE guide_photos (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  url TEXT NOT NULL,
-  "order" INTEGER NOT NULL
-);
-
--- Tabla: availability
-CREATE TABLE availability (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  weekday INTEGER NOT NULL CHECK (weekday >= 0 AND weekday <= 6),
-  active BOOLEAN DEFAULT true
-);
-
--- Tabla: timeslots
-CREATE TABLE timeslots (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  time TEXT NOT NULL,
-  active BOOLEAN DEFAULT true
-);
-
--- Tabla: public_links
-CREATE TABLE public_links (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  slug TEXT UNIQUE NOT NULL
-);
-
--- Tabla: analytics (opcional)
-CREATE TABLE analytics (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  page_type TEXT NOT NULL,
-  views INTEGER DEFAULT 0,
-  date DATE DEFAULT CURRENT_DATE
-);
-
--- Índices para mejorar rendimiento
-CREATE INDEX idx_services_user_id ON services(user_id);
-CREATE INDEX idx_service_photos_service_id ON service_photos(service_id);
-CREATE INDEX idx_guide_photos_user_id ON guide_photos(user_id);
-CREATE INDEX idx_availability_user_id ON availability(user_id);
-CREATE INDEX idx_timeslots_user_id ON timeslots(user_id);
-CREATE INDEX idx_public_links_slug ON public_links(slug);
-CREATE INDEX idx_public_links_user_id ON public_links(user_id);
-```
-
-### 5. Configurar Autenticación
-
-1. Ve a **Authentication** > **Providers** en Supabase
-2. Habilita **Email** provider
-3. En **Email Templates**, personaliza el template de Magic Link (opcional)
-4. En **URL Configuration**, agrega:
-   - Site URL: `http://localhost:3000`
-   - Redirect URLs: `http://localhost:3000/auth/callback`
-
-### 6. Configurar Storage (para imágenes)
-
-1. Ve a **Storage** en Supabase
-2. Crea un bucket llamado `guide-photos`
-3. Configura las políticas de acceso:
-
-```sql
--- Permitir lectura pública
-CREATE POLICY "Public Access"
-ON storage.objects FOR SELECT
-USING (bucket_id = 'guide-photos');
-
--- Permitir subida solo a usuarios autenticados
-CREATE POLICY "Authenticated users can upload"
-ON storage.objects FOR INSERT
-WITH CHECK (bucket_id = 'guide-photos' AND auth.role() = 'authenticated');
-
--- Permitir eliminación solo al propietario
-CREATE POLICY "Users can delete own files"
-ON storage.objects FOR DELETE
-USING (bucket_id = 'guide-photos' AND auth.uid()::text = (storage.foldername(name))[1]);
-```
+1. Crea un bucket público llamado `guide-photos`.
+2. Las políticas de storage ya están incluidas en los scripts SQL, pero verifica que la carpeta exista.
 
 ## 🏃 Ejecutar en Desarrollo
 
@@ -176,67 +81,54 @@ USING (bucket_id = 'guide-photos' AND auth.uid()::text = (storage.foldername(nam
 npm run dev
 ```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
-
-## 📁 Estructura del Proyecto
-
-```
-rutalink-app/
-├── app/
-│   ├── auth/              # Autenticación (login, callback, signout)
-│   ├── dashboard/         # Dashboard del guía (protegido)
-│   ├── g/[slug]/          # Página pública del guía (TODO)
-│   ├── s/[serviceId]/     # Página pública del servicio (TODO)
-│   └── page.tsx           # Landing page
-├── components/
-│   ├── ui/                # Componentes shadcn/ui
-│   ├── dashboard/         # Componentes del dashboard (TODO)
-│   └── public/            # Componentes públicos (TODO)
-├── lib/
-│   ├── supabase/          # Clientes Supabase
-│   ├── types/             # TypeScript types
-│   ├── utils/             # Utilidades (formatters, constants)
-│   └── whatsapp.ts        # Generación de enlaces WhatsApp
-└── middleware.ts          # Middleware de autenticación
-```
+Abre [http://localhost:3000](http://localhost:3000).
 
 ## ✅ Estado Actual
 
 ### ✓ Completado
-- [x] Configuración inicial del proyecto
-- [x] Autenticación con Magic Link
-- [x] Middleware de protección de rutas
-- [x] Dashboard básico
-- [x] Landing page
-- [x] Utilidades (WhatsApp, formatters, etc.)
+- [x] **Autenticación**: Magic Link + Rate Limiting (5 req/min).
+- [x] **Seguridad**: RLS Policies robustas, Input Validation (Zod + Anti-XSS).
+- [x] **Gestión de Servicios**: CRUD con Soft Deletes.
+- [x] **Reservas**: Sistema de "Solicitud de Reserva" antes de WhatsApp (Previene double-booking).
+- [x] **Páginas Públicas**: Perfil de Guía y Detalle de Servicio optimizados (SEO + LCP).
+- [x] **Testing**: Suite básica con Vitest.
 
 ### 🚧 En Progreso
-- [ ] Gestión de perfil
-- [ ] CRUD de servicios
-- [ ] Gestión de disponibilidades
-- [ ] Páginas públicas (guía y servicio)
-- [ ] Upload de imágenes
-- [ ] Integración completa de WhatsApp
+- [ ] Notificaciones automáticas
+- [ ] Panel de Analytics avanzado
+- [ ] Sistema de Disponibilidad complejo (rangos de fechas)
 
-## 🔜 Próximos Pasos
+## 🧪 Testing
 
-1. **Configurar Supabase** (sigue las instrucciones arriba)
-2. **Crear página de perfil** (`/dashboard/profile`)
-3. **Crear CRUD de servicios** (`/dashboard/services/*`)
-4. **Crear páginas públicas** (`/g/[slug]`, `/s/[serviceId]`)
-5. **Implementar upload de imágenes**
-6. **Testing y optimización**
+Ejecutar tests unitarios (validaciones):
 
-## 📚 Recursos
+```bash
+npm run test
+# o
+npx vitest run
+```
 
-- [Documentación Next.js](https://nextjs.org/docs)
-- [Documentación Supabase](https://supabase.com/docs)
-- [shadcn/ui Components](https://ui.shadcn.com)
-- [TailwindCSS](https://tailwindcss.com/docs)
+## 📁 Estructura Clave
 
-## 🤝 Contribuir
-
-Este es un proyecto MVP. Las contribuciones son bienvenidas.
+```
+rutalink-app/
+├── app/
+│   ├── actions/           # Server Actions (Auth, Booking, Services)
+│   ├── api/               # API Routes (Cron, Webhooks)
+│   ├── [locale]/          # Rutas internacionalizadas
+│   │   ├── auth/          # Login
+│   │   ├── dashboard/     # Panel de control
+│   │   ├── g/[slug]/      # Perfil público
+│   │   └── s/[serviceId]/ # Servicio público
+├── components/            # UI Components
+├── lib/
+│   ├── utils/validators.ts # Schemas Zod
+│   ├── ratelimit.ts       # Configuración Rate Limit
+│   └── supabase/          # Clientes DB
+├── supabase/
+│   └── migrations/        # Scripts SQL
+└── docs/                  # Documentación adicional (e.g. error-handling.md)
+```
 
 ## 📄 Licencia
 

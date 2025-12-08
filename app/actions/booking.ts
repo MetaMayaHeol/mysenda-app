@@ -67,5 +67,16 @@ export async function createBooking(prevState: any, formData: FormData) {
     return { error: 'Error al procesar la reserva.', success: false }
   }
 
+  // 5. Send Notification (Email + In-App)
+  // We use the imported utility which uses Service Role internally
+  const { sendNotification } = await import('@/lib/notifications')
+  await sendNotification({
+    userId: user_id,
+    title: 'Nueva Solicitud de Reserva',
+    message: `Tienes una nueva solicitud para ${service_id} el día ${date} a las ${time}. Cliente: ${customer_name}`,
+    type: 'booking_request',
+    link: '/dashboard/bookings' // TODO: Build this page
+  })
+
   return { success: true, message: 'Solicitud enviada. Redirigiendo a WhatsApp...' }
 }
