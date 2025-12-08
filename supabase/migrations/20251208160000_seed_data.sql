@@ -2,6 +2,10 @@
 -- Creates 3 Verified Guides with Services
 
 -- Helper to create auth user (Password: "password123")
+
+-- Ensure verified column exists
+ALTER TABLE public.users ADD COLUMN IF NOT EXISTS verified BOOLEAN DEFAULT false;
+
 INSERT INTO auth.users (
   instance_id,
   id,
@@ -42,10 +46,11 @@ VALUES
 ON CONFLICT (id) DO NOTHING;
 
 -- Public Profiles
-INSERT INTO public.users (id, name, city, country, bio, whatsapp, languages, verified)
+INSERT INTO public.users (id, email, name, city, country, bio, whatsapp, languages, verified)
 VALUES
   (
     '8d0fd2b3-9ca3-4d6e-bd9d-0c0309478441',
+    'elena.guide@rutalink.com',
     'Elena Rodriguez',
     'Mérida',
     'México',
@@ -56,6 +61,7 @@ VALUES
   ),
   (
     '9e1fe3c4-0db4-5e7f-ce0e-1d1410589552',
+    'carlos.maya@rutalink.com',
     'Carlos Chan',
     'Valladolid',
     'México',
@@ -71,7 +77,7 @@ INSERT INTO public.public_links (user_id, slug, active)
 VALUES
   ('8d0fd2b3-9ca3-4d6e-bd9d-0c0309478441', 'elena-merida', true),
   ('9e1fe3c4-0db4-5e7f-ce0e-1d1410589552', 'carlos-valladolid', true)
-ON CONFLICT (user_id) DO NOTHING;
+ON CONFLICT DO NOTHING;
 
 -- Services
 INSERT INTO public.services (id, user_id, title, description, price, duration, locations, categories, created_at)
