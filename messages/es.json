@@ -43,6 +43,7 @@
     "title": "Explora por Actividad", 
     "subtitle": "Encuentra experiencias únicas con guías especializados",
     "viewAll": "Ver todas las actividades",
+    "discover": "Descubrir",
     "tours": "{count, plural, =1 {1 tour} other {# tours}}",
     "gastronomia": {
       "name": "Gastronomía",
@@ -163,6 +164,7 @@
     "exploreGuides": "Explorar Guías",
     "guideAccess": "Acceso Guías",
     "faq": "Preguntas Frecuentes",
+    "contactUs": "Contáctanos",
     "support": "Soporte",
     "helpCenter": "Centro de Ayuda",
     "cancellationPolicy": "Política de Cancelación",
