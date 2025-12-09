@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const cityMetaDescription = tCity('metaDescription')
   const cityHighlights = tCity('highlights').split('|')
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
 
   return {
     title: t('metaTitle', { city: cityName }),
@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: t('metaTitle', { city: cityName }),
       description: cityMetaDescription,
       url: `${baseUrl}/${locale}/ciudad/${slug}`,
-      siteName: 'RutaLink',
+      siteName: 'MySenda',
       locale: locale === 'fr' ? 'fr_FR' : 'es_MX',
       type: 'website',
       images: city.heroImage ? [
@@ -141,7 +141,7 @@ export default async function CityPage({ params }: Props) {
     if (service.user?.public_links?.[0]) {
       const guide = {
         slug: service.user.public_links[0].slug,
-        name: service.user.name || 'Guía RutaLink',
+        name: service.user.name || 'Guía MySenda',
         bio: service.user.bio,
         photo_url: service.user.photo_url,
         languages: service.user.languages,
@@ -157,7 +157,7 @@ export default async function CityPage({ params }: Props) {
 
   const formattedGuides = Array.from(uniqueGuidesMap.values())
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   const cityUrl = `${baseUrl}/${locale}/ciudad/${slug}`
 
   // Generate FAQs

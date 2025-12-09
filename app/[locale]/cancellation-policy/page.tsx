@@ -11,12 +11,12 @@ export default async function CancellationPage({ params }: { params: Promise<{ l
       
       <div className="prose max-w-none text-gray-700">
         <p className="lead text-xl mb-8">
-          En RutaLink, creemos en la transparencia y flexibilidad entre viajeros y guías.
+          En MySenda, creemos en la transparencia y flexibilidad entre viajeros y guías.
         </p>
         
         <h3 className="text-2xl font-bold mb-4 text-gray-900">Políticas Individuales</h3>
         <p className="mb-6">
-          Cada guía turístico en RutaLink establece sus propias políticas de cancelación. 
+          Cada guía turístico en MySenda establece sus propias políticas de cancelación. 
           Al contactar a un guía, te recomendamos confirmar por escrito:
         </p>
         <ul className="list-disc pl-6 mb-8 space-y-2">

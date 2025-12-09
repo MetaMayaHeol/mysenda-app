@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 
 export const metadata = {
-  title: 'Dashboard - RutaLink',
+  title: 'Dashboard - MySenda',
   description: 'Gestiona tus servicios y perfil',
 }
 

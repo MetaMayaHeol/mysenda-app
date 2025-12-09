@@ -33,7 +33,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: GuidePageProps) {
   const { slug } = await params
   const supabase = createStaticClient()
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   
   const { data: link } = await supabase
     .from('public_links')
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: GuidePageProps) {
 
   // Optimize for OpenGraph (Title: 50-60 chars, Description: 110-160 chars)
   const cityShort = user?.city || 'México'
-  const title = `${user?.name} | Guía en ${cityShort} - RutaLink`.slice(0, 60)
+  const title = `${user?.name} | Guía en ${cityShort} - MySenda`.slice(0, 60)
   
   const description = user?.bio && user.bio.length > 50
     ? `${user.bio.slice(0, 105)}... Reserva tours con ${user?.name}. WhatsApp directo.`
@@ -70,7 +70,7 @@ export async function generateMetadata({ params }: GuidePageProps) {
       title,
       description,
       url,
-      siteName: 'RutaLink',
+      siteName: 'MySenda',
       images: [{
         url: imageUrl,
         width: 1200,
@@ -134,7 +134,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
     notFound()
   }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   const guideUrl = `${baseUrl}/g/${slug}`
 
   // Calculate rating
@@ -236,7 +236,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
           <div className="flex justify-center gap-2">
             <ShareButton 
               title={`${guide.name} - Guía Turístico`} 
-              text={`Echa un vistazo al perfil de ${guide.name} en RutaLink.`} 
+              text={`Echa un vistazo al perfil de ${guide.name} en MySenda.`} 
               url={guideUrl} 
             />
           </div>
@@ -334,7 +334,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
       {/* Footer */}
       <div className="px-5 pt-8 pb-2 text-center">
         <p className="text-xs text-gray-500">
-          Powered by <Link href="/" className="font-semibold hover:underline">RutaLink</Link>
+          Powered by <Link href="/" className="font-semibold hover:underline">MySenda</Link>
         </p>
       </div>
 

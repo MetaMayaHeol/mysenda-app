@@ -3,7 +3,7 @@ import { cities } from '@/lib/seo/cities'
 import { activities } from '@/lib/seo/activities'
 import { createStaticClient } from '@/lib/supabase/static'
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
 const locales = ['es', 'fr']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

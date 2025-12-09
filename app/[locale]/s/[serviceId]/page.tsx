@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: ServicePageProps) {
   const { serviceId } = await params
   const supabase = createStaticClient()
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   
   const { data: service } = await supabase
     .from('services')
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: ServicePageProps) {
     .limit(1)
     .single()
 
-  const title = `${service.title} - Tour en México | RutaLink`
+  const title = `${service.title} - Tour en México | MySenda`
   const description = service.description || `Reserva ${service.title} al mejor precio. Experiencia auténtica con guía local.`
   const imageUrl = photos?.url || `${baseUrl}/og-default.png`
 
@@ -55,7 +55,7 @@ export async function generateMetadata({ params }: ServicePageProps) {
       title,
       description,
       url: `${baseUrl}/s/${serviceId}`,
-      siteName: 'RutaLink',
+      siteName: 'MySenda',
       images: [{
         url: imageUrl,
         width: 1200,
@@ -147,7 +147,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     alt: `${service.title} - Photo ${i + 1}`
   })) || []
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   const serviceUrl = `${baseUrl}/s/${serviceId}`
   
   // Fetch guide slug for breadcrumb
@@ -163,7 +163,7 @@ export default async function ServicePage({ params }: ServicePageProps) {
     description: service.description || undefined,
     image: photos?.[0]?.url || undefined,
     provider: {
-      name: guide.name || 'Guía RutaLink',
+      name: guide.name || 'Guía MySenda',
       url: guideLink ? `${baseUrl}/g/${guideLink.slug}` : baseUrl,
     },
     offers: {

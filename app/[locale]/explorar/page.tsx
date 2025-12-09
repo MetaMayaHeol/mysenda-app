@@ -3,7 +3,7 @@ import { DirectoryClient } from '@/components/directory/DirectoryClient'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Explorar Guías Turísticos | RutaLink',
+  title: 'Explorar Guías Turísticos | MySenda',
   description: 'Encuentra y conecta con guías turísticos locales verificados en México. Tours auténticos y experiencias únicas.',
 }
 
