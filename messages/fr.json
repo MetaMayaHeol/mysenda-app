@@ -102,7 +102,7 @@
   "businessModel": {
     "badge": "Transparence Totale",
     "title": "Comment fonctionne notre modèle ?",
-    "subtitle": "Nous croyons en la transparence. Voici exactement comment RutaLink génère des revenus.",
+    "subtitle": "Nous croyons en la transparence. Voici exactement comment MySenda génère des revenus.",
     "freeTitle": "100% Gratuit",
     "freeSubtitle": "Pour tous les guides, toujours",
     "professionalProfile": "Profil Professionnel",
@@ -127,7 +127,7 @@
     "noLongContracts": "Sans contrats longs",
     "cancelAnytime": "Annulez quand vous voulez",
     "philosophy": "Notre philosophie :",
-    "philosophyText": "RutaLink grandit quand les guides grandissent. C'est pourquoi nous ne facturons pas de commissions sur les réservations directes et gardons les fonctions de base 100% gratuites pour toujours."
+    "philosophyText": "MySenda grandit quand les guides grandissent. C'est pourquoi nous ne facturons pas de commissions sur les réservations directes et gardons les fonctions de base 100% gratuites pour toujours."
   },
   "featuredGuides": {
     "title": "Guides en Vedette",
@@ -135,7 +135,7 @@
     "viewAll": "Voir tous"
   },
   "howItWorks": {
-    "title": "Comment fonctionne RutaLink",
+    "title": "Comment fonctionne MySenda",
     "subtitle": "Nous simplifions la connexion entre voyageurs et guides locaux.",
     "forTravelers": "Pour les Voyageurs",
     "forGuides": "Pour les Guides",
@@ -159,7 +159,7 @@
     "findGuide": "Trouver un guide"
   },
   "footer": {
-    "description": "RutaLink connecte les voyageurs avec des guides locaux pour des expériences authentiques sans intermédiaires.",
+    "description": "MySenda connecte les voyageurs avec des guides locaux pour des expériences authentiques sans intermédiaires.",
     "platform": "Plateforme",
     "exploreGuides": "Explorer les Guides",
     "guideAccess": "Accès Guides",
@@ -172,7 +172,7 @@
     "terms": "Conditions d'Utilisation",
     "privacy": "Politique de Confidentialité",
     "cookies": "Cookies",
-    "copyright": "© {year} RutaLink. Tous droits réservés.",
+    "copyright": "© {year} MySenda. Tous droits réservés.",
     "madeWith": "Fait avec ❤️ pour les voyageurs et guides"
   },
   "explorar": {
@@ -216,14 +216,14 @@
     "travelerQ5": "Quelles langues parlent les guides ?",
     "travelerA5": "Chaque profil de guide affiche les langues qu'il parle. Vous pouvez filtrer les guides par langue sur la page d'exploration pour en trouver un qui parle votre langue maternelle.",
     "travelerQ6": "Y a-t-il une garantie de remboursement ?",
-    "travelerA6": "RutaLink facilite la connexion entre voyageurs et guides, mais ne traite pas directement les paiements. Les politiques de remboursement sont établies par chaque guide.",
+    "travelerA6": "MySenda facilite la connexion entre voyageurs et guides, mais ne traite pas directement les paiements. Les politiques de remboursement sont établies par chaque guide.",
     "guideQ1": "Comment m'inscrire comme guide ?",
     "guideA1": "Cliquez sur \"Je suis Guide Touristique\" sur la page principale, créez un compte avec votre email, complétez votre profil avec photos et description, et ajoutez vos tours. C'est entièrement gratuit !",
     "guideQ2": "Combien coûte la création d'un profil ?",
     "guideA2": "Créer et maintenir votre profil est 100% GRATUIT. Nous ne facturons aucun frais mensuel ou annuel. Vous pouvez publier tous les tours que vous voulez sans frais.",
     "guideQ3": "Comment recevoir des paiements ?",
-    "guideA3": "Vous pouvez coordonner les paiements directement avec vos clients (espèces, virement, etc.) sans que RutaLink prenne de commission. Nous offrons également une option de paiement intégré optionnelle.",
-    "guideQ4": "RutaLink prend-il une commission ?",
+    "guideA3": "Vous pouvez coordonner les paiements directement avec vos clients (espèces, virement, etc.) sans que MySenda prenne de commission. Nous offrons également une option de paiement intégré optionnelle.",
+    "guideQ4": "MySenda prend-il une commission ?",
     "guideA4": "NON, nous ne prenons PAS de commission sur les réservations directes. Si un voyageur vous contacte par WhatsApp et paie directement, 100% du paiement est pour vous.",
     "guideQ5": "Comment me faire vérifier ?",
     "guideA5": "Complétez votre profil à 100%, téléchargez une photo de votre pièce d'identité officielle, fournissez des preuves de votre expérience de guide et notre équipe examinera votre demande sous 2-3 jours ouvrables.",
@@ -234,7 +234,7 @@
     "techQ2": "Mes données sont-elles protégées ?",
     "techA2": "Oui. Nous utilisons le chiffrement SSL, respectons les normes de confidentialité internationales et ne partageons jamais vos informations personnelles sans votre consentement.",
     "techQ3": "Dans quels pays est-ce disponible ?",
-    "techA3": "Actuellement, RutaLink est focalisé sur le Mexique, mais nous nous étendons à d'autres pays d'Amérique latine."
+    "techA3": "Actuellement, MySenda est focalisé sur le Mexique, mais nous nous étendons à d'autres pays d'Amérique latine."
   },
   "support": {
     "title": "Centre de Support",
@@ -335,7 +335,7 @@
     "unexpectedError": "Une erreur inattendue s'est produite"
   },
   "cityPage": {
-    "metaTitle": "Guides Touristiques à {city} | RutaLink",
+    "metaTitle": "Guides Touristiques à {city} | MySenda",
     "notFound": "Ville non trouvée",
     "breadcrumbHome": "Accueil",
     "breadcrumbExplore": "Explorer",
@@ -345,7 +345,7 @@
     "noGuidesYet": "Nous n'avons pas encore de guides inscrits à {city}",
     "registerAsGuide": "Inscrivez-vous comme Guide",
     "whyVisit": "Pourquoi visiter {city} ?",
-    "withRutaLink": "Avec RutaLink, vous pouvez vous connecter directement avec des guides locaux vérifiés qui vous montreront le meilleur de {city}.",
+    "withRutaLink": "Avec MySenda, vous pouvez vous connecter directement avec des guides locaux vérifiés qui vous montreront le meilleur de {city}.",
     "featuredExperiences": "Expériences en vedette",
     "discoverWith": "Découvrez {highlight} avec un expert local",
     "toursAndActivities": "Tours et activités à {city}",
@@ -353,7 +353,7 @@
     "faqTitle": "Questions fréquentes sur {city}",
     "popularActivities": "Activités populaires dans la Péninsule du Yucatán",
     "areYouGuide": "Êtes-vous guide touristique à {city} ?",
-    "joinRutaLink": "Rejoignez RutaLink et connectez-vous avec des voyageurs à la recherche d'expériences authentiques",
+    "joinRutaLink": "Rejoignez MySenda et connectez-vous avec des voyageurs à la recherche d'expériences authentiques",
     "createProfileFree": "Créer mon profil gratuitement",
     "heroTitle": "Guides Touristiques à",
     "localGuidesCount": "Guides Locaux",
@@ -374,7 +374,7 @@
     "isSafe": "Est-il sûr de voyager à {city} ?",
     "isSafeAnswer": "{city} est considéré comme une destination sûre dans la région. Comme dans tout lieu touristique, il est recommandé de prendre des précautions de base et de suivre les recommandations des locaux.",
     "findGuides": "Comment trouver des guides fiables à {city} ?",
-    "findGuidesAnswer": "Sur RutaLink, vous pouvez trouver des profils de guides vérifiés à {city}, lire les avis d'autres voyageurs et les contacter directement via WhatsApp sans intermédiaires."
+    "findGuidesAnswer": "Sur MySenda, vous pouvez trouver des profils de guides vérifiés à {city}, lire les avis d'autres voyageurs et les contacter directement via WhatsApp sans intermédiaires."
   },
   "cities": {
     "merida": {
@@ -459,7 +459,7 @@
       "name": "Calakmul",
       "description": "Zone archéologique maya au cœur de la jungle, réserve de biosphère avec faune sauvage.",
       "metaDescription": "Expéditions archéologiques à Calakmul avec guides experts en culture maya et nature.",
-      "highlights": "Ruines Mayas|Réserve de Biosphère|Faune Sauvage|Jungle Vierge"
+      "highlights": "Ruinas Mayas|Réserve de Biosphère|Faune Sauvage|Jungle Vierge"
     },
     "isla-aguada": {
       "name": "Isla Aguada",
@@ -476,16 +476,16 @@
     "whatToBring": "Que dois-je apporter pour un tour de {activity} ?",
     "whatToBringAnswer": "Pour {activity}, vous aurez généralement besoin de vêtements confortables, d'une protection solaire biodégradable et d'eau. Votre guide vous fournira une liste précise de l'équipement nécessaire lors de la réservation.",
     "isSafe": "Est-il sûr de pratiquer {activity} dans la région ?",
-    "isSafeAnswer": "Oui, à condition de le faire avec des guides certifiés qui connaissent le terrain et les conditions locales. Chez RutaLink, nous vérifions nos guides pour votre sécurité.",
+    "isSafeAnswer": "Oui, à condition de le faire avec des guides certifiés qui connaissent le terrain et les conditions locales. Chez MySenda, nous vérifions nos guides pour votre sécurité.",
     "cost": "Combien coûte un tour de {activity} ?",
-    "costAnswer": "Les prix pour {activity} varient en fonction de la durée, de l'équipement inclus et s'il s'agit d'un tour privé ou en groupe. Contactez directement les guides sur RutaLink pour obtenir des devis personnalisés."
+    "costAnswer": "Les prix pour {activity} varient en fonction de la durée, de l'équipement inclus et s'il s'agit d'un tour privé ou en groupe. Contactez directement les guides sur MySenda pour obtenir des devis personnalisés."
   },
   "activityPage": {
     "heroTitle": "Tours de",
     "authenticExperiences": "Expériences Authentiques",
     "specializedGuides": "Guides Spécialisés",
     "availableDestinations": "Destinations Disponibles",
-    "metaTitle": "Tours de {activity} au Yucatán | RutaLink",
+    "metaTitle": "Tours de {activity} au Yucatán | MySenda",
     "notFound": "Activité non trouvée",
     "breadcrumbHome": "Accueil",
     "breadcrumbExplore": "Explorer",
@@ -498,14 +498,14 @@
     "seoDesc": "{description} Nos guides locaux vous offrent des expériences personnalisées qui vont au-delà des tours traditionnels.",
     "whatInclude": "Que comprennent nos tours de {activity} ?",
     "whatIncludeDesc": "Expériences authentiques avec des experts locaux",
-    "whyChoose": "Pourquoi choisir RutaLink pour des tours de {activity} ?",
-    "whyChooseDesc": "Chez RutaLink, nous connectons les voyageurs avec des guides locaux vérifiés qui connaissent chaque recoin de la région. Communication directe par WhatsApp, sans commissions cachées, et la flexibilité de personnaliser votre expérience selon vos intérêts.",
+    "whyChoose": "Pourquoi choisir MySenda pour des tours de {activity} ?",
+    "whyChooseDesc": "Chez MySenda, nous connectons les voyageurs avec des guides locaux vérifiés qui connaissent chaque recoin de la région. Communication directe par WhatsApp, sans commissions cachées, et la flexibilité de personnaliser votre expérience selon vos intérêts.",
     "popularDestinations": "Destinations populaires pour {activity}",
     "popularDestinationsDesc": "Nos guides proposent des tours de {activity} à Mérida, Valladolid, Tulum, Playa del Carmen, Bacalar, Campeche et bien d'autres destinations de la Péninsule du Yucatán.",
     "faqTitle": "Questions fréquentes sur les tours de {activity}",
     "bestDestinations": "Meilleures destinations pour {activity}",
     "offerTours": "Proposez-vous des tours de {activity} ?",
-    "joinCta": "Rejoignez RutaLink et connectez-vous avec des voyageurs en quête d'expériences authentiques",
+    "joinCta": "Rejoignez MySenda et connectez-vous avec des voyageurs en quête d'expériences authentiques",
     "createProfileCta": "Créer mon profil gratuitement"
   }
 }

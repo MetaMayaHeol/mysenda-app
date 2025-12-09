@@ -102,7 +102,7 @@
   "businessModel": {
     "badge": "Transparencia Total",
     "title": "¿Cómo funciona nuestro modelo?",
-    "subtitle": "Creemos en la transparencia. Aquí te explicamos exactamente cómo RutaLink genera ingresos.",
+    "subtitle": "Creemos en la transparencia. Aquí te explicamos exactamente cómo MySenda genera ingresos.",
     "freeTitle": "100% Gratis",
     "freeSubtitle": "Para todos los guías, siempre",
     "professionalProfile": "Perfil Profesional",
@@ -127,7 +127,7 @@
     "noLongContracts": "Sin contratos largos",
     "cancelAnytime": "Cancela cuando quieras",
     "philosophy": "Nuestra filosofía:",
-    "philosophyText": "RutaLink crece cuando los guías crecen. Por eso no cobramos comisiones en reservas directas y mantenemos las funciones básicas 100% gratuitas para siempre."
+    "philosophyText": "MySenda crece cuando los guías crecen. Por eso no cobramos comisiones en reservas directas y mantenemos las funciones básicas 100% gratuitas para siempre."
   },
   "featuredGuides": {
     "title": "Guías Destacados",
@@ -135,7 +135,7 @@
     "viewAll": "Ver todos"
   },
   "howItWorks": {
-    "title": "Cómo funciona RutaLink",
+    "title": "Cómo funciona MySenda",
     "subtitle": "Simplificamos la conexión entre viajeros y guías locales.",
     "forTravelers": "Para Viajeros",
     "forGuides": "Para Guías",
@@ -159,7 +159,7 @@
     "findGuide": "Buscar un guía"
   },
   "footer": {
-    "description": "RutaLink conecta viajeros con guías locales para experiencias auténticas y sin intermediarios.",
+    "description": "MySenda conecta viajeros con guías locales para experiencias auténticas y sin intermediarios.",
     "platform": "Plataforma",
     "exploreGuides": "Explorar Guías",
     "guideAccess": "Acceso Guías",
@@ -172,7 +172,7 @@
     "terms": "Términos de Servicio",
     "privacy": "Política de Privacidad",
     "cookies": "Cookies",
-    "copyright": "© {year} RutaLink. Todos los derechos reservados.",
+    "copyright": "© {year} MySenda. Todos los derechos reservados.",
     "madeWith": "Hecho con ❤️ para viajeros y guías"
   },
   "explorar": {
@@ -216,14 +216,14 @@
     "travelerQ5": "¿Qué idiomas hablan los guías?",
     "travelerA5": "Cada perfil de guía muestra los idiomas que habla. Puedes filtrar guías por idioma en la página de exploración para encontrar uno que hable tu lengua nativa.",
     "travelerQ6": "¿Hay garantía de reembolso?",
-    "travelerA6": "RutaLink facilita la conexión entre viajeros y guías, pero no procesa pagos directamente. Las políticas de reembolso las establece cada guía. Para mayor seguridad, puedes usar nuestra opción de pago con garantía.",
+    "travelerA6": "MySenda facilita la conexión entre viajeros y guías, pero no procesa pagos directamente. Las políticas de reembolso las establece cada guía. Para mayor seguridad, puedes usar nuestra opción de pago con garantía.",
     "guideQ1": "¿Cómo me registro como guía?",
     "guideA1": "Haz clic en \"Soy Guía Turístico\" en la página principal, crea una cuenta con tu email, completa tu perfil con fotos y descripción, y añade tus tours. ¡Es completamente gratis!",
     "guideQ2": "¿Cuánto cuesta crear un perfil?",
     "guideA2": "Crear y mantener tu perfil es 100% GRATIS. No cobramos ninguna tarifa mensual ni anual. Puedes publicar todos los tours que quieras sin costo.",
     "guideQ3": "¿Cómo recibo pagos?",
-    "guideA3": "Puedes coordinar pagos directamente con tus clientes (efectivo, transferencia, etc.) sin que RutaLink tome comisión. También ofrecemos una opción de pago integrado opcional.",
-    "guideQ4": "¿RutaLink cobra comisión?",
+    "guideA3": "Puedes coordinar pagos directamente con tus clientes (efectivo, transferencia, etc.) sin que MySenda tome comisión. También ofrecemos una opción de pago integrado opcional.",
+    "guideQ4": "¿MySenda cobra comisión?",
     "guideA4": "NO cobramos comisión en reservas directas. Si un viajero te contacta por WhatsApp y paga directamente, el 100% del pago es tuyo.",
     "guideQ5": "¿Cómo me verifico?",
     "guideA5": "Completa tu perfil al 100%, sube una foto de tu identificación oficial, proporciona pruebas de tu experiencia como guía y nuestro equipo revisará tu solicitud en 2-3 días hábiles.",
@@ -234,7 +234,7 @@
     "techQ2": "¿Mis datos están protegidos?",
     "techA2": "Sí. Usamos encriptación SSL, cumplimos con estándares de privacidad internacionales y nunca compartimos tu información personal sin tu consentimiento.",
     "techQ3": "¿En qué países está disponible?",
-    "techA3": "Actualmente RutaLink está enfocado en México, pero estamos expandiéndonos a otros países de Latinoamérica."
+    "techA3": "Actualmente MySenda está enfocado en México, pero estamos expandiéndonos a otros países de Latinoamérica."
   },
   "support": {
     "title": "Centro de Soporte",
@@ -335,7 +335,7 @@
     "unexpectedError": "Ocurrió un error inesperado"
   },
   "cityPage": {
-    "metaTitle": "Guías Turísticos en {city} | RutaLink",
+    "metaTitle": "Guías Turísticos en {city} | MySenda",
     "notFound": "Ciudad no encontrada",
     "breadcrumbHome": "Inicio",
     "breadcrumbExplore": "Explorar",
@@ -345,7 +345,7 @@
     "noGuidesYet": "Aún no tenemos guías registrados en {city}",
     "registerAsGuide": "Regístrate como Guía",
     "whyVisit": "¿Por qué visitar {city}?",
-    "withRutaLink": "Con RutaLink, puedes conectar directamente con guías locales verificados que te mostrarán lo mejor de {city}.",
+    "withRutaLink": "Con MySenda, puedes conectar directamente con guías locales verificados que te mostrarán lo mejor de {city}.",
     "featuredExperiences": "Experiencias destacadas",
     "discoverWith": "Descubre {highlight} con un experto local",
     "toursAndActivities": "Tours y actividades en {city}",
@@ -353,7 +353,7 @@
     "faqTitle": "Preguntas frecuentes sobre {city}",
     "popularActivities": "Actividades populares en la Península de Yucatán",
     "areYouGuide": "¿Eres guía turístico en {city}?",
-    "joinRutaLink": "Únete a RutaLink y conecta con viajeros que buscan experiencias auténticas",
+    "joinRutaLink": "Únete a MySenda y conecta con viajeros que buscan experiencias auténticas",
     "createProfileFree": "Crear mi perfil gratis",
     "heroTitle": "Guías Turísticos en",
     "localGuidesCount": "Guías Locales",
@@ -374,7 +374,7 @@
     "isSafe": "¿Es seguro viajar a {city}?",
     "isSafeAnswer": "{city} es considerado uno de los destinos seguros en la región. Como en cualquier lugar turístico, se recomienda tomar precauciones básicas y seguir las recomendaciones de los locales.",
     "findGuides": "¿Cómo encuentro guías confiables en {city}?",
-    "findGuidesAnswer": "En RutaLink, puedes encontrar perfiles de guías verificados en {city}, leer reseñas de otros viajeros y contactarlos directamente por WhatsApp sin intermediarios."
+    "findGuidesAnswer": "En MySenda, puedes encontrar perfiles de guías verificados en {city}, leer reseñas de otros viajeros y contactarlos directamente por WhatsApp sin intermediarios."
   },
   "cities": {
     "merida": {
@@ -476,16 +476,16 @@
     "whatToBring": "¿Qué debo llevar para un tour de {activity}?",
     "whatToBringAnswer": "Para {activity}, generalmente necesitarás ropa cómoda, protección solar biodegradable y agua. Tu guía te proporcionará una lista específica de equipo necesario al reservar.",
     "isSafe": "¿Es seguro realizar {activity} en la zona?",
-    "isSafeAnswer": "Sí, siempre y cuando lo hagas con guías certificados que conozcan el terreno y las condiciones locales. En RutaLink verificamos a nuestros guías para tu seguridad.",
+    "isSafeAnswer": "Sí, siempre y cuando lo hagas con guías certificados que conozcan el terreno y las condiciones locales. En MySenda verificamos a nuestros guías para tu seguridad.",
     "cost": "¿Cuánto cuesta un tour de {activity}?",
-    "costAnswer": "Los precios para {activity} varían según la duración, el equipo incluido y si es privado o grupal. Contacta directamente a los guías en RutaLink para obtener cotizaciones personalizadas."
+    "costAnswer": "Los precios para {activity} varían según la duración, el equipo incluido y si es privado o grupal. Contacta directamente a los guías en MySenda para obtener cotizaciones personalizadas."
   },
   "activityPage": {
     "heroTitle": "Tours de",
     "authenticExperiences": "Experiencias Auténticas",
     "specializedGuides": "Guías Especializados",
     "availableDestinations": "Destinos Disponibles",
-    "metaTitle": "Tours de {activity} en Yucatán | RutaLink",
+    "metaTitle": "Tours de {activity} en Yucatán | MySenda",
     "notFound": "Actividad no encontrada",
     "breadcrumbHome": "Inicio",
     "breadcrumbExplore": "Explorar",
@@ -498,14 +498,14 @@
     "seoDesc": "{description} Nuestros guías locales te ofrecen experiencias personalizadas que van más allá de los tours tradicionales.",
     "whatInclude": "¿Qué incluyen nuestros tours de {activity}?",
     "whatIncludeDesc": "Experiencias auténticas con expertos locales",
-    "whyChoose": "¿Por qué elegir RutaLink para tours de {activity}?",
-    "whyChooseDesc": "En RutaLink conectamos viajeros con guías locales verificados que conocen cada detalle de la región. Comunicación directa por WhatsApp, sin comisiones ocultas, y la flexibilidad de personalizar tu experiencia según tus intereses.",
+    "whyChoose": "¿Por qué elegir MySenda para tours de {activity}?",
+    "whyChooseDesc": "En MySenda conectamos viajeros con guías locales verificados que conocen cada detalle de la región. Comunicación directa por WhatsApp, sin comisiones ocultas, y la flexibililidad de personalizar tu experiencia según tus intereses.",
     "popularDestinations": "Destinos populares para {activity}",
     "popularDestinationsDesc": "Nuestros guías ofrecen tours de {activity} en Mérida, Valladolid, Tulum, Playa del Carmen, Bacalar, Campeche y muchos otros destinos de la Península de Yucatán.",
     "faqTitle": "Preguntas frecuentes sobre tours de {activity}",
     "bestDestinations": "Mejores destinos para {activity}",
     "offerTours": "¿Ofreces tours de {activity}?",
-    "joinCta": "Únete a RutaLink y conecta con viajeros que buscan experiencias auténticas",
+    "joinCta": "Únete a MySenda y conecta con viajeros que buscan experiencias auténticas",
     "createProfileCta": "Crear mi perfil gratis"
   }
 }
