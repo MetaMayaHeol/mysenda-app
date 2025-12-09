@@ -1,6 +1,6 @@
 {
-  "name": "RutaLink",
-  "short_name": "RutaLink",
+  "name": "MySenda",
+  "short_name": "MySenda",
   "description": "Conecta con guías locales verificados en México.",
   "start_url": "/",
   "display": "standalone",

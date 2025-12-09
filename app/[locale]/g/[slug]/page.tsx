@@ -145,7 +145,7 @@ export default async function GuidePage({ params }: GuidePageProps) {
 
   // Generate structured data
   const localBusinessData = generateLocalBusinessSchema({
-    name: guide.name || 'Guía RutaLink',
+    name: guide.name || 'Guía MySenda',
     description: guide.bio || undefined,
     image: guide.photo_url || undefined,
     telephone: guide.whatsapp || undefined,

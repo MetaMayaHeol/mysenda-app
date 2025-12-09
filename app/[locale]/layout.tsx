@@ -25,13 +25,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   
   const titles: Record<string, string> = {
-    es: 'RutaLink - Conecta con Guías Turísticos Locales en México',
-    fr: 'RutaLink - Connectez-vous avec des Guides Locaux au Mexique',
+    es: 'MySenda - Conecta con Guías Turísticos Locales en México',
+    fr: 'MySenda - Connectez-vous avec des Guides Locaux au Mexique',
   }
   
   const descriptions: Record<string, string> = {
-    es: 'Descubre experiencias auténticas con guías locales verificados. Sin intermediarios, sin comisiones.',
-    fr: 'Découvrez des expériences authentiques avec des guides locaux vérifiés. Sans intermédiaires, sans commission.',
+    es: 'Descubre experiencias auténticas con guías locales verificados en MySenda. Sin intermediarios, sin comisiones.',
+    fr: 'Découvrez des expériences authentiques avec des guides locaux vérifiés sur MySenda. Sans intermédiaires, sans commission.',
   }
   
   return {
@@ -66,7 +66,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://rutalink.com'
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   const orgSchema = generateOrganizationSchema(baseUrl)
   const websiteSchema = generateWebSiteSchema(baseUrl)
 

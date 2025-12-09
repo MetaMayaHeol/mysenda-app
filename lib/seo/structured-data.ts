@@ -80,7 +80,7 @@ export function generateOrganizationSchema(baseUrl: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: 'RutaLink',
+    name: 'MySenda',
     description: 'Plataforma para conectar viajeros con guías turísticos locales en México',
     url: baseUrl,
     logo: `${baseUrl}/logo.png`,
@@ -113,7 +113,7 @@ export function generateWebSiteSchema(baseUrl: string) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: 'RutaLink',
+    name: 'MySenda',
     url: baseUrl,
     potentialAction: {
       '@type': 'SearchAction',

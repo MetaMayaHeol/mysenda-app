@@ -47,7 +47,7 @@ export function Header({ user }: { user?: User | null }) {
           {/* Logo */}
           <Link href={`/${locale}`} className="flex items-center gap-2 font-bold text-xl text-gray-900 hover:text-green-600 transition-colors">
             <Compass className="text-green-600" size={28} />
-            RutaLink
+            MySenda
           </Link>
 
           {/* Desktop Navigation */}
