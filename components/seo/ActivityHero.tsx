@@ -44,8 +44,8 @@ export function ActivityHero({ activity, guideCount = 0, cityCount = 0, translat
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 to-gray-900/90" />
       
-      <div className="relative container mx-auto px-5 py-20 md:py-32">
-        <div className="max-w-4xl">
+      <div className="relative container mx-auto px-5 py-20 md:py-32 flex flex-col items-center text-center">
+        <div className="max-w-4xl mx-auto">
           {/* Icon Badge */}
           <div className="inline-flex items-center gap-2 bg-green-500/20 border border-green-500/30 rounded-full px-4 py-1.5 mb-6 backdrop-blur-sm">
             {IconComponent && <IconComponent className="text-green-300" size={16} />}
@@ -58,12 +58,12 @@ export function ActivityHero({ activity, guideCount = 0, cityCount = 0, translat
           </h1>
           
           {/* Description */}
-          <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-3xl">
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
             {activity.description}
           </p>
 
           {/* Keywords/Tags */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-8 justify-center">
             {activity.keywords.slice(0, 5).map((keyword, index) => (
               <span
                 key={index}
@@ -76,7 +76,7 @@ export function ActivityHero({ activity, guideCount = 0, cityCount = 0, translat
 
           {/* Stats */}
           {(guideCount > 0 || cityCount > 0) && (
-            <div className="flex flex-wrap gap-8 text-sm">
+            <div className="flex flex-wrap gap-8 text-sm justify-center">
               {guideCount > 0 && (
                 <div>
                   <div className="text-3xl font-bold text-green-400">{guideCount}</div>

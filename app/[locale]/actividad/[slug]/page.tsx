@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import { activities, getActivityBySlug } from '@/lib/seo/activities'
 import { cities } from '@/lib/seo/cities'
 import { ActivityHero } from '@/components/seo/ActivityHero'
-import { GuideCard } from '@/components/directory/GuideCard'
+import { TourCard } from '@/components/directory/TourCard'
 import { createClient } from '@supabase/supabase-js'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -109,32 +109,26 @@ export default async function ActivityPage({ params }: Props) {
     keywords: activityKeywords
   }
 
-  // Fetch guides offering this activity type
+  // Fetch tours (services) for this activity
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   const supabase = createClient(supabaseUrl, supabaseKey)
 
-  // Search for guides with services matching this activity category
-  // Note: 'activity.name' (Spanish default) is likely stored in DB 'categories'
-  // Ideally, categories in DB should be language-agnostic slugs, but assuming they are Spanish strings for now or matching slugs.
-  // Checking migration_multi_languages.sql or similar would confirm, but usually keeping 'activity.name' (Spanish) for query is safer if DB seeded that way.
-  // If 'categories' are slugs in DB (e.g. 'gastronomia'), use activity.slug.
-  // Assuming DB 'categories' matches the SLUG or the SPANISH Name.
-  // Code confirms: .contains('categories', [activity.name]) was used. 
-  // IMPORTANT: If DB has "Gastronomía", we must use the original activity.name (Spanish), NOT the localized one if querying.
-  // But wait, activity.name coming from `lib/seo/activities.ts` IS Spanish. 
-  // So we use `activity.name` (original) for DB query, but `localizedActivity.name` for display.
-
   const { data: services } = await supabase
     .from('services')
     .select(`
+      id,
+      title,
+      description,
+      price,
+      duration,
+      service_photos (
+        url,
+        order
+      ),
       user:users!inner (
         name,
-        bio,
         photo_url,
-        languages,
-        city,
-        country,
         is_verified,
         public_links!inner (
           slug,
@@ -147,28 +141,21 @@ export default async function ActivityPage({ params }: Props) {
     .eq('user.public_links.active', true)
     .limit(50)
 
-  // Deduplicate guides
-  const uniqueGuidesMap = new Map()
-  
-  services?.forEach((service: any) => {
-    if (service.user?.public_links?.[0]) {
-      const guide = {
-        slug: service.user.public_links[0].slug,
-        name: service.user.name || 'Guía MySenda',
-        bio: service.user.bio,
-        photo_url: service.user.photo_url,
-        languages: service.user.languages,
-        city: service.user.city,
-        country: service.user.country,
-        is_verified: service.user.is_verified,
-      }
-      if (!uniqueGuidesMap.has(guide.slug)) {
-        uniqueGuidesMap.set(guide.slug, guide)
-      }
+  // Format tours for display
+  const tours = services?.map((service: any) => ({
+    id: service.id,
+    title: service.title,
+    description: service.description,
+    price: service.price,
+    duration: service.duration,
+    cover_image: service.service_photos?.sort((a: any, b: any) => a.order - b.order)[0]?.url || null,
+    guide: {
+      name: service.user.name || 'Guía MySenda',
+      photo_url: service.user.photo_url,
+      slug: service.user.public_links[0].slug,
+      is_verified: service.user.is_verified,
     }
-  })
-
-  const formattedGuides = Array.from(uniqueGuidesMap.values())
+  })) || []
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   const activityUrl = `${baseUrl}/${locale}/actividad/${slug}`
@@ -211,7 +198,7 @@ export default async function ActivityPage({ params }: Props) {
       {/* Hero Section */}
       <ActivityHero 
         activity={localizedActivity} 
-        guideCount={formattedGuides.length}
+        guideCount={tours.length}
         translations={{
           heroTitle: t('heroTitle'),
           authenticExperiences: t('authenticExperiences'),
@@ -233,23 +220,27 @@ export default async function ActivityPage({ params }: Props) {
         </div>
       </div>
 
-      {/* Guides Section */}
+      {/* Tours Section */}
       <div className="py-16">
         <div className="container mx-auto px-5">
-          <div className="mb-12">
+          <div className="mb-12 text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t('guidesSpecializedIn', { activity: activityName })}
+              {/* Consider updating translation key to reflect 'Tours' context */}
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               {t('connectWithExperts', { activity: activityName.toLowerCase() })}
             </p>
           </div>
 
-          {formattedGuides.length > 0 ? (
+          {tours.length > 0 ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-                {formattedGuides.map((guide) => (
-                  <GuideCard key={guide.slug} guide={guide} />
+              <div className="flex flex-wrap justify-center gap-8 mb-12">
+                {tours.map((tour: any) => (
+                  <div key={tour.id} className="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.33rem)] max-w-md h-full">
+                     {/* @ts-ignore */}
+                     <TourCard tour={tour} />
+                  </div>
                 ))}
               </div>
 
