@@ -63,9 +63,7 @@ export async function generateMetadata({ params }: GuidePageProps) {
   return {
     title,
     description,
-    alternates: {
-      canonical: url,
-    },
+
     openGraph: {
       title,
       description,
@@ -77,7 +75,7 @@ export async function generateMetadata({ params }: GuidePageProps) {
         height: 630,
         alt: `${user?.name} - Guía Turístico`,
       }],
-      locale: 'es_MX',
+      locale: 'es_MX', // TODO: Map locale to full format (e.g. fr_FR)
       type: 'profile',
     },
     twitter: {
@@ -85,6 +83,13 @@ export async function generateMetadata({ params }: GuidePageProps) {
       title,
       description,
       images: [imageUrl],
+    },
+    alternates: {
+      canonical: url,
+       languages: {
+        'es': `${baseUrl}/es/g/${slug}`,
+        'fr': `${baseUrl}/fr/g/${slug}`,
+      },
     },
   }
 }

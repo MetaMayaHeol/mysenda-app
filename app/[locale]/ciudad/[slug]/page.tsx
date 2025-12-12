@@ -82,6 +82,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     alternates: {
       canonical: `${baseUrl}/${locale}/ciudad/${slug}`,
+      languages: {
+        'es': `${baseUrl}/es/ciudad/${slug}`,
+        'fr': `${baseUrl}/fr/ciudad/${slug}`,
+      },
     },
   }
 }
