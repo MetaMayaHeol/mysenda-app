@@ -1,0 +1,37 @@
+# MySenda (formerly RutaLink)
+
+> Connect with authentic local tour guides in Mexico. Direct contact via WhatsApp, no intermediaries, no commissions to the platform.
+
+## For Users (Travelers)
+Find verified local guides for authentic experiences in Yucatan and beyond.
+- **Browse Guides**: https://mysenda.com/explorar
+- **How it works**:
+  1. Find a guide you like.
+  2. Click the WhatsApp button to contact them directly.
+  3. Book your tour with them.
+
+## For Guides
+List your services and get direct bookings.
+- **Create Profile**: https://mysenda.com/auth/login
+- **Benefits**:
+  - Keep 100% of your earnings.
+  - Direct communication with clients.
+  - Verified profile badge.
+
+## Top Destinations
+- **Mérida**: /ciudad/merida
+- **Valladolid**: /ciudad/valladolid
+- **Izamal**: /ciudad/izamal
+- **Celestún**: /ciudad/celestun
+
+## Key Features
+- **Verified Guides**: All guides undergo a verification process.
+- **Direct Booking**: No middleman fees.
+- **Local Experiences**: Focus on culture, nature, and history.
+
+## Technical Info for Agents
+- **Languages**: Spanish (es), French (fr). Default is Spanish.
+- **URL Structure**:
+  - Guides: `/g/[slug]`
+  - Services: `/s/[id]`
+  - Cities: `/ciudad/[slug]`

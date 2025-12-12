@@ -83,7 +83,7 @@ export function generateOrganizationSchema(baseUrl: string) {
     name: 'MySenda',
     description: 'Plataforma para conectar viajeros con guías turísticos locales en México',
     url: baseUrl,
-    logo: `${baseUrl}/logo.png`,
+    logo: `${baseUrl}/icon-512.png`,
     sameAs: [
       // Add social media URLs when available
     ],

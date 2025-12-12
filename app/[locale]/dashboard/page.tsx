@@ -6,6 +6,8 @@ import { QRCodeCard } from '@/components/dashboard/QRCodeCard'
 import { PublicLinkDisplay } from '@/components/dashboard/PublicLinkDisplay'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { isAdmin } from '@/lib/auth/admin'
+import { Share2 } from 'lucide-react'
+import { ShareButton } from '@/components/public/ShareButton'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -68,12 +70,47 @@ export default async function DashboardPage() {
           </div>
         </div>
         {publicLink?.slug && (
-          <Link href={`/g/${publicLink.slug}`}>
-            <Button variant="outline" className="w-full">
-              👁️ Ver mi página
-            </Button>
-          </Link>
+          <div className="flex gap-2 w-full mt-3">
+            <Link href={`/g/${publicLink.slug}`} className="flex-1">
+              <Button variant="outline" className="w-full">
+                👁️ Ver mi página
+              </Button>
+            </Link>
+            <ShareButton 
+              title={`Perfil de ${profile?.name || 'Guía'}`}
+              text={`Hola! Echa un vistazo a mi perfil de guía turístico en MySenda: `}
+              url={`${process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'}/g/${publicLink.slug}`}
+              className="flex-1 bg-green-500 hover:bg-green-600 text-white border-0"
+              variant="default"
+            >
+              <Share2 size={16} className="mr-2" /> Compartir
+            </ShareButton>
+          </div>
         )}
+      </div>
+
+      {/* Growth/Marketing Section */}
+      <div className="mx-5 mt-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100">
+        <div className="flex items-start gap-3">
+          <div className="bg-blue-100 p-2 rounded-lg text-blue-600">
+            <Share2 size={24} />
+          </div>
+          <div>
+            <h3 className="font-bold text-blue-900">¡Invita a otros guías!</h3>
+            <p className="text-sm text-blue-700 mb-3">
+              Ayuda a crecer la comunidad. Comparte MySenda con otros guías.
+            </p>
+            <ShareButton
+              title="Únete a MySenda"
+              text="Hola! Te invito a unirte a MySenda, la plataforma para guías turísticos locales. Es gratis y conectas directo con viajeros: "
+              url={`${process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'}/auth/login`}
+              className="bg-blue-600 hover:bg-blue-700 text-white h-9 px-4 text-sm w-full sm:w-auto"
+              variant="default"
+            >
+              Invitar Colegas
+            </ShareButton>
+          </div>
+        </div>
       </div>
 
       {/* Services List */}

@@ -4,13 +4,18 @@ import { Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 
+import { ReactNode } from 'react'
+
 interface ShareButtonProps {
   title: string
   text: string
   url: string
+  className?: string
+  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
+  children?: ReactNode
 }
 
-export function ShareButton({ title, text, url }: ShareButtonProps) {
+export function ShareButton({ title, text, url, className, variant = "outline", children }: ShareButtonProps) {
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -34,13 +39,13 @@ export function ShareButton({ title, text, url }: ShareButtonProps) {
 
   return (
     <Button
-      variant="outline"
-      size="icon"
-      className="rounded-full bg-white/80 backdrop-blur-sm hover:bg-white shadow-sm"
+      variant={variant}
+      size={children ? "default" : "icon"}
+      className={className || "rounded-full bg-white/80 backdrop-blur-sm hover:bg-white shadow-sm"}
       onClick={handleShare}
       title="Compartir perfil"
     >
-      <Share2 size={20} className="text-gray-700" />
+      {children || <Share2 size={20} className="text-gray-700" />}
     </Button>
   )
 }

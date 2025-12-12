@@ -36,8 +36,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
   
   return {
-    title: titles[locale] || titles.es,
+    title: {
+      default: titles[locale] || titles.es,
+      template: '%s | MySenda'
+    },
     description: descriptions[locale] || descriptions.es,
+    applicationName: 'MySenda',
+    authors: [{ name: 'MySenda' }],
+    keywords: ['guías turísticos', 'tour guides', 'mexico', 'yucatan', 'merida', 'valladolid', 'cenotes', 'tours', 'travel', 'voyage', 'tourisme', 'guides touristiques'],
     alternates: {
       canonical: `/${locale}`,
       languages: {
@@ -46,6 +52,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       },
     },
     manifest: '/manifest.json',
+    openGraph: {
+      title: titles[locale] || titles.es,
+      description: descriptions[locale] || descriptions.es,
+      url: `https://mysenda.com/${locale}`,
+      siteName: 'MySenda',
+      images: [
+        {
+          url: 'https://mysenda.com/hero-yucatan.webp', // Fallback to hero image for now
+          width: 1200,
+          height: 630,
+          alt: 'MySenda - Guides Touristiques / Tour Guides',
+        },
+      ],
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: titles[locale] || titles.es,
+      description: descriptions[locale] || descriptions.es,
+      images: ['https://mysenda.com/hero-yucatan.webp'],
+    },
   }
 }
 
