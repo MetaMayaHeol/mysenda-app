@@ -50,9 +50,10 @@ export async function sendNotification({
     
     if (error) throw error
     results.db = true
-  } catch (err: any) {
-    console.error('Notification DB Error:', err)
-    results.errors.push(err.message)
+  } catch (err) {
+    const error = err instanceof Error ? err : new Error('Unknown error')
+    console.error('Notification DB Error:', error)
+    results.errors.push(error.message)
   }
 
   // 2. Send Email (via Resend)
@@ -78,10 +79,11 @@ export async function sendNotification({
         })
         results.email = true
       }
-    } catch (err: any) {
-      console.error('Notification Email Error:', err)
+    } catch (err) {
+      const error = err instanceof Error ? err : new Error('Unknown error')
+      console.error('Notification Email Error:', error)
       // Don't fail the whole request just because email failed
-      results.errors.push(err.message)
+      results.errors.push(error.message)
     }
   }
 

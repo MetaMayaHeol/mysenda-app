@@ -26,7 +26,7 @@ export function getLocalizedPath(path: string, locale: Locale): string {
   const translations = pathTranslations[locale]
   let localizedPath = path
   
-  for (const [key, value] of Object.entries(pathTranslations.es)) {
+  for (const [key, _value] of Object.entries(pathTranslations.es)) {
     if (path.includes(`/${key}`)) {
       localizedPath = localizedPath.replace(`/${key}`, `/${translations[key]}`)
     }
