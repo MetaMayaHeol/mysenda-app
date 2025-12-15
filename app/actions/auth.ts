@@ -4,7 +4,13 @@ import { createClient } from '@/lib/supabase/server'
 import { authRateLimit } from '@/lib/ratelimit'
 import { headers } from 'next/headers'
 
-export async function signInWithEmail(prevState: any, formData: FormData) {
+interface AuthState {
+  error: string
+  success: boolean
+  message: string
+}
+
+export async function signInWithEmail(prevState: AuthState | null, formData: FormData): Promise<AuthState> {
   const email = formData.get('email') as string
   const origin = formData.get('origin') as string
   

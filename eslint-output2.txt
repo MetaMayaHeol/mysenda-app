@@ -1,0 +1,185 @@
+﻿
+> mysenda-app@0.1.0 lint
+> eslint
+
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\actividad\[slug]\page.tsx
+   53:9   warning  'activityDescription' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  151:41  error    Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  157:51  error    Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  157:59  error    Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+  246:35  error    Unexpected any. Specify a different type                  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\auth\login\page.tsx
+  24:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\auth\login\page.tsx:24:5
+  22 |
+  23 |   useEffect(() => {
+> 24 |     setOrigin(window.location.origin)
+     |     ^^^^^^^^^ Avoid calling setState() directly within an effect
+  25 |     const params = new URLSearchParams(window.location.search)
+  26 |     setIsGuideSignup(params.get('role') === 'guide')
+  27 |   }, [])  react-hooks/set-state-in-effect
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\ciudad\[slug]\page.tsx
+   67:5   warning  'cityDescription' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  174:41  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  180:51  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  180:59  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+  272:37  error    Unexpected any. Specify a different type              @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\dashboard\admin\ai\AiManagementClient.tsx
+  26:66  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\dashboard\page.tsx
+  54:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\dashboard\verification\page.tsx
+  113:21  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\onboarding\page.tsx
+  40:37  warning  'data' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  60:21  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  75:21  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+  86:21  error    Unexpected any. Specify a different type   @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\[locale]\s\[serviceId]\page.tsx
+    9:33  warning  'generateBreadcrumbSchema' is defined but never used                                                                                                                                                                                                                                     @typescript-eslint/no-unused-vars
+  143:9   warning  'serviceUrl' is assigned a value but never used                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+  245:52  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  381:28  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\app\actions\admin-ai.ts
+  9:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\AvailabilityForm.tsx
+  85:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\DashboardHeader.tsx
+  21:9  warning  'router' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\ExportButton.tsx
+  8:9  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\ImageUploader.tsx
+  56:21  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                 @typescript-eslint/no-explicit-any
+  72:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\ItineraryInput.tsx
+  3:10  warning  'useState' is defined but never used      @typescript-eslint/no-unused-vars
+  4:19  warning  'GripVertical' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\NotificationsBell.tsx
+  16:54  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-explicit-any
+  43:5   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\NotificationsBell.tsx:43:5
+  41 |
+  42 |   useEffect(() => {
+> 43 |     fetchNotifications()
+     |     ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  44 |     
+  45 |     // Optional: Subscribe to changes (Realtime)
+  46 |     const channel = supabase  react-hooks/set-state-in-effect
+  61:6   warning  React Hook useEffect has missing dependencies: 'fetchNotifications' and 'supabase'. Either include them or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           react-hooks/exhaustive-deps
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\ProfileForm.tsx
+  43:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\PublicLinkDisplay.tsx
+  16:7  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\PublicLinkDisplay.tsx:16:7
+  14 |       const appUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+  15 |       const cleanUrl = appUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
+> 16 |       setDisplayUrl(`${cleanUrl}/g/${slug}`)
+     |       ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  17 |     }
+  18 |   }, [slug])
+  19 |  react-hooks/set-state-in-effect
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\QRCodeCard.tsx
+  13:25  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  55:26  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\dashboard\ServiceForm.tsx
+    8:10  warning  'Button' is defined but never used        @typescript-eslint/no-unused-vars
+   60:45  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   82:14  warning  'error' is defined but never used         @typescript-eslint/no-unused-vars
+  193:40  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\directory\TourCard.tsx
+  32:9  warning  't' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\public\ActivitiesGrid.tsx
+  17:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\public\BookingSection.tsx
+  10:24  warning  'Clock' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\public\DestinationsGrid.tsx
+  18:11  error  'query' is never reassigned. Use 'const' instead  prefer-const
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\public\ImageLightbox.tsx
+  20:5  error  Error: This value cannot be modified
+
+Modifying a variable defined outside a component or hook is not allowed. Consider using an effect.
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\public\ImageLightbox.tsx:20:5
+  18 |     setIsOpen(true)
+  19 |     // Prevent body scroll when lightbox is open
+> 20 |     document.body.style.overflow = 'hidden'
+     |     ^^^^^^^^^^^^^^^^^^^ value cannot be modified
+  21 |   }
+  22 |
+  23 |   const closeLightbox = () => {  react-hooks/immutability
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\public\ShareButton.tsx
+  34:16  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\ui\command.tsx
+  26:11  error  An interface declaring no members is equivalent to its supertype  @typescript-eslint/no-empty-object-type
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\components\ui\multi-select.tsx
+   92:54  error  Unexpected any. Specify a different type                         @typescript-eslint/no-explicit-any
+  139:31  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+  139:44  error  `"` can be escaped with `&quot;`, `&ldquo;`, `&#34;`, `&rdquo;`  react/no-unescaped-entities
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\lib\i18n\config.ts
+  29:20  warning  'value' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\lib\notifications.ts
+  53:17  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  81:19  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\lib\supabase\middleware.ts
+  18:48  warning  'options' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\lib\utils\export.ts
+  1:37  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\Users\lagea\OneDrive\Documents\Dev\Project\MySenda\mysenda-app\lib\utils\validators.test.ts
+  2:40  warning  'serviceSchema' is defined but never used  @typescript-eslint/no-unused-vars
+
+Ô£û 57 problems (35 errors, 22 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

@@ -1,11 +1,9 @@
 import { ShieldCheck, UserCheck, FileCheck, Phone } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
+import Link from 'next/link'
 
 export const dynamic = 'force-static'
 
-export default async function VerificationInfoPage({ params }: { params: Promise<{ locale: string }> }) {
-  const t = await getTranslations('common') // Reusing common or generic keys if specific ones aren't available
-
+export default async function VerificationInfoPage() {
   const steps = [
     {
       icon: FileCheck,
@@ -36,7 +34,7 @@ export default async function VerificationInfoPage({ params }: { params: Promise
           <ShieldCheck size={40} className="text-green-600" />
         </div>
         <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-600 mb-4">
-          Proceso de Verificación Rutalink
+          Proceso de Verificación MySenda
         </h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
           Tu seguridad es nuestra prioridad. Así es como garantizamos que nuestros guías sean quienes dicen ser.
@@ -67,13 +65,14 @@ export default async function VerificationInfoPage({ params }: { params: Promise
         <p className="text-blue-800 mb-6">
           Obtener tu insignia de verificación es gratuito y aumenta tus reservas en un 300%.
         </p>
-        <a 
+        <Link 
           href="/auth?view=signup&role=guide" 
           className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
         >
           Iniciar Verificación
-        </a>
+        </Link>
       </div>
     </div>
   )
 }
+

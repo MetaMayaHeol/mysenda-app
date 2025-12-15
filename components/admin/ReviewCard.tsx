@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { ReviewWithGuide } from '@/app/actions/admin-reviews'
 import { approveReview, rejectReview } from '@/app/actions/admin-reviews'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 
 type ReviewCardProps = {
   review: ReviewWithGuide

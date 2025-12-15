@@ -1,10 +1,6 @@
-import { getTranslations } from 'next-intl/server'
-
 export const dynamic = 'force-static'
 
-export default async function CancellationPage({ params }: { params: Promise<{ locale: string }> }) {
-  const t = await getTranslations('faq') // Reusing some strings or just generic structure
-
+export default async function CancellationPage() {
   return (
     <div className="container mx-auto px-5 py-24 max-w-3xl">
       <h1 className="text-4xl font-bold mb-8">Política de Cancelación</h1>

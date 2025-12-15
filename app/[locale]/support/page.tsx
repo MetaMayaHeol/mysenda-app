@@ -1,11 +1,9 @@
 import { Mail, MessageCircle } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
+import Link from 'next/link'
 
 export const dynamic = 'force-static'
 
-export default async function SupportPage({ params }: { params: Promise<{ locale: string }> }) {
-  const t = await getTranslations('common') 
-
+export default async function SupportPage() {
   return (
     <div className="container mx-auto px-5 py-24 max-w-3xl">
       <h1 className="text-4xl font-bold mb-8 text-center text-gray-900">Soporte y Ayuda</h1>
@@ -47,12 +45,13 @@ export default async function SupportPage({ params }: { params: Promise<{ locale
             Quizás tu duda ya esté resuelta. Revisa nuestra sección de preguntas frecuentes.
           </p>
           <div className="text-center">
-            <a href="/faq" className="text-green-600 font-semibold hover:underline">
+            <Link href="/faq" className="text-green-600 font-semibold hover:underline">
               Ir a Preguntas Frecuentes &rarr;
-            </a>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   )
 }
+

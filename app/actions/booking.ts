@@ -1,12 +1,17 @@
 'use server'
 
 import { createClient } from '@/lib/supabase/server'
-import { bookingSchema, type BookingFormValues } from '@/lib/utils/validators'
+import { bookingSchema } from '@/lib/utils/validators'
 import { apiRateLimit } from '@/lib/ratelimit'
 import { headers } from 'next/headers'
-import { revalidatePath } from 'next/cache'
 
-export async function createBooking(prevState: any, formData: FormData) {
+interface BookingState {
+  error?: string
+  message?: string
+  success: boolean
+}
+
+export async function createBooking(prevState: BookingState | null, formData: FormData): Promise<BookingState> {
   // 1. Rate Limiting
   const headersList = await headers()
   const ip = headersList.get('x-forwarded-for') ?? '127.0.0.1'
@@ -36,7 +41,7 @@ export async function createBooking(prevState: any, formData: FormData) {
 
   // 3. Double Booking Check
   // Check if there is already a confirmed or pending booking for this slot
-  const { data: existing, error: checkError } = await supabase
+  const { data: existing } = await supabase
     .from('bookings')
     .select('id')
     .eq('service_id', service_id)

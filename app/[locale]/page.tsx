@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { MapPin, Globe, Shield, MessageCircle, Star, ArrowRight, Mail } from 'lucide-react'
+import { Globe, Shield, MessageCircle, Star, ArrowRight, Mail } from 'lucide-react'
 import { createClient } from '@supabase/supabase-js'
 import { GuideCard } from '@/components/directory/GuideCard'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -73,7 +73,6 @@ export default async function HomePage({ params }: Props) {
   setRequestLocale(locale)
   
   const t = await getTranslations('home')
-  const tNav = await getTranslations('nav')
   const tFeatured = await getTranslations('featuredGuides')
   const tHow = await getTranslations('howItWorks')
   const tCta = await getTranslations('cta')

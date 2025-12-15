@@ -2,6 +2,7 @@ import { isAdmin } from '@/lib/auth/admin'
 import { getPendingReviews, getAllReviews } from '@/app/actions/admin-reviews'
 import { redirect } from 'next/navigation'
 import { ReviewsClient } from './ReviewsClient'
+import Link from 'next/link'
 
 export default async function AdminReviewsPage() {
   // Check if user is admin
@@ -22,12 +23,12 @@ export default async function AdminReviewsPage() {
       {/* Header */}
       <div className="bg-white border-b border-gray-200 p-5">
         <div className="flex items-center gap-3">
-          <a
+          <Link
             href="/dashboard"
             className="text-gray-600 hover:text-gray-900 text-xl"
           >
             ←
-          </a>
+          </Link>
           <div>
             <h1 className="text-xl font-bold text-gray-900">
               🛡️ Panel de administración

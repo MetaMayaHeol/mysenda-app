@@ -8,8 +8,7 @@ import {
 
 export const dynamic = 'force-static'
 
-export default async function FaqPage({ params }: { params: Promise<{ locale: string }> }) {
-  const { locale } = await params
+export default async function FaqPage() {
   const t = await getTranslations('faq')
 
   const questions = [
