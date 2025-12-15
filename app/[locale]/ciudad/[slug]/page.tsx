@@ -285,7 +285,7 @@ export default async function CityPage({ params }: Props) {
             <h3>{t('featuredExperiences')}</h3>
             <ul>
               {cityHighlights.map((highlight, index) => (
-                <li key={index}><strong>{highlight}</strong>: {t('discoverWith', { highlight: highlight.toLowerCase() })}</li>
+                <li key={index}>{highlight}</li>
               ))}
             </ul>
 
