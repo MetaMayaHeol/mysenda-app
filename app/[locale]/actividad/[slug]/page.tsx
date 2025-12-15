@@ -17,6 +17,27 @@ import { FAQSection } from '@/components/seo/FAQSection'
 
 export const revalidate = 60 // Revalidate every minute
 
+// Types for Supabase service query response
+interface ServicePhoto {
+  url: string
+  order: number
+}
+
+interface ServiceResponse {
+  id: string
+  title: string
+  description: string | null
+  price: number
+  duration: number
+  service_photos: ServicePhoto[]
+  user: {
+    name: string | null
+    photo_url: string | null
+    is_verified: boolean
+    public_links: { slug: string; active: boolean }[]
+  }
+}
+
 type Props = {
   params: Promise<{ slug: string; locale: string }>
 }
@@ -148,13 +169,14 @@ export default async function ActivityPage({ params }: Props) {
     .limit(50)
 
   // Format tours for display
-  const tours = services?.map((service: any) => ({
+  const typedServices = services as ServiceResponse[] | null
+  const tours = typedServices?.map((service) => ({
     id: service.id,
     title: service.title,
     description: service.description,
     price: service.price,
     duration: service.duration,
-    cover_image: service.service_photos?.sort((a: any, b: any) => a.order - b.order)[0]?.url || null,
+    cover_image: service.service_photos?.sort((a, b) => a.order - b.order)[0]?.url || null,
     guide: {
       name: service.user.name || 'Guía MySenda',
       photo_url: service.user.photo_url,
