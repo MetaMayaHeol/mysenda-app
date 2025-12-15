@@ -64,7 +64,8 @@ export async function createBooking(prevState: any, formData: FormData) {
 
   if (insertError) {
     console.error('Booking Error:', insertError)
-    return { error: 'Error al procesar la reserva.', success: false }
+    // RETURN DETAILED ERROR FOR DEBUGGING
+    return { error: `Error al procesar la reserva: ${insertError.message || JSON.stringify(insertError)}`, success: false }
   }
 
   // 5. Send Notification (Email + In-App)

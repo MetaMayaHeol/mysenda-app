@@ -6,7 +6,7 @@ import { es } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { generateWhatsAppLink, openWhatsApp } from '@/lib/whatsapp'
+import { generateWhatsAppLink, isMobile } from '@/lib/whatsapp'
 import { CalendarIcon, Clock, Send, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Input } from '@/components/ui/input'
@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label'
 
 import { trackWhatsappClick } from '@/lib/actions/analytics'
 import { createBooking } from '@/app/actions/booking'
-import { toast } from 'sonner' // Assuming sonner is installed as per package.json
+import { toast } from 'sonner'
 
 interface BookingSectionProps {
   serviceName: string
@@ -46,6 +46,18 @@ export function BookingSection({
       return
     }
 
+    // Determine if mobile
+    const mobile = isMobile()
+    let newWindow: Window | null = null
+
+    // On desktop, open window immediately to avoid popup blockers
+    if (!mobile) {
+      newWindow = window.open('', '_blank')
+      if (newWindow) {
+          newWindow.document.write('Cargando WhatsApp...')
+      }
+    }
+
     startTransition(async () => {
       try {
         const formData = new FormData()
@@ -60,6 +72,7 @@ export function BookingSection({
 
         if (!result.success) {
           toast.error(result.error)
+          if (newWindow) newWindow.close()
           return
         }
 
@@ -73,13 +86,17 @@ export function BookingSection({
         const formattedDate = format(date, 'd MMM yyyy', { locale: es })
         const link = generateWhatsAppLink(whatsapp, serviceName, formattedDate, time)
         
-        // Give a small delay so user sees success message? No, immediate is better.
-        openWhatsApp(link)
+        if (mobile) {
+            window.location.href = link
+        } else if (newWindow) {
+            const webUrl = link.replace('https://wa.me/', 'https://web.whatsapp.com/send?phone=')
+            newWindow.location.href = webUrl
+        }
         
-        // Reset form? Maybe not needed if they leave page.
       } catch (error) {
         console.error(error)
         toast.error('Ocurrió un error inesperado')
+        if (newWindow) newWindow.close()
       }
     })
   }
