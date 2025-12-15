@@ -34,11 +34,12 @@ export default async function DashboardPage() {
     .eq('user_id', user.id)
     .single()
 
-  // Fetch user's services
+  // Fetch user's services (excluding soft-deleted ones)
   const { data: services } = await supabase
     .from('services')
     .select('*')
     .eq('user_id', user.id)
+    .is('deleted_at', null)
     .order('created_at', { ascending: false })
 
   // Check if user is admin

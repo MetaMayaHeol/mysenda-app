@@ -25,12 +25,13 @@ export default async function EditServicePage({ params }: EditServicePageProps) 
     redirect('/auth/login')
   }
 
-  // Fetch service
+  // Fetch service (excluding soft-deleted)
   const { data: service } = await supabase
     .from('services')
     .select('*')
     .eq('id', id)
     .eq('user_id', user.id)
+    .is('deleted_at', null)
     .single()
 
   if (!service) {

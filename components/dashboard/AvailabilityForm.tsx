@@ -32,12 +32,12 @@ export function AvailabilityForm({ initialWeekdays, initialTimeslots }: Availabi
   ]
   
   // Initialize state merging defaults with initial data
+  // weekday: 0=Lunes, 1=Martes, ..., 6=Domingo (matches database constraint 0-6)
   const [weekdays, setWeekdays] = useState(() => {
     return weekdayNames.map((name, index) => {
-      const dayId = index + 1
-      const saved = initialWeekdays.find((d) => d.weekday === dayId)
+      const saved = initialWeekdays.find((d) => d.weekday === index)
       return {
-        weekday: dayId,
+        weekday: index,
         name: name,
         active: saved ? saved.active : true, // Default to true if not set
       }
