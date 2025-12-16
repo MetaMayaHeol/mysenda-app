@@ -188,6 +188,7 @@ export default async function CityPage({ params }: Props) {
     `)
     .contains('locations', [city.name]) // Keep using canonical name for DB query
     .eq('active', true)
+    .is('deleted_at', null) // Exclude soft-deleted services
     .eq('user.public_links.active', true)
     .limit(50)
 

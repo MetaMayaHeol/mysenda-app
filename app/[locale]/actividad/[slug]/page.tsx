@@ -165,6 +165,7 @@ export default async function ActivityPage({ params }: Props) {
     `)
     .contains('categories', [activity.name]) // Using original Spanish name for DB query consistency
     .eq('active', true)
+    .is('deleted_at', null) // Exclude soft-deleted services
     .eq('user.public_links.active', true)
     .limit(50)
 

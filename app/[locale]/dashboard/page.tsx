@@ -163,6 +163,11 @@ export default async function DashboardPage() {
 
         {/* Quick Actions */}
         <div className={`grid ${userIsAdmin ? 'grid-cols-2' : 'grid-cols-2'} gap-3 mt-4`}>
+          <Link href="/dashboard/bookings">
+            <Button variant="outline" className="w-full h-12 text-orange-700 border-orange-200 bg-orange-50 hover:bg-orange-100">
+              📋 Reservaciones
+            </Button>
+          </Link>
           <Link href="/dashboard/availability">
             <Button variant="outline" className="w-full h-12">
               📅 Disponibilidades

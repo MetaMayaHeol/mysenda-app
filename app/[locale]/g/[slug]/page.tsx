@@ -133,12 +133,13 @@ export default async function GuidePage({ params }: GuidePageProps) {
     .order('order')
     .limit(3)
 
-  // 4. Fetch active services
+  // 4. Fetch active services (excluding soft-deleted)
   const { data: rawServices } = await supabase
     .from('services')
     .select('id, title, description, price, duration, service_photos(url)')
     .eq('user_id', link.user_id)
     .eq('active', true)
+    .is('deleted_at', null) // Exclude soft-deleted services
     .order('price')
 
   const services = rawServices as ServiceWithPhotosResponse[] | null

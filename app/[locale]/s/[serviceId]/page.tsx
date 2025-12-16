@@ -20,7 +20,10 @@ interface ServicePageProps {
 
 export async function generateStaticParams() {
   const supabase = createStaticClient()
-  const { data: services } = await supabase.from('services').select('id')
+  const { data: services } = await supabase
+    .from('services')
+    .select('id')
+    .is('deleted_at', null) // Exclude soft-deleted services
   
   return services?.map(({ id }) => ({ serviceId: id })) || []
 }
