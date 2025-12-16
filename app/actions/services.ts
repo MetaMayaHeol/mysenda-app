@@ -43,15 +43,25 @@ export async function createService(formData: ServiceFormValues) {
   }
 
   // Ensure user exists in public.users (in case trigger failed)
-  const { data: existingUser } = await supabase.from('users').select('id').eq('id', user.id).single()
+  const { data: existingUser, error: userCheckError } = await supabase.from('users').select('id').eq('id', user.id).single()
+  
+  if (userCheckError && userCheckError.code !== 'PGRST116') {
+    console.error('Error checking user existence:', userCheckError)
+  }
+  
   if (!existingUser) {
-    await supabase.from('users').insert({ id: user.id, email: user.email! })
+    const { error: insertUserError } = await supabase.from('users').insert({ id: user.id, email: user.email! })
+    if (insertUserError) {
+      console.error('Error creating user profile:', insertUserError)
+      return { error: 'Error al crear tu perfil. Por favor contacta soporte.' }
+    }
   }
 
   const validatedFields = serviceSchema.safeParse(formData)
 
   if (!validatedFields.success) {
-    return { error: 'Datos inválidos' }
+    console.error('Validation errors:', validatedFields.error.flatten())
+    return { error: 'Datos inválidos: ' + validatedFields.error.issues.map((e: { message: string }) => e.message).join(', ') }
   }
 
   const { 
@@ -88,7 +98,8 @@ export async function createService(formData: ServiceFormValues) {
     .single()
 
   if (serviceError) {
-    return { error: 'Error al crear el servicio' }
+    console.error('Error creating service:', serviceError)
+    return { error: `Error al crear el servicio: ${serviceError.message}` }
   }
 
   // 2. Insert photos if any
