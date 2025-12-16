@@ -12,8 +12,8 @@ import { DestinationsGrid } from '@/components/public/DestinationsGrid'
 import { ActivitiesGrid } from '@/components/public/ActivitiesGrid'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 
-// Force dynamic to ensure we see the latest featured guides
-export const dynamic = 'force-dynamic'
+// Use ISR to cache homepage and revalidate every hour for fresh featured guides
+export const revalidate = 3600
 
 interface FeaturedGuideResponse {
   slug: string
