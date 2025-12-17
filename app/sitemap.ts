@@ -4,7 +4,7 @@ import { activities } from '@/lib/seo/activities'
 import { createStaticClient } from '@/lib/supabase/static'
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
-const locales = ['es', 'fr']
+const locales = ['es', 'fr', 'en']
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const supabase = createStaticClient()
