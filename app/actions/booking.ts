@@ -81,7 +81,7 @@ export async function createBooking(prevState: BookingState | null, formData: Fo
     title: 'Nueva Solicitud de Reserva',
     message: `Tienes una nueva solicitud para ${service_id} el día ${date} a las ${time}. Cliente: ${customer_name}`,
     type: 'booking_request',
-    link: '/dashboard/bookings' // TODO: Build this page
+    link: '/dashboard/bookings'
   })
 
   return { success: true, message: 'Solicitud enviada. Redirigiendo a WhatsApp...' }

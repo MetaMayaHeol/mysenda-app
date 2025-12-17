@@ -1,24 +1,29 @@
 'use client'
 
-import { ReactNode, useState } from 'react'
+import React, { ReactNode, useState } from 'react'
+import { cn } from '@/lib/utils'
 
 type TabsProps = {
   defaultValue: string
   children: ReactNode
+  className?: string
 }
 
 type TabsListProps = {
   children: ReactNode
+  className?: string
 }
 
 type TabsTriggerProps = {
   value: string
   children: ReactNode
+  className?: string
 }
 
 type TabsContentProps = {
   value: string
   children: ReactNode
+  className?: string
 }
 
 const TabsContext = React.createContext<{
@@ -29,27 +34,25 @@ const TabsContext = React.createContext<{
   setActiveTab: () => {},
 })
 
-import React from 'react'
-
-export function Tabs({ defaultValue, children }: TabsProps) {
+export function Tabs({ defaultValue, children, className }: TabsProps) {
   const [activeTab, setActiveTab] = useState(defaultValue)
 
   return (
     <TabsContext.Provider value={{ activeTab, setActiveTab }}>
-      <div className="w-full">{children}</div>
+      <div className={cn("w-full", className)}>{children}</div>
     </TabsContext.Provider>
   )
 }
 
-export function TabsList({ children }: TabsListProps) {
+export function TabsList({ children, className }: TabsListProps) {
   return (
-    <div className="flex border-b border-gray-200 mb-4">
+    <div className={cn("flex border-b border-gray-200 mb-4", className)}>
       {children}
     </div>
   )
 }
 
-export function TabsTrigger({ value, children }: TabsTriggerProps) {
+export function TabsTrigger({ value, children, className }: TabsTriggerProps) {
   const { activeTab, setActiveTab } = React.useContext(TabsContext)
   const isActive = activeTab === value
 
@@ -57,23 +60,25 @@ export function TabsTrigger({ value, children }: TabsTriggerProps) {
     <button
       type="button"
       onClick={() => setActiveTab(value)}
-      className={`px-4 py-2 font-medium text-sm transition-colors border-b-2 ${
+      className={cn(
+        "px-4 py-2 font-medium text-sm transition-colors border-b-2",
         isActive
           ? 'border-green-500 text-green-600'
-          : 'border-transparent text-gray-500 hover:text-gray-700'
-      }`}
+          : 'border-transparent text-gray-500 hover:text-gray-700',
+        className
+      )}
     >
       {children}
     </button>
   )
 }
 
-export function TabsContent({ value, children }: TabsContentProps) {
+export function TabsContent({ value, children, className }: TabsContentProps) {
   const { activeTab } = React.useContext(TabsContext)
 
   if (activeTab !== value) {
     return null
   }
 
-  return <div>{children}</div>
+  return <div className={className}>{children}</div>
 }

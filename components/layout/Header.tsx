@@ -40,6 +40,7 @@ export function Header({ user }: { user?: User | null }) {
   const languageNames: Record<string, string> = {
     es: 'Español',
     fr: 'Français',
+    en: 'English',
   }
 
   return (
@@ -123,6 +124,28 @@ export function Header({ user }: { user?: User | null }) {
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Language Switcher (Desktop) */}
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="icon" className="ml-2">
+                    <Globe size={18} />
+                    <span className="sr-only">{t('language')}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  {locales.map((loc) => (
+                    <DropdownMenuItem key={loc} asChild>
+                      <Link 
+                        href={`/${loc}${pathWithoutLocale}`} 
+                        className={`cursor-pointer ${loc === locale ? 'font-bold text-green-600' : ''}`}
+                      >
+                        {languageNames[loc]}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
 
             {/* User Navigation */ }
             {user ? (
