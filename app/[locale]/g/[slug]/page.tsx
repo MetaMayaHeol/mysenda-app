@@ -15,6 +15,7 @@ import { ShareButton } from '@/components/public/ShareButton'
 import { RatingSummary } from '@/components/public/RatingSummary'
 import { VerificationBadge } from '@/components/public/VerificationBadge'
 import { StickyWhatsAppCTA } from '@/components/public/StickyWhatsAppCTA'
+import { getOpenGraphLocale } from '@/lib/utils/locale-utils'
 
 // Revalidate every hour
 export const revalidate = 3600
@@ -29,7 +30,7 @@ interface ServiceWithPhotosResponse {
 }
 
 interface GuidePageProps {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string; locale: string }>
 }
 
 export async function generateStaticParams() {
@@ -84,7 +85,7 @@ export async function generateMetadata({ params }: GuidePageProps) {
         height: 630,
         alt: `${user?.name} - Guía Turístico`,
       }],
-      locale: 'es_MX', // TODO: Map locale to full format (e.g. fr_FR)
+      locale: getOpenGraphLocale((await params).locale),
       type: 'profile',
     },
     twitter: {

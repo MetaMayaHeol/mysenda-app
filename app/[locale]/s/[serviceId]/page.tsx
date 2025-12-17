@@ -11,6 +11,7 @@ import { generateServiceSchema, generateBreadcrumbSchema } from '@/lib/seo/struc
 import { ViewTracker } from '@/components/analytics/ViewTracker'
 import { Badge } from '@/components/ui/badge'
 import { LANGUAGE_NAMES, type Language } from '@/lib/utils/constants'
+import { getOpenGraphLocale } from '@/lib/utils/locale-utils'
 
 // Revalidate every hour
 export const revalidate = 3600
@@ -68,7 +69,7 @@ export async function generateMetadata({ params }: ServicePageProps) {
         height: 630,
         alt: service.title,
       }],
-      locale: 'es_MX',
+      locale: getOpenGraphLocale((await params).locale),
       type: 'website',
     },
   }
