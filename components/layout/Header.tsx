@@ -29,7 +29,7 @@ export function Header({ user }: { user?: User | null }) {
   const pathname = usePathname()
   
   // Get path without locale prefix for language switching
-  const pathWithoutLocale = pathname.replace(/^\/(es|fr)/, '') || '/'
+  const pathWithoutLocale = pathname.replace(new RegExp(`^/(${locales.join('|')})`), '') || '/'
   
   // Group cities by state
   const yucatan = cities.filter(c => c.state === 'Yucatán')
