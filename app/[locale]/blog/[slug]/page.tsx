@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const article = await getArticleBySlug(params.slug);
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const article = await getArticleBySlug(slug);
   if (!article) return {};
 
   return {
@@ -24,9 +25,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 export default async function BlogPostPage({
   params
 }: {
-  params: { slug: string, locale: string }
+  params: Promise<{ slug: string, locale: string }>
 }) {
-  const article = await getArticleBySlug(params.slug);
+  const { slug, locale } = await params;
+  const article = await getArticleBySlug(slug);
 
   if (!article || article.status !== 'published') {
     notFound();
@@ -66,7 +68,7 @@ export default async function BlogPostPage({
           </h1>
           <div className="flex items-center text-zinc-500 dark:text-zinc-400 space-x-4">
             <time dateTime={article.published_at}>
-              {new Date(article.published_at).toLocaleDateString(params.locale, {
+              {new Date(article.published_at).toLocaleDateString(locale, {
                 year: 'numeric', month: 'long', day: 'numeric'
               })}
             </time>

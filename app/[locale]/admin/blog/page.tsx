@@ -1,13 +1,23 @@
 import { getArticles, deleteArticle } from "@/app/actions/blog"
-import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 import { Plus, Edit, Trash } from "lucide-react"
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 
 export default async function AdminBlogPage({
-  params: { locale }
+  params
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  const { locale } = await params;
+
+  if (!user) {
+    redirect(`/${locale}/auth/login`);
+  }
+
   const articles = await getArticles();
 
   return (

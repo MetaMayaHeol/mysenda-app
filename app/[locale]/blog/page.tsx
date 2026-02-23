@@ -8,10 +8,11 @@ export const metadata = {
 }
 
 export default async function BlogIndexPage({
-  params: { locale }
+  params
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
+  const { locale } = await params;
   const articles = await getPublishedArticles();
 
   return (

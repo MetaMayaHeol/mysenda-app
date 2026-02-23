@@ -8,7 +8,7 @@ import { ArrowRight, BookOpen, Compass, Mail } from 'lucide-react'
 // Cache pour la page d'accueil (Revalidate chaque heure)
 export const revalidate = 3600
 
-export default async function HomePage({ params }: { params: { locale: string } }) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
 
@@ -40,7 +40,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
           </div>
           
           <h1 className="text-5xl md:text-7xl font-extrabold mb-8 tracking-tight leading-tight max-w-4xl">
-            Découvrez l'âme du voyage <span className="text-primary">hors des sentiers battus</span>
+            Découvrez l'âme du voyage hors des sentiers battus
           </h1>
           
           <p className="text-xl md:text-2xl text-zinc-300 mb-10 max-w-2xl mx-auto leading-relaxed">
