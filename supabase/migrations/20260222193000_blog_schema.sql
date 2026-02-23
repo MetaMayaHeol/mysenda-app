@@ -54,8 +54,6 @@ CREATE POLICY "Admins can manage blog articles" ON public.blog_articles
 CREATE OR REPLACE FUNCTION update_modified_column()
 RETURNS TRIGGER AS $$
 BEGIN
-    NEW.updated_at = EXCLUDED.updated_at; -- default behavior
-    -- Or just enforce now()
     NEW.updated_at = now();
     RETURN NEW;
 END;
