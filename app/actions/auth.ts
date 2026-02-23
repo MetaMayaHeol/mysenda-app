@@ -117,7 +117,7 @@ export async function signInWithPassword(prevState: AuthState | null, formData: 
   }
 
   if (shouldRedirect) {
-    redirect('/dashboard')
+    redirect('/admin/blog')
   }
 
   return { error: 'Unexpected flow', success: false, message: '' }
@@ -215,6 +215,6 @@ export async function updatePassword(prevState: AuthState | null, formData: Form
     return { error: 'An unexpected error occurred', success: false, message: '' }
   }
 
-  redirect('/dashboard')
+  redirect('/admin/blog')
   return { error: 'Unexpected flow', success: false, message: '' }
 }
