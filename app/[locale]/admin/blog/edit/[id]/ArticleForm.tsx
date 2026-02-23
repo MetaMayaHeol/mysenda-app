@@ -60,6 +60,19 @@ export default function ArticleForm({ initialData }: { initialData?: any }) {
           />
         </div>
       </div>
+      
+      <div className="space-y-2">
+        <label htmlFor="cover_image" className="block font-medium">Lien Image de Couverture (URL)</label>
+        <input
+          id="cover_image"
+          name="cover_image"
+          type="url"
+          defaultValue={initialData?.cover_image}
+          className="w-full p-3 border rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+          placeholder="https://imagedemonarticle.com/image.jpg"
+        />
+        <p className="text-xs text-zinc-500">Colle ici le lien direct vers ton image hébergée sur internet.</p>
+      </div>
 
       <div className="space-y-2">
         <label htmlFor="status" className="block font-medium">Statut de publication</label>
@@ -114,15 +127,26 @@ export default function ArticleForm({ initialData }: { initialData?: any }) {
             />
           </div>
           <div className="space-y-2">
-            <label htmlFor="meta_description" className="block font-medium text-sm">Meta Description</label>
-            <textarea
-              id="meta_description"
-              name="meta_description"
-              rows={2}
-              defaultValue={initialData?.meta_description}
+            <label htmlFor="keywords" className="block font-medium text-sm">Mots-clés (séparés par des virgules)</label>
+            <input
+              id="keywords"
+              name="keywords"
+              type="text"
+              defaultValue={initialData?.keywords}
               className="w-full p-2 border rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+              placeholder="mot-clé 1, mot-clé 2, seo"
             />
           </div>
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="meta_description" className="block font-medium text-sm">Meta Description</label>
+          <textarea
+            id="meta_description"
+            name="meta_description"
+            rows={2}
+            defaultValue={initialData?.meta_description}
+            className="w-full p-2 border rounded-md dark:border-zinc-700 dark:bg-zinc-800"
+          />
         </div>
       </div>
 

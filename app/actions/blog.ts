@@ -79,6 +79,8 @@ export async function saveArticle(formData: FormData) {
   const status = formData.get("status") as string;
   const meta_title = formData.get("meta_title") as string;
   const meta_description = formData.get("meta_description") as string;
+  const keywords = formData.get("keywords") as string;
+  const cover_image = formData.get("cover_image") as string;
 
   const articleData = {
     title,
@@ -88,6 +90,8 @@ export async function saveArticle(formData: FormData) {
     status,
     meta_title,
     meta_description,
+    keywords,
+    cover_image,
     author_id: user.id,
     updated_at: new Date().toISOString(),
   };
