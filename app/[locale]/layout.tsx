@@ -8,10 +8,7 @@ import { Header } from '@/components/layout/Header'
 import { locales, type Locale } from '@/lib/i18n/config'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
-import { JsonLd } from '@/components/seo/JsonLd'
-import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/structured-data'
 import { Analytics } from '@vercel/analytics/next'
-
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -97,21 +94,14 @@ export default async function LocaleLayout({ children, params }: Props) {
   // Get current user
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
-
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
-  const orgSchema = generateOrganizationSchema(baseUrl)
-  const websiteSchema = generateWebSiteSchema(baseUrl)
-
   return (
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
-            <JsonLd data={orgSchema} />
-            <JsonLd data={websiteSchema} />
-            <Header user={user} />
-            {children}
-            <Toaster />
-            <Analytics />
+          <Header user={user} />
+          {children}
+          <Toaster />
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>

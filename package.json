@@ -23,6 +23,7 @@
     "@radix-ui/react-switch": "^1.2.6",
     "@supabase/auth-helpers-nextjs": "^0.15.0",
     "@supabase/supabase-js": "^2.86.0",
+    "@tailwindcss/typography": "^0.5.19",
     "@upstash/ratelimit": "^2.0.7",
     "@vercel/analytics": "^1.6.1",
     "@vercel/kv": "^3.0.0",
@@ -40,10 +41,13 @@
     "react-day-picker": "^9.11.2",
     "react-dom": "^19.2.1",
     "react-hook-form": "^7.66.1",
+    "react-markdown": "^10.1.0",
     "react-qr-code": "^2.0.18",
+    "remark-gfm": "^4.0.1",
     "resend": "^6.5.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.4.0",
+    "tailwindcss-animate": "^1.0.7",
     "zod": "^4.1.13"
   },
   "devDependencies": {
