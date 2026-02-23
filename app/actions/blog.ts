@@ -52,7 +52,7 @@ export async function getArticleBySlug(slug: string) {
   const supabase = createStaticClient();
   const { data, error } = await supabase
     .from("blog_articles")
-    .select("*, blog_categories(title, slug), users:author_id(full_name, avatar_url)")
+    .select("*, blog_categories(title, slug)")
     .eq("slug", slug)
     .single();
 
