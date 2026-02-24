@@ -1,5 +1,5 @@
 import { getArticle } from "@/app/actions/blog";
-import ArticleForm from "./ArticleForm";
+import ArticleFormWrapper from "./ArticleFormWrapper";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { requireAdmin } from "@/lib/auth/admin";
@@ -33,7 +33,7 @@ export default async function EditArticlePage({
       <h1 className="text-3xl font-bold mb-8">
         {isNew ? "Créer un nouvel article" : "Modifier l'article"}
       </h1>
-      <ArticleForm initialData={article} />
+      <ArticleFormWrapper initialData={article} />
     </div>
   );
 }
