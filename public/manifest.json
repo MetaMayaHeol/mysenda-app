@@ -1,7 +1,7 @@
 {
-  "name": "MySenda",
+  "name": "MySenda - Carnets de Voyage & Guides en Amérique Latine",
   "short_name": "MySenda",
-  "description": "Conecta con guías locales verificados en México.",
+  "description": "Découvrez des récits, itinéraires éco-responsables et une immersion profonde dans la culture, l'histoire et l'écologie de l'Amérique Latine.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
@@ -10,12 +10,14 @@
     {
       "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

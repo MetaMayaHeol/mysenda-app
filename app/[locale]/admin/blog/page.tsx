@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Plus, Edit, Trash } from "lucide-react"
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { requireAdmin } from "@/lib/auth/admin";
 
 export default async function AdminBlogPage({
   params
@@ -17,6 +18,9 @@ export default async function AdminBlogPage({
   if (!user) {
     redirect(`/${locale}/auth/login`);
   }
+
+  // Vérification stricte: l'utilisateur doit être un administrateur et autorisé via l'email
+  await requireAdmin();
 
   const articles = await getArticles();
 

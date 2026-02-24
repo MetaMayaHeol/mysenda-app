@@ -9,6 +9,8 @@ import { locales, type Locale } from '@/lib/i18n/config'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { Analytics } from '@vercel/analytics/next'
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics'
+import { GoogleAdSense } from '@/components/analytics/GoogleAdSense'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,13 +27,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   
   const titles: Record<string, string> = {
-    es: 'MySenda - Conecta con Guías Turísticos Locales en México',
-    fr: 'MySenda - Connectez-vous avec des Guides Locaux au Mexique',
+    es: 'MySenda - Blog de Viaje & Descubrimientos en América Latina',
+    fr: 'MySenda - Blog Voyage & Découvertes en Amérique Latine',
+    en: 'MySenda - Travel & Discovery Blog about Latin America',
   }
   
   const descriptions: Record<string, string> = {
-    es: 'Descubre experiencias auténticas con guías locales verificados en MySenda. Sin intermediarios, sin comisiones.',
-    fr: 'Découvrez des expériences authentiques avec des guides locaux vérifiés sur MySenda. Sans intermédiaires, sans commission.',
+    es: 'Descubre relatos, itinerarios eco-responsables e inmersión en la cultura local de América Latina.',
+    fr: 'Découvrez des récits, itinéraires éco-responsables et immersion dans la culture locale d\'Amérique Latine.',
+    en: 'Discover stories, eco-friendly itineraries and immersion in the local culture of Latin America.',
   }
   
   return {
@@ -49,6 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         'es': '/es',
         'fr': '/fr',
+        'en': '/en',
       },
     },
     manifest: '/manifest.json',
@@ -102,6 +107,8 @@ export default async function LocaleLayout({ children, params }: Props) {
           {children}
           <Toaster />
           <Analytics />
+          <GoogleAnalytics />
+          <GoogleAdSense />
         </NextIntlClientProvider>
       </body>
     </html>

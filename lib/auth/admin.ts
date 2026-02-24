@@ -14,7 +14,15 @@ export async function isAdmin(): Promise<boolean> {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) {
+  if (!user || !user.email) {
+    return false
+  }
+
+  // Double vérification : L'utilisateur doit avoir l'email de l'administrateur
+  // S'il n'y a pas d'email défini dans l'environnement, on refuse l'accès par sécurité.
+  const adminEmail = process.env.ADMIN_EMAIL
+  
+  if (!adminEmail || user.email.toLowerCase() !== adminEmail.toLowerCase()) {
     return false
   }
 
@@ -37,7 +45,13 @@ export async function getAdminUserId(): Promise<string | null> {
     data: { user },
   } = await supabase.auth.getUser()
 
-  if (!user) {
+  if (!user || !user.email) {
+    return null
+  }
+
+  const adminEmail = process.env.ADMIN_EMAIL
+  
+  if (!adminEmail || user.email.toLowerCase() !== adminEmail.toLowerCase()) {
     return null
   }
 

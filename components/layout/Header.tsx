@@ -18,6 +18,7 @@ import { User } from '@supabase/supabase-js'
 export function Header({ user }: { user?: User | null }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const t = useTranslations('nav')
+  const tBlog = useTranslations('blogNav')
   const locale = useLocale()
   const pathname = usePathname()
   
@@ -45,7 +46,7 @@ export function Header({ user }: { user?: User | null }) {
           <nav className="hidden md:flex items-center gap-4">
             <Link href={`/${locale}/blog`} className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
               <BookOpen size={18} />
-              Carnets
+              {tBlog('notebooks')}
             </Link>
 
             {/* Language Switcher (Desktop) */}
@@ -74,7 +75,7 @@ export function Header({ user }: { user?: User | null }) {
             {user ? (
                <div className="flex items-center gap-2 ml-4 border-l border-gray-700 pl-4">
                  <Link href={`/${locale}/admin/blog`}>
-                   <Button variant="ghost" size="sm">Admin Blog</Button>
+                   <Button variant="ghost" size="sm">{tBlog('adminBlog')}</Button>
                  </Link>
                  <form action="/auth/signout" method="post">
                    <Button type="submit" variant="ghost" size="icon" className="text-gray-500 hover:text-red-600">
@@ -119,14 +120,14 @@ export function Header({ user }: { user?: User | null }) {
             <div className="absolute top-16 left-0 right-0 bg-gray-900 border-b border-gray-800 shadow-lg p-5 flex flex-col gap-4 md:hidden animate-in slide-in-from-top-2">
                 <Link href={`/${locale}/blog`} className="flex items-center gap-2 py-2 text-lg font-medium text-white" onClick={() => setIsMobileMenuOpen(false)}>
                   <BookOpen size={20} className="text-green-600" />
-                  Carnets & Blog
+                  {tBlog('notebooksAndBlog')}
                 </Link>
 
                 {user && (
                    <div className="flex flex-col gap-3 mt-2 pt-4 border-t border-gray-800">
                      <Link href={`/${locale}/admin/blog`} onClick={() => setIsMobileMenuOpen(false)}>
                         <Button variant="outline" className="w-full justify-center bg-transparent text-white border-gray-600 hover:bg-gray-800">
-                          Admin Blog
+                          {tBlog('adminBlog')}
                         </Button>
                      </Link>
                    </div>

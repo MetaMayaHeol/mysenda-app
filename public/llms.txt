@@ -1,37 +1,27 @@
-# MySenda (formerly RutaLink)
+# MySenda Blog & Travel Guides
 
-> Connect with authentic local tour guides in Mexico. Direct contact via WhatsApp, no intermediaries, no commissions to the platform.
+> MySenda is a specialized blog and platform dedicated to Latin America. We cover culture, ecology, history, gastronomy, and provide in-depth travel guides for eco-conscious travelers.
 
-## For Users (Travelers)
-Find verified local guides for authentic experiences in Yucatan and beyond.
-- **Browse Guides**: https://mysenda.com/explorar
-- **How it works**:
-  1. Find a guide you like.
-  2. Click the WhatsApp button to contact them directly.
-  3. Book your tour with them.
+## Content Pillars
+- **Culture & History**: Uncovering ancient civilizations (Maya, Inca, etc.) and modern cultural movements.
+- **Ecology & Biomes**: Deep dives into unique ecosystems like the Amazon, Pantanal, and Cloud Forests.
+- **Gastronomy**: The roots of native ingredients (Corn, Cacao, Potatoes) and traditional recipes.
+- **Travel Guides**: Practical itineraries and tips for visiting countries like Mexico, Colombia, Peru, and Brazil.
 
-## For Guides
-List your services and get direct bookings.
-- **Create Profile**: https://mysenda.com/auth/login
-- **Benefits**:
-  - Keep 100% of your earnings.
-  - Direct communication with clients.
-  - Verified profile badge.
+## Features
+- **Multilingual Articles**: Content is natively available in English (en), French (fr), and Spanish (es).
+- **In-depth Content**: Long-form articles with verified sources, automatic table of contents, and related reading.
+- **Local Experiences**: Recommendations for community-based tourism and authentic local guides in Mexico.
 
-## Top Destinations
-- **Mérida**: /ciudad/merida
-- **Valladolid**: /ciudad/valladolid
-- **Izamal**: /ciudad/izamal
-- **Celestún**: /ciudad/celestun
-
-## Key Features
-- **Verified Guides**: All guides undergo a verification process.
-- **Direct Booking**: No middleman fees.
-- **Local Experiences**: Focus on culture, nature, and history.
+## Site Structure
+- **Blog Home**: `/[locale]/blog`
+- **Article Pages**: `/[locale]/blog/[slug]`
+- **Categories**: `/[locale]/blog/category/[slug]`
+- **RSS Feed**: `/feed.xml`
+- **Newsletter**: Available at the bottom of articles and homepage.
 
 ## Technical Info for Agents
-- **Languages**: Spanish (es), French (fr). Default is Spanish.
-- **URL Structure**:
-  - Guides: `/g/[slug]`
-  - Services: `/s/[id]`
-  - Cities: `/ciudad/[slug]`
+- **Stack**: Next.js 16 (App Router), Supabase, Tailwind CSS, next-intl.
+- **Supported Locales**: `es` (default), `fr`, `en`.
+- **Search Engine**: Algolia (coming soon). 
+- **Monetization**: Google AdSense and Affiliate Links (Booking, GetYourGuide).

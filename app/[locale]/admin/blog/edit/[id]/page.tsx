@@ -2,6 +2,7 @@ import { getArticle } from "@/app/actions/blog";
 import ArticleForm from "./ArticleForm";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import { requireAdmin } from "@/lib/auth/admin";
 
 export default async function EditArticlePage({
   params
@@ -16,6 +17,9 @@ export default async function EditArticlePage({
   if (!user) {
     redirect(`/${locale}/auth/login`);
   }
+
+  // Vérification stricte: l'utilisateur doit être un administrateur et autorisé via l'email
+  await requireAdmin();
 
   const isNew = id === "new";
   const article = isNew ? null : await getArticle(id);
