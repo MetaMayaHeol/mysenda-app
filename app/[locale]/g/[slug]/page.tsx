@@ -1,4 +1,4 @@
-import { createStaticClient } from '@/lib/supabase/static'
+import { createAdminClient } from '@/lib/supabase/static'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -34,7 +34,7 @@ interface GuidePageProps {
 }
 
 export async function generateStaticParams() {
-  const supabase = createStaticClient()
+  const supabase = createAdminClient()
   const { data: links } = await supabase.from('public_links').select('slug')
   
   return links?.map(({ slug }) => ({ slug })) || []
@@ -42,7 +42,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: GuidePageProps) {
   const { slug } = await params
-  const supabase = createStaticClient()
+  const supabase = createAdminClient()
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   
   const { data: link } = await supabase
@@ -106,7 +106,7 @@ export async function generateMetadata({ params }: GuidePageProps) {
 
 export default async function GuidePage({ params }: GuidePageProps) {
   const { slug } = await params
-  const supabase = createStaticClient()
+  const supabase = createAdminClient()
 
   // 1. Get user ID from slug
   const { data: link } = await supabase

@@ -1,4 +1,4 @@
-import { createStaticClient } from '@/lib/supabase/static'
+import { createAdminClient } from '@/lib/supabase/static'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { Clock, MapPin, Users, Globe, Info, CheckCircle2, XCircle, AlertCircle, CircleDot } from 'lucide-react'
@@ -21,7 +21,7 @@ interface ServicePageProps {
 }
 
 export async function generateStaticParams() {
-  const supabase = createStaticClient()
+  const supabase = createAdminClient()
   const { data: services } = await supabase
     .from('services')
     .select('id')
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: ServicePageProps) {
   const { serviceId } = await params
-  const supabase = createStaticClient()
+  const supabase = createAdminClient()
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://mysenda.com'
   
   const { data: service } = await supabase
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }: ServicePageProps) {
 export default async function ServicePage({ params }: ServicePageProps) {
   const { serviceId, locale } = await params
   const t = await getTranslations({ locale, namespace: 'booking' })
-  const supabase = createStaticClient()
+  const supabase = createAdminClient()
 
   // 1. Fetch service details
   // Handling potential missing columns gracefully is harder with specific selects, 
